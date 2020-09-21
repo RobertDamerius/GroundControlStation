@@ -16,7 +16,7 @@ The directory structure of this repository is as follows.
 
 
 > **Windows**<br>
-> On Windows you can either download the latest binary file from [Google Drive](https://drive.google.com/file/d/1D1NJKk_tBtO6XXUT7FvBmfCCGFBy6snV/view?usp=sharing) or build the software from the source code yourself using [MSYS2/MinGW64](https://www.msys2.org).
+> On Windows you can either download the latest binary file from [Google Drive](https://drive.google.com/file/d/1vK9jFgQA9ZLGIrDxkdvrecZ6eTjyi_Mb/view?usp=sharing) or build the software from the source code yourself using [MSYS2/MinGW64](https://www.msys2.org).
 
 > **Linux**<br>
 > On Linux you can build the software yourself.
@@ -49,7 +49,7 @@ If the corresponding libraries to be linked against are named differently, you c
 
 ### External libraries required
 Some third-party source code files are already present in the source directory. These include
-[NanoVG](https://github.com/memononen/nanovg), [NanoGUI](https://github.com/wjakob/nanogui), [LodePNG](https://github.com/lvandeve/lodepng) and [earcut](https://github.com/mapbox/earcut).
+[NanoVG](https://github.com/memononen/nanovg), [NanoGUI](https://github.com/wjakob/nanogui), [LodePNG](https://github.com/lvandeve/lodepng) and [Earcut](https://github.com/mapbox/earcut).
 All other required external libraries are shown in the following table.
 
 | Library                                      | Windows (MSYS2/MinGW64)                               | Linux                                                   | Comment                                          |
