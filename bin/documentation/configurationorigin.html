@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground Control Station</title><script src="core/jsMath/plugins/spriteImageFonts.js"></script><script src="core/jsMath/easy/load.js"></script><link rel="stylesheet" href="core/design.css"><link href="core/favicon.ico" rel="shortcut icon"></link></head><body><header><div w3-include-html="_header.html"></div></header><button onclick="PageToTop()" id="buttonToTop"></button><div id="wrapper"><div id="wrapper-sidebar"><div w3-include-html="_navigation.html"></div></div><div id="wrapper-content">
+
+<h1>Configuration: Origin</h1>
+    <br><b>File:</b> /configuration/origin.cfg<br><br>
+    <p>With this configuration file the geographical origin can be set. In the GCS, positions are displayed in Cartesian space.
+    To convert geographical coordinates (longitude and latitude) into Euclidean coordinates, a geographical origin is required.
+    Either the origin is specified by this configuration or the position of the first received navigation message is selected
+    as the origin. Once the origin is set, it cannot be changed. The current origin is displayed in the <a href="view.html">View</a> menu.
+    The configuration file is a text file and can look like this:
+<pre class="code"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ORIGIN
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Set geographical origin: latitude [deg], longitude [deg], altitude [m].
+# If no origin is set, the first navigation message of a vehicle will be used to set the origin.
+[Origin.Latitude]
+    54.171968
+
+[Origin.Longitude]
+    12.078573
+
+[Origin.Altitude]
+    42.0</pre>
+    The following <a href="configuration.html">key values</a> can be set:</p>
+    <table>
+        <tr><th width="300px">Key value</th><th>Description</th></tr>
+        <tr><td style="font-family: Courier-New;">Origin.Latitude</td><td>Latitude in degrees</td></tr>
+        <tr><td style="font-family: Courier-New;">Origin.Longitude</td><td>Longitude in degrees</td></tr>
+        <tr><td style="font-family: Courier-New;">Origin.Altitude</td><td>Altitude in meters (positive upwards)</td></tr>
+    </table>
+
+
+</div></div><script src="core/jquery.min.js"></script><script src="core/common.js"></script><script src="core/includeHTML.js"></script></body></html>

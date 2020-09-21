@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground Control Station</title><script src="core/jsMath/plugins/spriteImageFonts.js"></script><script src="core/jsMath/easy/load.js"></script><link rel="stylesheet" href="core/design.css"><link href="core/favicon.ico" rel="shortcut icon"></link></head><body><header><div w3-include-html="_header.html"></div></header><button onclick="PageToTop()" id="buttonToTop"></button><div id="wrapper"><div id="wrapper-sidebar"><div w3-include-html="_navigation.html"></div></div><div id="wrapper-content">
+
+<h1>Vehicles</h1>
+    <p>The upper toolbar contains the button to open the Vehicles menu. The Vehicles menu contains a list of vehicles
+    that have been found since GCS was started.
+    The GCS builds up a vehicle database internally at runtime. As soon as vehicles are in the database, these
+    vehicles appear in the list as blue buttons. The following figure shows that a vehicle with the name "Test Vehicle"
+    and the optional vehicle description "template". Clicking this button opens a window with vehicle-specific
+    <a href="datasettings.html">data and settings</a>. The optional vehicle description corresponds to the description
+    field of the Info Response Message (Inter-Module Protcol). If a vehicle is added, the subfolder "vehicle" is searched
+    for a <a href="vehiclemesh.html">ply file</a> with the name of the vehicle description (in this case "template.ply").</p>
+    <center><img class="picture" src="img/VehicleList.png" width="80%"></center>
+
+</div></div><script src="core/jquery.min.js"></script><script src="core/common.js"></script><script src="core/includeHTML.js"></script></body></html>

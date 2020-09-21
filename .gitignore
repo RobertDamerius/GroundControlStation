@@ -1,0 +1,4 @@
+build
+bin/GCS.exe
+bin/GCS.elf
+source/precompiled/*.gch
