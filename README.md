@@ -6,13 +6,14 @@ The basic data exchange can be based on the [Inter-Module Protocol (IMP)](https:
 In order to display such IMP messages graphically, the GCS tool was developed.
 The directory structure of this repository is as follows.
 
-| File / Directory   | Description                                                                            |
-| :----------------- | :------------------------------------------------------------------------------------- |
-| bin                | contains the release application including documentation and files required at runtime |
-| source             | whole source code of the GCS                                                           |
-| LICENSE            | license information                                                                    |
-| Makefile           | Makefile used to build the GCS                                                         |
-| README.md          | this file                                                                              |
+| File / Directory   | Description                                                                                                  |
+| :----------------- | :----------------------------------------------------------------------------------------------------------- |
+| bin                | contains the release application including documentation and files required at runtime                       |
+| doc                | contains the documentation that can be created with [SimpleDoc](https://github.com/RobertDamerius/SimpleDoc) |
+| source             | whole source code of the GCS                                                                                 |
+| LICENSE            | license information                                                                                          |
+| Makefile           | Makefile used to build the GCS                                                                               |
+| README.md          | this file                                                                                                    |
 
 
 > **Windows**<br>

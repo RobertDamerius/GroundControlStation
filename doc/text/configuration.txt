@@ -1,0 +1,30 @@
+<h1>Configuration Files</h1>
+    The configuration files are located in the application directory in the subdirectory <b>configuration</b>.
+    Configuration files are text files that can look like this:
+<pre># This is a comment
+[Value]
+    42
+
+[MultipleValues]
+    1
+    2
+    3</pre>
+    All whitespaces at the beginning of a line are ignored. Only characters of the extended ASCII character set are allowed, i.e. all characters in the range [0x20, 0x7E].
+    Characters outside this range are ignored. Lines <u>beginning</u> with a <code>#</code> character denote a comment line.
+    Empty lines are also ignored. All other lines must have the following format:
+    <pre>[KEY]
+    VALUE</pre>
+    Here <code>KEY</code> specifies a key value. The key value must be placed between two square brackets within a
+    line. All values (<code>VALUE</code>) specified afterwards are added to this key until a new key is defined.
+    All whitespaces at the beginning and end of a value are automatically removed. A line can contain a
+    maximum of one value.
+
+<h2>List of configuration files</h2>
+    The GCS uses the following configuration files:
+    <br>
+    <table>
+        <tr><th width="200px">Configuration file</th><th>Description</th></tr>
+        <tr><td><a href="configurationorigin.html" style="font-family: Courier-New;">origin.cfg</a></td><td>Specifies the geographic origin for the conversion from geographic to Euclidean coordinates.</td></tr>
+        <tr><td><a href="configurationnetwork.html" style="font-family: Courier-New;">network.cfg</a></td><td>Configuration of communication interfaces to the GCS.</td></tr>
+        <tr><td><a href="configurationstyle.html" style="font-family: Courier-New;">style.cfg</a></td><td>Allows to set default values for graphical representations in the GCS.</td></tr>
+    </table>

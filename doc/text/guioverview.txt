@@ -1,0 +1,16 @@
+<h1>Overview (GUI)</h1>
+    In the upper bar (toolbar) there are buttons to open additional windows. In the middle of the toolbar the
+    current <a href="time.html">local time</a> is displayed. On the right side the number of frames per second (FPS) is
+    shown. This value should be 60. The actual graphical display shows a checkerboard pattern at z=0. The smallest
+    square has a size of 1 m x 1 m. The next sizes 10 m x 10 m and 100 m x 100 m are marked by correspondingly larger
+    superimposed checkerboard patterns.
+    <br>
+    <center><img class="picture" src="../img/View3D.png" width="80%"></center><br>
+    <h3>Toolbar</h3>
+    The toolbar contains the following buttons:
+    <ul style="margin-left: 32px;">
+        <li><a href="view.html">View</a></li>
+        <li><a href="vehicles.html">Vehicles</a></li>
+        <li><a href="log.html">Log</a></li>
+        <li><a href="info.html">Info</a></li>
+    </ul>

@@ -1,0 +1,4 @@
+<h1>Info</h1>
+    In the upper toolbar there is an info button on the right side. It shows the current software version and OpenGL information.
+    <br>
+    <center><img class="picture" src="../img/Info.png" width="80%"></center>

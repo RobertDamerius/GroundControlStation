@@ -1,0 +1,66 @@
+<h1>Vehicle Data / Vehicle Settings</h1>
+    For each vehicle that is in the internal database of the GCS, data can be displayed and settings can
+    be made. This menu can be accessed via the <a href="vehicles.html">vehicle list</a>. The menu has the
+    vehicle name as title and has two tabs.
+
+    <h3>DATA</h3>
+    This tab contains most navigation and guidance data received via IMP messages. All blue values represent
+    guidance data. In the section "Time to latest message" the times (in seconds) of the last received IMP messages are shown.
+    <br>
+    <center><img class="picture" src="../img/DataView.png" width="80%"></center>
+
+    <h3>SETTINGS</h3>
+    In this tab, graphical settings for each vehicle can be adjusted.
+    <h3>Position History</h3>
+    <table>
+        <tr><th width="200px">Value</th><th>Description</th></tr>
+        <tr><td>Enable</td><td>Show or hide position history.</td></tr>
+        <tr><td>Maximum SOG</td><td>The color of the position history is adapted to the speed over ground (SOG). With this value the maximum value for SOG can be specified.</td></tr>
+        <tr><td>Line Width</td><td>Width of the position history line.</td></tr>
+        <tr><td>Update Period</td><td>Time period with which positions are to be added to the position history.</td></tr>
+        <tr><td>Buffer Size</td><td>Maximum number of values stored in the position history. If the buffer size is reduced, the oldest positions are deleted.</td></tr>
+    </table>
+    <h3>Waypoints</h3>
+    <table>
+        <tr><th width="200px">Value</th><th>Description</th></tr>
+        <tr><td>Enable</td><td>Show or hide waypoints.</td></tr>
+        <tr><td>Color</td><td>Color of waypoints.</td></tr>
+        <tr><td>Line Width</td><td>Width of the line.</td></tr>
+        <tr><td>Symbol Size</td><td>Size of the waypoint symbol. All waypoints are connected by line segments.</td></tr>
+        <tr><td>Vehicle Color</td><td>Color multiplier for the vehicle polyhedron at a waypoint.</td></tr>
+        <tr><td>Vehicle Alpha</td><td>Normalized alpha value for vehicle polyhedra at waypoint.</td></tr>
+    </table>
+    <h3>Trajectory</h3>
+    <table>
+        <tr><th width="200px">Value</th><th>Description</th></tr>
+        <tr><td>Enable</td><td>Show or hide trajectory.</td></tr>
+        <tr><td>Color</td><td>Color of the trajectory.</td></tr>
+        <tr><td>Line Width</td><td>Width of the trajectory line.</td></tr>
+        <tr><td>Vehicle Color</td><td>Color multiplier for the vehicle polyhedra.</td></tr>
+        <tr><td>Vehicle Alpha</td><td>Normalized alpha value for vehicle polyhedra.</td></tr>
+        <tr><td>Vehicle Stride</td><td>Specifies the time interval at which the vehicle polyhedron should be displayed along the trajectory.</td></tr>
+    </table>
+    <h3>View</h3>
+    <table>
+        <tr><th width="200px">Value</th><th>Description</th></tr>
+        <tr><td>Visible</td><td>Show or hide the entire vehicle with all associated graphical representations.</td></tr>
+        <tr><td>Use Custom Mesh</td><td>If there is a ply file for this vehicle, it will be used for the graphical representation of the vehicle.</td></tr>
+        <tr><td>Altitude To Zero</td><td>The vehicle with all associated graphical representations is drawn in the x-y-plane, even if the z-position or altitude has a non-zero value.</td></tr>
+        <tr><td valign="top">Lock Camera</td><td>This allows the camera to be fixed to the vehicle.<br><br><b>Translation</b><br>With this setting, the camera is always pointed at the vehicle, but without rotating itself.<br><br><b>Rotation</b><br>With this setting, the camera is always pointed at the vehicle and the orientation of the camera is adjusted with the yaw angle of the vehicle so that the camera always rotates with it.</td></tr>
+    </table>
+    <h3>Compass</h3>
+    <table>
+        <tr><th width="200px">Value</th><th>Description</th></tr>
+        <tr><td>Enable</td><td>Show or hide compass.</td></tr>
+        <tr><td>Radius</td><td>The radius of the compass in meters.</td></tr>
+        <tr><td>Color</td><td>Color of the compass</td></tr>
+    </table>
+    <h3>Polygons</h3>
+    <table>
+        <tr><th width="200px">Value</th><th>Description</th></tr>
+        <tr><td>Enable</td><td>Show or hide convex polygons.</td></tr>
+        <tr><td>Upper limit</td><td>For better visibility, polyhedra are created from each polygon. With this value the upper limit (z-value) of the polyhedra is given.</td></tr>
+        <tr><td>Lower limit</td><td>This value defines the lower limit (z-value) of the polyhedra.</td></tr>
+        <tr><td>Color</td><td>Color of convex polygons.</td></tr>
+    </table>
+    <center><img class="picture" src="../img/SettingsView.png" width="80%"></center>

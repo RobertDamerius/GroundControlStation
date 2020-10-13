@@ -1,0 +1,29 @@
+<h1>View</h1>
+    The button for opening the View menu is located in the upper toolbar. With the View menu basic
+    settings for the view can be made.
+    <br>
+    <center><img class="picture" src="../img/View.png" width="80%"></center>
+
+    <h3>Geographic Origin</h3>
+    Positions are represented in Euclidean space. To convert geographical coordinates (longitude and latitude) into Euclidean
+    coordinates, a geographical origin is required. This section shows the current geographical origin. This origin can only be
+    set once. Either the origin is given by the <a href="configurationorigin.html">configuration</a> or the position of the first
+    received navigation message is selected as origin.
+
+    <h3>Camera - Mode</h3>
+    This option sets the camera perspective.
+    <table>
+        <tr><th>Mode</th><th>Description</th></tr>
+        <tr><td>3D</td><td>Perspective projection, camera can be moved freely in space</td><tr>
+        <tr><td>2D</td><td>Orthographic projection from above</td><tr>
+    </table>
+    <center><img class="picture" src="../img/View3D.png" width="80%"></center>
+
+    <h3>Camera - Vehicle Lock</h3>
+    If the camera is locked on a specific vehicle, it can be unlocked again with the Unlock button.
+
+    <h3>Display - Gamma</h3>
+    The slider can be used to make a gamma correction. Gamma can be changed in the range [1, 3]. Gamma correction has no effect on the GUI elements of the GCS. With the button "Set Default" the default value 2.0 can be set.
+
+    <h3>Display - Ground Color</h3>
+    The color of the plane at z=0. With the button "Set Default" the default value can be restored.

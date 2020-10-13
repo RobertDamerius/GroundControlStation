@@ -1,0 +1,96 @@
+<center><img class="picture" src="../img/Overview.png" width="80%"></center><br>
+
+<h1>Ground Control Station</h1>
+    The Ground Control Station (GCS) is used to display the motion states and commands of various vehicles.
+    Basically, the GCS is only a data sink. It decodes and visualizes messages of the <a href="https://github.com/RobertDamerius/InterModuleProtocol" target="_blank">Inter-Module Protocol (IMP)</a> format.
+    IMP messages are used to exchange basic data between different modules of a GNC system (Guidance, Navigation, Control).
+    Only generic messages are defined in the IMP, which are independent of vehicle type and application.
+    Each GNC module is assigned to a vehicle and each vehicle is uniquely identified by its name. All supported messages
+    are shown in the following table.
+    <br>
+    <table>
+        <tr><th width="200px">IMP-Version</th><td>20200919</td></tr>
+        <tr><th valign="top">Supported Messages</th><td>
+            (0x00) Info Request Message<br>
+            (0x01) Info Response Message<br>
+            (0x47) Guidance Message<br>
+            (0x4C) Log Message<br>
+            (0x4E) Navigation Message<br>
+            (0x50) Convex Polygon Message<br>
+            (0x54) Guidance Trajectory Message
+        </td></tr>
+    </table>
+    <div class="note-green">
+    <h3 class="note-green">UDP</h3>
+    The GCS only uses UDP messages.
+    </div>
+
+    <h3>Vehicle Position</h3>
+    The navigation message of the IMP (0x4E) contains the position in Cartesian space (positionNED) as well as in geographic coordinates.
+    If the position in Cartesian space is given, this position is used by the GCS. If this position (NED) is not contained in the navigation
+    message, then the geographical position is used and transformed into a Cartesian coordinate system. The origin of the Cartesian coordinate
+    system can be specified by a <a href="configurationorigin.html">configuration file</a>. If the configuration file is not used,
+    the geographical position of the first received navigation message is used as the origin.
+    
+
+<h2>Vehicle Database</h2>
+    In practice, the GCS does not need to be configured to add more vehicles. In the <a href="configurationnetwork.html">network configuration</a>
+    of the GCS, it is specified on which UDP ports the GCS should listen to or which UDP multicast groups it should join. The GCS then automatically
+    builds up an internal database to assign the source network addresses of the received IMP messages to specific vehicles. For this purpose, the GCS
+    uses the "Info Request Message" and "Info Response Message" of the IMP.
+    <h3>Example:</h3>
+    The GCS receives a navigation message from the address (IP:PORT). Since the address is not yet assigned to a vehicle, the GCS sends a request
+    (Info Request Message) back to the address (IP:PORT). Info Request Messages are only sent with a maximum frequency of 1 Hz. The module which has
+    sent the navigation message now receives an Info Request Message from the GCS and has to answer with an Info Response Message. As soon as GCS
+    receives an Info Response Message, the address (IP:PORT) is added to the database together with the vehicle name. The vehicle name is included
+    in the Info Response Message together with the size of the vehicle. As soon as a vehicle is added into the internal database, it appears on the
+    graphical display of the GCS. A vehicle is displayed as a cuboid whose size was transferred in the Info Response Message.
+
+    <div class="note-green">
+    <h3 class="note-green">Note</h3>
+    Already added vehicles cannot be removed from the database, but the visibility of the vehicle can be adjusted. To clear the database the application must be restarted.
+    </div>
+
+<h2>Controls</h2>
+    The control depends on the camera mode, which can be changed in the <a href="view.html">view menu</a>.
+
+    <h3>2D</h3>
+    <table>
+        <tr><th width="200px">Mouse</th><th>Functionality</th></tr>
+        <tr><td>Left</td><td>Hold down the left mouse button and move the mouse to move the camera position in x,y direction.</td></tr>
+        <tr><td>Right</td><td>Hold down the right mouse button and move the mouse to rotate the camera around the center of the current view.</td></tr>
+        <tr><td>Left &amp; Right</td><td>Hold down the left and right mouse button and move the mouse forward or backward to zoom in or out.</td></tr>
+        <tr><td>Wheel</td><td>Use the mouse-wheel to zoom in or out.</td></tr>
+    </table>
+     <table>
+        <tr><th width="200px">Keyboard</th><th>Functionality</th></tr>
+        <tr><td>SPACE</td><td>Press the space bar to match the view to all vehicles.</td></tr>
+    </table>
+
+    <div class="note-green">
+    <h3 class="note-green">Note</h3>
+    When the camera is locked onto a vehicle, the left and right mouse buttons are used to rotate the camera.
+    </div>
+
+    <h3>3D</h3>
+    <table>
+        <tr><th width="200px">Mouse</th><th>Functionality</th></tr>
+        <tr><td>Left</td><td>Hold down the left mouse button and move the mouse to move the camera position in x,y direction.</td></tr>
+        <tr><td>Right</td><td>Hold down the right mouse button and move the mouse to rotate the camera.</td></tr>
+        <tr><td>Left &amp; Right</td><td>Hold down the left and right mouse button and move the mouse forward or backward to move the camera along the view direction.</td></tr>
+        <tr><td>Wheel</td><td>Use the mouse-wheel to move the camera along the view direction.</td></tr>
+    </table>
+     <table>
+        <tr><th width="200px">Keyboard</th><th>Functionality</th></tr>
+        <tr><td>W</td><td>Press W to move the camera forward.</td></tr>
+        <tr><td>A</td><td>Press A to move the camera to the left.</td></tr>
+        <tr><td>S</td><td>Press S to move the camera backward.</td></tr>
+        <tr><td>D</td><td>Press D to move the camera to the right.</td></tr>
+        <tr><td>SHIFT</td><td>Press SHIFT to move the camera down.</td></tr>
+        <tr><td>SPACE</td><td>Press SPACE to move the camera up.</td></tr>
+    </table>
+
+    <div class="note-green">
+    <h3 class="note-green">Note</h3>
+    When the camera is locked onto a vehicle, the left and right mouse buttons are used to rotate the camera.
+    </div>

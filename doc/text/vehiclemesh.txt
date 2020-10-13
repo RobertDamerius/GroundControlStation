@@ -1,0 +1,90 @@
+<h1>Custom Vehicle Mesh</h1>
+    As soon as the GCS receives an Info Response Message (<a href="https://github.com/RobertDamerius/InterModuleProtocol" target="_blank">Inter-Module Protocol</a>)
+    and adds a new vehicle to the internal database, the description field of the Info Response Message is evaluated. The subfolder "vehicle"
+    is searched for a ply file with the same name as the description string. A ply file has the following format (example):
+<pre>ply
+format ascii 1.0
+element vertex <span style="color:#f00;">24</span>
+property float x
+property float y
+property float z
+property float nx
+property float ny
+property float nz
+property float s
+property float t
+property uchar red
+property uchar green
+property uchar blue
+property uchar alpha
+element face <span style="color:#00f;">12</span>
+property list uchar int vertex_indices
+end_header
+<span style="color:#f00;">-1.0 1.0 1.0 0.0 0.0 1.0 0.875000 0.500000 255 255 1 255
+1.0 -1.0 1.0 0.0 0.0 1.0 0.625000 0.750000 255 0 0 255
+1.0 1.0 1.0 0.0 0.0 1.0 0.625000 0.500000 255 0 0 255
+1.0 -1.0 1.0 0.0 -1.0 0.0 0.625000 0.750000 255 0 0 255
+-1.0 -1.0 -1.0 0.0 -1.0 0.0 0.375000 1.0 255 1 1 255
+1.0 -1.0 -1.0 0.0 -1.0 0.0 0.375000 0.750000 255 255 0 255
+-1.0 -1.0 1.0 -1.0 0.0 0.0 0.625000 0.0 255 255 1 255
+-1.0 1.0 -1.0 -1.0 0.0 0.0 0.375000 0.250000 255 0 0 255
+-1.0 -1.0 -1.0 -1.0 0.0 0.0 0.375000 0.0 255 1 1 255
+1.0 1.0 -1.0 0.0 0.0 -1.0 0.375000 0.500000 255 255 14 255
+-1.0 -1.0 -1.0 0.0 0.0 -1.0 0.125000 0.750000 255 1 1 255
+-1.0 1.0 -1.0 0.0 0.0 -1.0 0.125000 0.500000 255 0 0 255
+1.0 1.0 1.0 1.0 0.0 -0.0 0.625000 0.500000 255 0 0 255
+1.0 -1.0 -1.0 1.0 0.0 -0.0 0.375000 0.750000 255 255 0 255
+1.0 1.0 -1.0 1.0 0.0 -0.0 0.375000 0.500000 255 255 14 255
+-1.0 1.0 1.0 0.0 1.0 -0.0 0.625000 0.250000 255 255 1 255
+1.0 1.0 -1.0 0.0 1.0 -0.0 0.375000 0.500000 255 255 14 255
+-1.0 1.0 -1.0 0.0 1.0 -0.0 0.375000 0.250000 255 0 0 255
+-1.0 -1.0 1.0 0.0 -0.0 1.0 0.875000 0.750000 255 255 1 255
+-1.0 -1.0 1.0 0.0 -1.0 0.0 0.625000 1.0 255 255 1 255
+-1.0 1.0 1.0 -1.0 0.0 0.0 0.625000 0.250000 255 255 1 255
+1.0 -1.0 -1.0 0.0 0.0 -1.0 0.375000 0.750000 255 255 0 255
+1.0 -1.0 1.0 1.0 0.0 0.0 0.625000 0.750000 255 0 0 255
+1.0 1.0 1.0 0.0 1.0 -0.0 0.625000 0.500000 255 0 0 255</span>
+<span style="color:#00f;">3 0 1 2
+3 3 4 5
+3 6 7 8
+3 9 10 11
+3 12 13 14
+3 15 16 17
+3 0 18 1
+3 3 19 4
+3 6 20 7
+3 9 21 10
+3 12 22 13
+3 15 23 16</span>
+</pre><br>
+    <div class="note-red">
+    <h3 class="note-red">ASCII Format</h3>
+    A ply file must be in ASCII format. Binary files can currently not be read.
+    </div>
+    The GCS uses the following properties for the vertex format:
+    <ul style="margin-left: 40px;">
+        <li><b>float x</b> (x position)</li>
+        <li><b>float y</b> (y position)</li>
+        <li><b>float z</b> (z position)</li>
+        <li><b>float nx</b> (x component of normal vector)</li>
+        <li><b>float ny</b> (y component of normal vector)</li>
+        <li><b>float nz</b> (z component of normal vector)</li>
+        <li><b>uchar red</b> or <b>uchar r</b> (red channel for vertex color)</li>
+        <li><b>uchar green</b> or <b>uchar g</b> (green channel for vertex color)</li>
+        <li><b>uchar blue</b> or <b>uchar b</b> (blue channel for vertex color)</li>
+    </ul>
+    All other vertex properties are ignored. The coordinate system corresponds to the OpenGL coordinate system.
+    Only one "property" field may exist in the "face" element. This must be exactly "property list uchar int vertex_indices".
+    Furthermore, all faces must consist of triangles only. A ply file can be created with Blender. If the x-axis of the
+    body fixed coordinate system coincides with the x-axis of Blender, the following transformation must be selected
+    when exporting the ply file:
+    <ul style="margin-left: 40px;">
+        <li>Format: ASCII</li>
+        <li>Forward: -Z Forward</li>
+        <li>Up: Y Up</li>
+    </ul>
+    <div class="note-green">
+    <h3 class="note-green">Note</h3>
+    If GCS uses this ply file as custom mesh, the cuboidDimension and cuboidOffset fields of the Info Response Message (Inter-Module Protocol) are no longer relevant.
+    The origin of the body fixed coordinate system then corresponds to the origin of the vehicle mesh.
+    </div>

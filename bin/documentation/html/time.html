@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ground Control Station (GCS)</title>
+<link rel="stylesheet" href="core/design.css">
+<script>MathJax = { tex: {tags: 'ams'}};</script>
+<script id="MathJax-script" async src="core/mathjax/tex-chtml.js"></script>
+</head>
+<body>
+<header>
+<div class="header_title">Ground Control Station (GCS)</div>
+<div class="header_version">Version 20201013</div>
+</header>
+<button onclick="PageToTop()" id="buttonToTop"></button>
+<div class="wrapper">
+<div class="navigation">
+<ul class="ulnav">
+<li class="linone"></li>
+<li class="linav"><a href="index.html">Introduction</a></li>
+<li class="linone"></li>
+<li class="litext">GRAPHICAL USER INTERFACE</li>
+<li class="linav"><a href="guioverview.html">Overview</a></li>
+<li class="linav"><a href="view.html">View</a></li>
+<li class="linav"><a href="vehicles.html">Vehicles</a></li>
+<li class="linav"><a href="datasettings.html">Vehicle Data / Vehicle Settings</a></li>
+<li class="linav"><a href="log.html">Log</a></li>
+<li class="linav_active"><a href="time.html">Time</a></li>
+<li class="linav"><a href="info.html">Info</a></li>
+<li class="linone"></li>
+<li class="litext">CONFIGURATION</li>
+<li class="linav"><a href="configuration.html">Configuration Files</a></li>
+<li class="linav"><a href="configurationorigin.html">Origin</a></li>
+<li class="linav"><a href="configurationnetwork.html">Network</a></li>
+<li class="linav"><a href="configurationstyle.html">Style</a></li>
+<li class="linone"></li>
+<li class="litext">MISC</li>
+<li class="linav"><a href="vehiclemesh.html">Custom Vehicle Mesh</a></li>
+</ul>
+
+</div>
+<div class="content">
+<h1>Time</h1>
+    The upper toolbar contains the current time (local time). With a click on the time, further information about the current time can be displayed.
+    <br>
+    <center><img class="picture" src="../img/Time.png" width="80%"></center>
+
+    <h3>Local Time</h3>
+    Indicates the local time. The format is "Year-Month-Day Hour:Minute:Second". DST stands for daylight-saving time.
+
+    <h3>UTC</h3>
+    Specifies the coordinated universal time. The format is "year-month-day hour:minute:second".
+
+    <h3>Second of day (UTC)</h3>
+    Specifies the second of the day according to the coordinated universal time. This time is used as timestamp for IMP messages.
+
+    <h3>UNIX</h3>
+    Specifies the UNIX time in seconds.
+
+</div>
+</div>
+<script src="core/script.js"></script>
+</body>
+</html>
