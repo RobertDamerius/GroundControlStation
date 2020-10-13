@@ -17,7 +17,7 @@ The directory structure of this repository is as follows.
 
 
 > **Windows**<br>
-> On Windows you can either download the latest binary file from [Google Drive](https://drive.google.com/file/d/1vK9jFgQA9ZLGIrDxkdvrecZ6eTjyi_Mb/view?usp=sharing) or build the software from the source code yourself using [MSYS2/MinGW64](https://www.msys2.org).
+> On Windows you can either download the latest binary file from [Google Drive](https://drive.google.com/drive/folders/14GFyZsQlfEtYMduogP3NErJT3p2pbXHF?usp=sharing) or build the software from the source code yourself using [MSYS2/MinGW64](https://www.msys2.org).
 
 > **Linux**<br>
 > On Linux you can build the software yourself.
