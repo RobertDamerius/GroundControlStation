@@ -2,7 +2,7 @@
 #
 # Generic Makefile (g++)
 #
-# Version 20200513
+# Version 20201110
 # Copyright (c) Robert Damerius
 #
 #########################################################################
@@ -28,7 +28,7 @@ DIRECTORY_PCH     := source/precompiled/
 # Libraries and symbols
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 LIBS_WINDOWS      := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw3 -lglew32 -lopengl32 -lws2_32 -lgdi32 -lcomdlg32
-LIBS_LINUX        := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw3 -lGLEW -lGL -lX11 -ldl
+LIBS_LINUX        := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw -lGLEW -lGL -lX11 -ldl
 CC_SYMBOLS         = 
 
 
@@ -109,7 +109,8 @@ SHARED_OBJECTS = $(call rwildcard,$(DIRECTORY_SOURCE),*.so)
 DIRECTORY_ALL := $(dir $(call rwildcard,$(DIRECTORY_SOURCE),.))
 
 # Add header directories and library directories to related paths
-INCLUDE_PATHS += -I/usr/include -I/usr/local/include $(addprefix -I,$(DIRECTORY_ALL)) $(addprefix -I,$(DIRECTORY_PCH)) $(addprefix -include ,$(notdir $(PCH_H))) $(addprefix -include ,$(notdir $(PCH_HPP)))
+INCLUDE_PATH_SYS := -I/usr/include/freetype2 -I/usr/include -I/usr/local/include
+INCLUDE_PATHS += $(INCLUDE_PATH_SYS) $(addprefix -I,$(DIRECTORY_ALL)) $(addprefix -I,$(DIRECTORY_PCH)) $(addprefix -include ,$(notdir $(PCH_H))) $(addprefix -include ,$(notdir $(PCH_HPP)))
 LIBRARY_PATHS += -L/usr/lib -L/usr/local/lib $(addprefix -L,$(DIRECTORY_ALL))
 
 
@@ -144,7 +145,7 @@ info:
 	@echo "~~~~~~~ COMMAND LIST ~~~~~~~~~~~~~~~~~~~~~~~~"
 	@echo "all:     Makes complete software (no precompiled headers)."
 	@echo "pch:     Makes precompiled headers in directory \"$(DIRECTORY_PCH)\"".
-	@echo "clean:   Removes out built project files (.o, .d), precompiled headers (.gch) and build directory \"$(DIRECTORY_BUILD)\"".
+	@echo "clean:   Removes precompiled headers (.gch) and build directory \"$(DIRECTORY_BUILD)\"".
 	@echo "info:    Shows this info."
 	@echo ""
 	@echo "~~~~~~~ DIRECTORY SETTINGS ~~~~~~~~~~~~~~~~~~"
@@ -155,7 +156,7 @@ info:
 	@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 clean:
-	@$(RM) $(call rwildcard,$(DIRECTORY_BUILD),*.o) $(call rwildcard,$(DIRECTORY_BUILD),*.d) $(call rwildcard,$(DIRECTORY_PCH),*.gch) $(PRODUCT)
+	@$(RM) $(call rwildcard,$(DIRECTORY_PCH),*.gch)
 	@$(RM) $(DIRECTORY_BUILD)
 	@echo "Clean: Done."
 
@@ -185,11 +186,11 @@ $(DIRECTORY_BUILD)%.o: %.bin
 
 $(DIRECTORY_PCH)%.gch: %.h
 	@printf "[PCH]  > $<\n"
-	@$(CPP) $(CPP_FLAGS) $<
+	@$(CPP) $(INCLUDE_PATH_SYS) $(CPP_FLAGS) $<
 
 $(DIRECTORY_PCH)%.gch: %.hpp
 	@printf "[PCH]  > $<\n"
-	@$(CPP) $(CPP_FLAGS) $<
+	@$(CPP) $(INCLUDE_PATH_SYS) $(CPP_FLAGS) $<
 
 $(DIRECTORY_BUILD)%.d: ;
 .PRECIOUS: $(DIRECTORY_BUILD)%.d
