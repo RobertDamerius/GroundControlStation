@@ -9,6 +9,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <queue>
 #include <algorithm>
 #include <thread>
 #include <mutex>

@@ -40,6 +40,7 @@ std::string FileManager::GetName(file_t file){
         case FILE_CONFIGURATION_NETWORK:        return rootDirectory + std::string(DIRECTORY_CONFIGURATION "network" FILE_EXTENSION_CONFIGURATION);
         case FILE_CONFIGURATION_ORIGIN:         return rootDirectory + std::string(DIRECTORY_CONFIGURATION "origin" FILE_EXTENSION_CONFIGURATION);
         case FILE_CONFIGURATION_STYLE:          return rootDirectory + std::string(DIRECTORY_CONFIGURATION "style" FILE_EXTENSION_CONFIGURATION);
+        case FILE_CONFIGURATION_TTS:            return rootDirectory + std::string(DIRECTORY_CONFIGURATION "tts" FILE_EXTENSION_CONFIGURATION);
     }
     return std::string("");
 }

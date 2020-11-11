@@ -192,6 +192,7 @@ void NetworkManager::Decode(const std::string& strInterfaceOfReceiver, RD::Netwo
         VehicleID id;
         if(NetworkManager::GetVehicleID(id, group, udpSocket, source, strInterfaceOfReceiver)){
             appWindow.canvas.gui.AddLogEntry(LogEntry(msgLog.timestamp, id, msgLog.text, msgLog.color[0], msgLog.color[1], msgLog.color[2]));
+            appWindow.textToSpeech.AddToQueue(msgLog.text);
         }
     }
 }

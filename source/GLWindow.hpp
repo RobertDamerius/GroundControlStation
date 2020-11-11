@@ -154,4 +154,3 @@ class GLWindow: public GLCallback {
 
 }; /* class: GLWindow */
 
-

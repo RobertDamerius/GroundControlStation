@@ -1,16 +1,17 @@
-#ifndef APP_WINDOW_HPP
-#define APP_WINDOW_HPP
+#pragma once
 
 
 #include <GLWindow.hpp>
 #include <Canvas.hpp>
 #include <JoystickInterface.hpp>
+#include <TTSManager.hpp>
 
 
 class AppWindow: public GLWindow {
     public:
         Canvas canvas;
         JoystickInterface joystickInterface;
+        TTSManager textToSpeech;
 
         /**
          *  @brief Create an application window.
@@ -59,6 +60,12 @@ class AppWindow: public GLWindow {
          */
         void CallbackRender(GLFWwindow* wnd, double dt, glm::dvec2 deltaCursor);
 
+        /**
+         *  @brief Window close callback function.
+         *  @param [in] wnd The GLFW window.
+         */
+        void CallbackClose(GLFWwindow* wnd);
+
     private:
         std::vector<std::function<void(void)>> glTasks;
         std::mutex mtxGLTasks;
@@ -66,7 +73,4 @@ class AppWindow: public GLWindow {
 
 
 extern AppWindow appWindow;
-
-
-#endif /* APP_WINDOW_HPP */
 

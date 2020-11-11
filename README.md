@@ -26,9 +26,10 @@ The directory structure of this repository is as follows.
 > On other operating systems, you must build the software yourself. If you use a GNU compiler and the GNU make tool, you may be able to use the same Makefile with a few adjustments.
 
 ### Revision History
-| Date        | Version  | Description                           |
-| :---------- | :------- | :------------------------------------ |
-| 2020-09-21  | 1.0      | Initial release                       |
+| Date        | Version  | Description                                                                                               |
+| :---------- | :------- | :-------------------------------------------------------------------------------------------------------- |
+| 2020-09-21  | 1.0      | Initial release                                                                                           |
+| 2020-11-11  | 1.1      | Added text-to-speech output for [IMP Log Messages](https://github.com/RobertDamerius/InterModuleProtocol) |
 
 ![](bin/documentation/img/Overview.png)
 

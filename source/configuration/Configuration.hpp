@@ -4,6 +4,7 @@
 #include <NetworkConfiguration.hpp>
 #include <OriginConfiguration.hpp>
 #include <StyleConfiguration.hpp>
+#include <TTSConfiguration.hpp>
 
 
 class Configuration {
@@ -11,6 +12,7 @@ class Configuration {
         static NetworkConfiguration network;
         static OriginConfiguration origin;
         static StyleConfiguration style;
+        static TTSConfiguration tts;
 
         /**
          *  @brief Read all configuration files.

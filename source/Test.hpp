@@ -1,5 +1,4 @@
-#ifndef TEST_HPP
-#define TEST_HPP
+#pragma once
 
 
 class Test {
@@ -12,7 +11,4 @@ class Test {
         static std::atomic<bool> terminate;
         static void Task(void);
 };
-
-
-#endif /* TEST_HPP */
 

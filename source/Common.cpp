@@ -7,7 +7,7 @@
 // Version Settings
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const std::string strAppName("GroundControlStation");
-const std::string strVersion("20200921");
+const std::string strVersion("20201111");
 const std::string strBuilt(__DATE__ " " __TIME__);
 
 

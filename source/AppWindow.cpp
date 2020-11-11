@@ -43,6 +43,9 @@ bool AppWindow::CallbackInitialize(GLFWwindow* wnd){
         canvas.scene.origin.Update(Configuration::origin.latitude, Configuration::origin.longitude, Configuration::origin.altitude);
     }
 
+    // Initialize text to speech manager
+    textToSpeech.Initialize();
+
     // Success
     return true;
 }
@@ -50,6 +53,7 @@ bool AppWindow::CallbackInitialize(GLFWwindow* wnd){
 void AppWindow::CallbackTerminate(GLFWwindow* wnd){
     UnregisterCallbacksOfChild(canvas);
     UnregisterCallbacksOfChild(joystickInterface);
+    textToSpeech.Terminate();
     canvas.Terminate();
     joystickInterface.Terminate();
 
@@ -73,5 +77,10 @@ void AppWindow::CallbackRender(GLFWwindow* wnd, double dt, glm::dvec2 deltaCurso
 
     // Render canvas
     canvas.Render(wnd, dt, deltaCursor);
+}
+
+void AppWindow::CallbackClose(GLFWwindow* wnd){
+    textToSpeech.Terminate();
+    (void) wnd;
 }
 
