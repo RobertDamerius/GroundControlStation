@@ -11,7 +11,7 @@
 <body>
 <header>
 <div class="header_title">Ground Control Station (GCS)</div>
-<div class="header_version">Version 20201013</div>
+<div class="header_version">Version 20201112</div>
 </header>
 <button onclick="PageToTop()" id="buttonToTop"></button>
 <div class="wrapper">
@@ -34,6 +34,7 @@
 <li class="linav"><a href="configurationorigin.html">Origin</a></li>
 <li class="linav"><a href="configurationnetwork.html">Network</a></li>
 <li class="linav"><a href="configurationstyle.html">Style</a></li>
+<li class="linav"><a href="configurationtts.html">Text-To-Speech</a></li>
 <li class="linone"></li>
 <li class="litext">MISC</li>
 <li class="linav"><a href="vehiclemesh.html">Custom Vehicle Mesh</a></li>
@@ -44,7 +45,9 @@
 <h1>Log</h1>
     The upper toolbar contains the button to open the log menu. The log menu contains log messages in the form of text
     messages. Log messages can be sent to the GCS as IMP messages. The vehicle must be in the database of the GCS. As soon
-    as the GCS receives a new log message, the log button text of the toolbar is colored red.
+    as the GCS receives a new log message, the log button text of the toolbar is colored red. If the
+    <a href="configurationtts.html">text-to-speech</a> output is enabled and configured and the text of the log is valid, then
+    there is a voice output.
     <br><br>
     A log message consists of three columns:
     <h3>UTC</h3>

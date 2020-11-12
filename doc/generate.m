@@ -26,6 +26,7 @@ i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Co
 i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Origin', 'configurationorigin.html');
 i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Network', 'configurationnetwork.html');
 i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Style', 'configurationstyle.html');
+i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Text-To-Speech', 'configurationtts.html');
 i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
 i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'MISC');
 i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Custom Vehicle Mesh', 'vehiclemesh.html');
