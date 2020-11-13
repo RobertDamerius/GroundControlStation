@@ -22,7 +22,12 @@ void OriginConfiguration::Read(void){
     CFGParser cfg;
     uint32_t error = cfg.Parse(FileManager::GetName(FILE_CONFIGURATION_ORIGIN));
     if(error){
-        GUILog(std::string("Syntax error in line ") + std::to_string(error) + std::string(" of origin configuration file!"), 255, 0, 0);
+        if(0xFFFFFFFF == error){
+            GUILog(std::string("Origin configuration file not found!"), 255, 0, 0);
+        }
+        else{
+            GUILog(std::string("Syntax error in line ") + std::to_string(error) + std::string(" of origin configuration file!"), 255, 0, 0);
+        }
         return;
     }
 

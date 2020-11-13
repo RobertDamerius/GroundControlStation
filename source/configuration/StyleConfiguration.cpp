@@ -15,7 +15,12 @@ void StyleConfiguration::Read(void){
     CFGParser cfg;
     uint32_t error = cfg.Parse(FileManager::GetName(FILE_CONFIGURATION_STYLE));
     if(error){
-        GUILog(std::string("Syntax error in line ") + std::to_string(error) + std::string(" of style configuration file!"), 255, 0, 0);
+        if(0xFFFFFFFF == error){
+            GUILog(std::string("Style configuration file not found!"), 255, 0, 0);
+        }
+        else{
+            GUILog(std::string("Syntax error in line ") + std::to_string(error) + std::string(" of style configuration file!"), 255, 0, 0);
+        }
         return;
     }
     FindCameraMode(cfg, cameraMode, "Camera.Mode");

@@ -14,7 +14,12 @@ void NetworkConfiguration::Read(void){
     CFGParser cfg;
     uint32_t error = cfg.Parse(FileManager::GetName(FILE_CONFIGURATION_NETWORK));
     if(error){
-        GUILog(std::string("Syntax error in line ") + std::to_string(error) + std::string(" of network configuration file!"), 255, 0, 0);
+        if(0xFFFFFFFF == error){
+            GUILog(std::string("Network configuration file not found!"), 255, 0, 0);
+        }
+        else{
+            GUILog(std::string("Syntax error in line ") + std::to_string(error) + std::string(" of network configuration file!"), 255, 0, 0);
+        }
         return;
     }
 
