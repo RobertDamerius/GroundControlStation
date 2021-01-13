@@ -23,9 +23,11 @@ WidgetLog::WidgetLog(nanogui::Widget *parent): nanogui::Window(parent, "Log"){
     // Log table, initialize with header
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     logContent = new Widget(scrollContent);
-    logContent->setLayout(new GridLayout(Orientation::Horizontal, 3, Alignment::Fill, 0, 2));
+    logContent->setLayout(new GridLayout(Orientation::Horizontal, 5, Alignment::Fill, 0, 0));
     new Label(logContent,"UTC","sans-bold",GUI_FONT_SIZE);
+    new Label(logContent,"   ","sans-bold",GUI_FONT_SIZE);
     new Label(logContent,"Source","sans-bold",GUI_FONT_SIZE);
+    new Label(logContent,"   ","sans-bold",GUI_FONT_SIZE);
     new Label(logContent,"Message                                                          "\
                 "                                                                 "\
                 "                                                                 "\
@@ -51,8 +53,10 @@ void WidgetLog::update(NVGcontext *ctx){
         Color clr(log.color[0], log.color[1], log.color[2], 255);
         Label *label = new Label(logContent,log.timestamp,"sans",GUI_FONT_SIZE);
         label->setColor(clr);
+        new Label(logContent,"","sans-bold",GUI_FONT_SIZE);
         label = new Label(logContent,log.source,"sans",GUI_FONT_SIZE);
         label->setColor(clr);
+        new Label(logContent,"","sans-bold",GUI_FONT_SIZE);
         label = new Label(logContent,log.text,"sans",GUI_FONT_SIZE);
         label->setColor(clr);
     }

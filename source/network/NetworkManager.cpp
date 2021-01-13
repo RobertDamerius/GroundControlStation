@@ -53,6 +53,24 @@ void NetworkManager::Start(void){
         database.second->Start();
         vehicleDatabase.insert(std::move(database));
     }
+
+    // Load initial database
+    IMP::InfoResponseMessage msg;
+    msg.timestamp = IMP::GetTimestampUTC();
+    for(auto&& entry : Configuration::database.entry){
+        msg.dimension = entry.dimension;
+        msg.offset = entry.offset;
+        msg.vehicleName = entry.name;
+        msg.description = entry.description;
+        RD::Network::Endpoint ep(entry.ipAddress[0],entry.ipAddress[1],entry.ipAddress[2],entry.ipAddress[3],entry.port);
+        std::string strInterface = std::to_string(entry.ipInterface[0]) + std::string(".") + std::to_string(entry.ipInterface[1]) + std::string(".") + std::to_string(entry.ipInterface[2]) + std::string(".") + std::to_string(entry.ipInterface[3]);
+        auto got = vehicleDatabase.find(strInterface);
+        if(got == vehicleDatabase.end()){
+            GUILog(std::string("WARNING: Failed to link Vehicle \"") + entry.name + std::string("\" because interface ") + strInterface + std::string(" was not found in network configuration file!"), 255, 127, 0);
+            continue;
+        }
+        got->second->AddNewEntry(ep, msg);
+    }
 }
 
 void NetworkManager::Stop(void){

@@ -5,6 +5,7 @@
 #include <OriginConfiguration.hpp>
 #include <StyleConfiguration.hpp>
 #include <TTSConfiguration.hpp>
+#include <DatabaseConfiguration.hpp>
 
 
 class Configuration {
@@ -13,6 +14,7 @@ class Configuration {
         static OriginConfiguration origin;
         static StyleConfiguration style;
         static TTSConfiguration tts;
+        static DatabaseConfiguration database;
 
         /**
          *  @brief Read all configuration files.

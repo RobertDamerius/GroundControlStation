@@ -5,6 +5,7 @@ NetworkConfiguration Configuration::network;
 OriginConfiguration Configuration::origin;
 StyleConfiguration Configuration::style;
 TTSConfiguration Configuration::tts;
+DatabaseConfiguration Configuration::database;
 
 
 void Configuration::ReadAll(void){
@@ -12,5 +13,6 @@ void Configuration::ReadAll(void){
     origin.Read();
     style.Read();
     tts.Read();
+    database.Read();
 }
 

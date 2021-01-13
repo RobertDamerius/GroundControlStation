@@ -51,6 +51,9 @@
     Already added vehicles cannot be removed from the database, but the visibility of the vehicle can be adjusted. To clear the database the application must be restarted.
     </div>
 
+    By using the <a href="configurationdatabase.html">database configuration file</a>, it is also possible to insert vehicles into the database when the GCS is started
+    without them having to send an Info Response Message.
+
 <h2>Controls</h2>
     The control depends on the camera mode, which can be changed in the <a href="view.html">view menu</a>.
 

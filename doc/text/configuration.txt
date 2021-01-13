@@ -28,4 +28,5 @@
         <tr><td><a href="configurationnetwork.html" style="font-family: Courier-New;">network.cfg</a></td><td>Configuration of communication interfaces to the GCS.</td></tr>
         <tr><td><a href="configurationstyle.html" style="font-family: Courier-New;">style.cfg</a></td><td>Allows to set default values for graphical representations in the GCS.</td></tr>
         <tr><td><a href="configurationtts.html" style="font-family: Courier-New;">tts.cfg</a></td><td>Allows to enable text-to-speech for incomming IMP Log Messages.</td></tr>
+        <tr><td><a href="configurationdatabase.html" style="font-family: Courier-New;">database.cfg</a></td><td>Allows to initialize the database with a set of vehicles.</td></tr>
     </table>

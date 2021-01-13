@@ -7,30 +7,31 @@ inputDirectory  = 'text';
 outputDirectory = ['..' filesep 'bin' filesep 'documentation' filesep 'html'];
 
 % Use a custom navigation bar layout
-layoutNavBar = SimpleDoc.NavEntry.empty();
-i = 0;
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Introduction', 'index.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'GRAPHICAL USER INTERFACE');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Overview', 'guioverview.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'View', 'view.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Vehicles', 'vehicles.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Vehicle Data / Vehicle Settings', 'datasettings.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Log', 'log.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Time', 'time.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Info', 'info.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'CONFIGURATION');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Configuration Files', 'configuration.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Origin', 'configurationorigin.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Network', 'configurationnetwork.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Style', 'configurationstyle.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Text-To-Speech', 'configurationtts.html');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'MISC');
-i = i + 1; layoutNavBar(i) = SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Custom Vehicle Mesh', 'vehiclemesh.html');
+layoutNavBar = [
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Introduction', 'index.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'GRAPHICAL USER INTERFACE');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Overview', 'guioverview.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'View', 'view.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Vehicles', 'vehicles.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Vehicle Data / Vehicle Settings', 'datasettings.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Log', 'log.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Time', 'time.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Info', 'info.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'CONFIGURATION');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Configuration Files', 'configuration.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Origin', 'configurationorigin.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Network', 'configurationnetwork.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Style', 'configurationstyle.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Text-To-Speech', 'configurationtts.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Database', 'configurationdatabase.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'MISC');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Custom Vehicle Mesh', 'vehiclemesh.html');
+];
 
 % Generate HTML documentation
-SimpleDoc.Make(title, inputDirectory, outputDirectory, layoutNavBar);
+SimpleDoc.Make(title, inputDirectory, outputDirectory, layoutNavBar, false);
 

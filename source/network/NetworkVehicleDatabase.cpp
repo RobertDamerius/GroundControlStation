@@ -97,7 +97,7 @@ void NetworkVehicleDatabase::AddNewEntry(RD::Network::Endpoint& source, IMP::Inf
         v.description = msg.description;
         v.CreateDefaultCuboid(msg.dimension[0], msg.dimension[1], msg.dimension[2], msg.offset[0], msg.offset[1], msg.offset[2]);
         appWindow.canvas.scene.vehicleManager.AddVehicle(id, v);
-        GUILog(std::string("Added vehicle \"") + msg.vehicleName + std::string("\""));
+        GUILog(std::string("Linked ") + source.ToString() + std::string(" to vehicle \"") + msg.vehicleName + std::string("\"."));
         mtxRequests.lock();
         requests.erase(source);
         mtxRequests.unlock();

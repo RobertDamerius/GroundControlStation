@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ground Control Station (GCS)</title>
+<link rel="stylesheet" href="core/design.css">
+
+</head>
+<body>
+<header>
+<div class="header_title">Ground Control Station (GCS)</div>
+<div class="header_version">Version 20210113</div>
+</header>
+<button onclick="PageToTop()" id="buttonToTop"></button>
+<div class="wrapper">
+<div class="navigation">
+<ul class="ulnav">
+<li class="linone"></li>
+<li class="linav"><a href="index.html">Introduction</a></li>
+<li class="linone"></li>
+<li class="litext">GRAPHICAL USER INTERFACE</li>
+<li class="linav"><a href="guioverview.html">Overview</a></li>
+<li class="linav"><a href="view.html">View</a></li>
+<li class="linav"><a href="vehicles.html">Vehicles</a></li>
+<li class="linav"><a href="datasettings.html">Vehicle Data / Vehicle Settings</a></li>
+<li class="linav"><a href="log.html">Log</a></li>
+<li class="linav"><a href="time.html">Time</a></li>
+<li class="linav"><a href="info.html">Info</a></li>
+<li class="linone"></li>
+<li class="litext">CONFIGURATION</li>
+<li class="linav"><a href="configuration.html">Configuration Files</a></li>
+<li class="linav"><a href="configurationorigin.html">Origin</a></li>
+<li class="linav"><a href="configurationnetwork.html">Network</a></li>
+<li class="linav"><a href="configurationstyle.html">Style</a></li>
+<li class="linav"><a href="configurationtts.html">Text-To-Speech</a></li>
+<li class="linav_active"><a href="configurationdatabase.html">Database</a></li>
+<li class="linone"></li>
+<li class="litext">MISC</li>
+<li class="linav"><a href="vehiclemesh.html">Custom Vehicle Mesh</a></li>
+</ul>
+
+</div>
+<div class="content">
+<h1>Configuration: Database</h1>
+    <br><b>File:</b> /configuration/database.cfg<br><br>
+    This configuration file can be used to insert vehicles to the internal database when the application is started.
+    The configuration file is a text file and can look like this:
+<pre># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# INITIAL DATABASE
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Specify a list of database entries that should be inserted into the database when the
+# application starts. Format is "IP:PORT@INTERFACE,dx,dy,dz,ox,oy,oz,NAME,DESCRIPTION",
+# where INTERFACE=0.0.0.0 denotes the default network interface and [dx,dy,dz], [ox,oy,oz],
+# NAME and DESCRIPTION are the properties of an info response message (IMP). The key
+# is Database.Initial. Make sure that NAME and DESCRIPTION are strings between "-characters.
+# An example line would be:
+#   192.168.0.100:12345@0.0.0.0,2.0,1.0,0.5,0.0,0.0,0.0,"Vehicle Name","template"
+#
+# [Database.Initial]
+#     192.168.0.100:12345@0.0.0.0,2.0,1.0,0.5,0.0,0.0,0.0,"Vehicle Name","template"
+</pre>
+    The following <a href="configuration.html">key values</a> can be set:
+    <br>
+    <table>
+        <tr><th width="300px">Key value</th><th>Description</th></tr>
+        <tr><td style="font-family: Courier-New;">Database.Initial</td><td>Specifies all database entries that should be inserted when the GCS is started.</td></tr>
+    </table>
+
+<h2>Database.Initial</h2>
+    The key value <span style="font-family: Courier-New;">Database.Initial</span> can contain <a href="configuration.html">several associated values</a>.
+    Each value is a string with the following format:
+    <pre>"IP:PORT@INTERFACE,dx,dy,dz,ox,oy,oz,NAME,DESCRIPTION"</pre>
+    Here <code>IP</code> and <code>PORT</code> specify the source IP address and the source port of the GNC module, respectively.
+    <code>INTERFACE</code> specifies the network interface on which messages are to be received. If the computer on which the GCS is running has more than
+    one network interface, you can select the IPv4 address of the desired network interface. If the value <code>"0.0.0.0"</code> is used, the
+    default network interface is used. All subsequent values must be separated with commas. <code>dx,dy,dz</code>, <code>ox,oy,oz</code>, <code>NAME</code>
+    and <code>DESCRIPTION</code> denote the dimension and offset of the vehicle cuboid and the name and description of the vehicle according to
+    an Info Response Message of the <a href="https://github.com/RobertDamerius/InterModuleProtocol" target="_blank">Inter-Module Protocol</a>.
+    Make sure that <code>NAME</code> and <code>DESCRIPTION</code> are strings between <code>"</code>-characters.
+
+
+</div>
+</div>
+<script src="core/script.js"></script>
+</body>
+</html>
