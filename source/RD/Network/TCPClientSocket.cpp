@@ -1,6 +1,6 @@
 /**
  *  @file TCPClientSocket.cpp
- *  @details Version 20200702.
+ *  @details Version 20210203.
  */
 #include <Network.hpp>
 

@@ -1,6 +1,6 @@
 /**
  *  @file Core.cpp
- *  @details Version 20200513.
+ *  @details Version 20210203.
  */
 #include <Core.hpp>
 
@@ -115,7 +115,7 @@ void RD::Core::ReplaceText(std::string& text, std::vector<std::pair<std::string,
 
 void RD::Core::GetAppDirectory(std::string& path, std::string& file, int bufSize){
     char* buffer = new char[bufSize];
-    #ifdef __WIN32__
+    #ifdef _WIN32
     DWORD len = GetModuleFileName(NULL, (LPSTR)(&buffer[0]), (DWORD)bufSize);
     #else
     ssize_t len = readlink("/proc/self/exe", &buffer[0], bufSize);

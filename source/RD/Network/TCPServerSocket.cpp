@@ -1,6 +1,6 @@
 /**
  *  @file TCPServerSocket.cpp
- *  @details Version 20200513.
+ *  @details Version 20210203.
  */
 #include <Network.hpp>
 
@@ -18,7 +18,7 @@ int RD::Network::TCPServerSocket::Listen(int backlog){
 int RD::Network::TCPServerSocket::Accept(TCPClientConnection *client){
     if(!client)
         return -1;
-    #ifndef __WIN32__
+    #ifndef _WIN32
     socklen_t sin_size = sizeof(sockaddr_in);
     #else
     int sin_size = sizeof(sockaddr_in);

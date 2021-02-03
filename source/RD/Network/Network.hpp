@@ -1,7 +1,7 @@
 /**
  *  @file Network.hpp
  *  @brief The network header.
- *  @details Version 20200702.
+ *  @details Version 20210203.
  */
 #pragma once
 

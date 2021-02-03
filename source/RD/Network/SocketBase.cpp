@@ -1,6 +1,6 @@
 /**
  *  @file SocketBase.cpp
- *  @details Version 2020513.
+ *  @details Version 20210203.
  */
 #include <Network.hpp>
 
@@ -17,7 +17,7 @@ bool RD::Network::SocketBase::IsOpen(void){
 
 void RD::Network::SocketBase::Close(void){
     if(_socket >= 0){
-        #ifdef __WIN32__
+        #ifdef _WIN32
         (void) shutdown(_socket, SD_BOTH);
         (void) closesocket(_socket);
         #else
@@ -29,7 +29,7 @@ void RD::Network::SocketBase::Close(void){
 }
 
 int RD::Network::SocketBase::SetOption(int level, int optname, const void *optval, int optlen){
-    #ifdef __WIN32__
+    #ifdef _WIN32
     return setsockopt(this->_socket, level, optname, (const char*)optval, optlen);
     #else
     return setsockopt(this->_socket, level, optname, optval, (socklen_t)optlen);
@@ -37,7 +37,7 @@ int RD::Network::SocketBase::SetOption(int level, int optname, const void *optva
 }
 
 int RD::Network::SocketBase::GetOption(int level, int optname, void *optval, int *optlen){
-    #ifdef __WIN32__
+    #ifdef _WIN32
     return getsockopt(this->_socket, level, optname, (char*)optval, optlen);
     #else
     return getsockopt(this->_socket, level, optname, optval, (socklen_t*)optlen);
@@ -51,7 +51,7 @@ int RD::Network::SocketBase::ReuseAddr(bool reuse){
 
 int RD::Network::SocketBase::ReusePort(bool reuse){
     unsigned yes = (unsigned)reuse;
-    #ifdef __WIN32__
+    #ifdef _WIN32
     return SetOption(SOL_SOCKET, SO_REUSEADDR, (const void*)&yes, sizeof(yes));
     #else
     return SetOption(SOL_SOCKET, SO_REUSEPORT, (const void*)&yes, sizeof(yes));

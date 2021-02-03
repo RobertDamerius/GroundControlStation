@@ -1,7 +1,7 @@
 /**
  *  @file Core.hpp
  *  @brief The core header file.
- *  @details Version 20200513.
+ *  @details Version 20210203.
  */
 #pragma once
 
@@ -22,7 +22,7 @@
   extern const unsigned char _section$__DATA__ ## NAME [];
 #define RESOURCE_LDVAR(NAME) _section$__DATA__ ## NAME
 #define RESOURCE_LDLEN(NAME) (getsectbyname("__DATA", "__" #NAME)->size)
-#elif (defined __WIN32__)  /* mingw32 & mingw64 */
+#elif (defined _WIN32)  /* mingw32 & mingw64 */
 #ifdef __MINGW64__
 #define RESOURCE_EXTLD(NAME) \
   extern const unsigned char _binary_ ## NAME ## _start[]; \

@@ -1,6 +1,6 @@
 /**
  *  @file IMPCommon.hpp
- *  @brief Version 20200919.
+ *  @brief Version 20210203.
  *  @details Macros that can be defined:
  *  IMP_DONT_INCLUDE_NETWORK_HEADERS ... If defined a custom htonl function is used to swap byte order, otherwise the htonl() is used (network headers are required).
  */
@@ -19,7 +19,7 @@
 
 /* Include OS-specific network headers */
 #ifndef IMP_DONT_INCLUDE_NETWORK_HEADERS
-#ifdef __WIN32__
+#ifdef _WIN32
 #include <winsock.h>
 #else
 #include <arpa/inet.h>

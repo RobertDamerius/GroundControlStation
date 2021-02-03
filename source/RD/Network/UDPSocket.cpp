@@ -1,6 +1,6 @@
 /**
  *  @file UDPSocket.cpp
- *  @details Version 20200702.
+ *  @details Version 20210203.
  */
 #include <Network.hpp>
 
@@ -14,7 +14,7 @@ RD::Network::UDPSocket::~UDPSocket(){
 int RD::Network::UDPSocket::Open(void){
     if((_socket = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
         return -1;
-    #ifdef __WIN32__
+    #ifdef _WIN32
     BOOL bNewBehavior = FALSE;
     DWORD dwBytesReturned = 0;
     WSAIoctl(_socket, _WSAIOW(IOC_VENDOR, 12), &bNewBehavior, sizeof bNewBehavior, NULL, 0, &dwBytesReturned, NULL, NULL);
@@ -35,7 +35,7 @@ int RD::Network::UDPSocket::Broadcast(uint16_t destinationPort, uint8_t *bytes, 
     broadcast_addr.sin_family = AF_INET;
     broadcast_addr.sin_port = htons((int)destinationPort);
     broadcast_addr.sin_addr.s_addr = inet_addr(INADDR_ANY);
-    #ifndef __WIN32__
+    #ifndef _WIN32
     socklen_t optLen = sizeof(int);
     #else
     int optLen = sizeof(int);
@@ -54,7 +54,7 @@ int RD::Network::UDPSocket::ReceiveFrom(RD::Network::Endpoint& endpoint, uint8_t
     if(!bytes)
         return -1;
     endpoint.Reset();
-    #ifndef __WIN32__
+    #ifndef _WIN32
     socklen_t address_size = sizeof(endpoint.addr);
     #else
     int address_size = sizeof(endpoint.addr);

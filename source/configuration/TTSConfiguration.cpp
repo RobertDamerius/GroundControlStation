@@ -30,7 +30,7 @@ void TTSConfiguration::Read(void){
     }
 
     // Decode pre/post strings
-    #ifdef __WIN32__
+    #ifdef _WIN32
     std::string keyPreString = "Windows.TextToSpeech.SystemPreString";
     std::string keyPostString = "Windows.TextToSpeech.SystemPostString";
     #else

@@ -28,7 +28,7 @@
 
 /* Os Specific */
 // Windows System
-#ifdef __WIN32__
+#ifdef _WIN32
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 // Unix System

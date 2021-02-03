@@ -1,6 +1,6 @@
 /**
  *  @file Console.cpp
- *  @details Version 20200513.
+ *  @details Version 20210203.
  */
 #include <Core.hpp>
 

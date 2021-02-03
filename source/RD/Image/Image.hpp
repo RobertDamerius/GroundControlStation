@@ -1,7 +1,7 @@
 /**
  *  @file Image.hpp
  *  @brief The image header.
- *  @details Version 20200921.
+ *  @details Version 20210203.
  */
 #pragma once
 

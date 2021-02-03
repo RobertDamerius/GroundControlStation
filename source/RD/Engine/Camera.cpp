@@ -1,6 +1,6 @@
 /**
  *  @file Camera.cpp
- *  @details Version 20200513.
+ *  @details Version 20210203.
  */
 #include <Engine.hpp>
 
@@ -59,7 +59,7 @@ void RD::Engine::Camera::Rotate(double angle, glm::dvec3 axis){
     double q1 = axis.x * sin_angle_half;
     double q2 = axis.y * sin_angle_half;
     double q3 = axis.z * sin_angle_half;
-    double invNorm = 1.0 / sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
+    double invNorm = 1.0 / std::sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
     q0 *= invNorm;
     q1 *= invNorm;
     q2 *= invNorm;
