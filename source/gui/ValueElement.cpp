@@ -7,7 +7,7 @@
 #define LABEL_UNIT_WITH    (50)
 
 
-ValueElement::ValueElement(nanogui::Widget *parent, std::string name, std::string unit, int precision): nanogui::Widget(parent), precision(precision){
+ValueElement::ValueElement(nanogui::Widget *parent, std::string name, std::string unit, int precision, std::array<uint8_t,4> color): nanogui::Widget(parent), precision(precision){
     using namespace nanogui;
     GridLayout *layout = new GridLayout(Orientation::Horizontal, 3, Alignment::Middle, 0, 0);
     layout->setColAlignment({Alignment::Maximum, Alignment::Fill, Alignment::Fill});
@@ -18,6 +18,9 @@ ValueElement::ValueElement(nanogui::Widget *parent, std::string name, std::strin
 
     labelName = new Label(this, name.c_str(), "sans", GUI_FONT_SIZE);
     labelName->setFixedWidth(LABEL_NAME_WIDTH);
+    if(color[0] || color[1] || color[2] || color[3]){
+        labelName->setColor(Color(color[0],color[1],color[2],color[3]));
+    }
     labelValue = new Label(this, "", "sans", GUI_FONT_SIZE);
     labelValue->setFixedWidth(LABEL_VALUE_WIDTH);
     Label* label = new Label(this, unit.c_str(), "sans", GUI_FONT_SIZE);

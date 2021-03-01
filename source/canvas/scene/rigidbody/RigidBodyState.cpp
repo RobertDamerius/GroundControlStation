@@ -53,6 +53,7 @@ void RigidBodyState::Reset(void){
     this->yaw = 0.0;
     this->sog = 0.0;
     this->overridePosition = false;
+    this->conf.Reset();
 }
 
 void RigidBodyState::CalculateOptionals(void){
@@ -96,6 +97,7 @@ RigidBodyState& RigidBodyState::operator=(const RigidBodyState& rhs){
     this->yaw = rhs.yaw;
     this->sog = rhs.sog;
     this->overridePosition = rhs.overridePosition;
+    this->conf = rhs.conf;
     return *this;
 }
 
@@ -106,6 +108,7 @@ RigidBodyState& RigidBodyState::operator=(const IMP::State& rhs){
 
 void RigidBodyState::CopyFromIMPState(const IMP::State& state){
     this->Reset();
+    this->conf = state.configuration;
 
     // Position LLA
     switch(state.configuration.positionLLA.available){

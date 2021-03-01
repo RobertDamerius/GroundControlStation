@@ -7,6 +7,7 @@
 
 class RigidBodyState {
     public:
+        IMP::StateConfiguration conf; ///< State configuration.
         Angle latitude;         ///< Geographic latitude in radians.
         Angle longitude;        ///< Geographic longitude in radians.
         double altitude;        ///< Altitude above WGS84 reference ellipsoid in meters.

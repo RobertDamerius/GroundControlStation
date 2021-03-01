@@ -10,7 +10,7 @@
 <body>
 <header>
 <div class="header_title">Ground Control Station (GCS)</div>
-<div class="header_version">Version 20210113</div>
+<div class="header_version">Version 20210301</div>
 </header>
 <button onclick="PageToTop()" id="buttonToTop"></button>
 <div class="wrapper">
@@ -50,6 +50,8 @@
     <h3>DATA</h3>
     This tab contains most navigation and guidance data received via IMP messages. All blue values represent
     guidance data. In the section "Time to latest message" the times (in seconds) of the last received IMP messages are shown.
+    Values that are displayed with a low transparency are not received.
+    However, if possible, these values are calculated by the GCS.
     <br>
     <center><img class="picture" src="../img/DataView.png" width="80%"></center>
 

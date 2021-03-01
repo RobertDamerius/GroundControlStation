@@ -8,6 +8,8 @@ class ValueNavigationGuidance: public nanogui::Widget {
     public:
         double guidance;
         double navigation;
+        bool guidanceActive;
+        bool navigationActive;
 
         /**
          *  @brief Create a guidance/navigation value for the vehicle view widget.
@@ -27,5 +29,7 @@ class ValueNavigationGuidance: public nanogui::Widget {
         nanogui::Label* labelName;
         nanogui::Label* labelNavigation;
         nanogui::Label* labelGuidance;
+        nanogui::Label* labelUnitNavigation;
+        nanogui::Label* labelUnitGuidance;
 };
 

@@ -1,6 +1,7 @@
 #include <WidgetVehicle.hpp>
 #include <AppWindow.hpp>
 #include <Configuration.hpp>
+#include <GUI.hpp>
 
 
 #define DATABLOCK_MARGIN                  (8)
@@ -31,7 +32,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
     content = new Widget(dataBlock);
     content->setLayout(new GridLayout(Orientation::Horizontal, 1, Alignment::Fill, DATABLOCK_MARGIN, 0));
     timeNavigation = new ValueElement(content, "Navigation", "s");
-    timeGuidance = new ValueElement(content, "Guidance", "s");
+    timeGuidance = new ValueElement(content, "Guidance", "s", 4, {GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,255});
     timeGuidanceTrajectory = new ValueElement(content, "Trajectory", "s");
     timeGuidanceWaypoint = new ValueElement(content, "Waypoint", "s");
     timePolygon = new ValueElement(content, "Polygon", "s");
@@ -850,42 +851,97 @@ void WidgetVehicle::update(NVGcontext *ctx){
     RigidBodyState guidance, navigation;
     Vehicle::TimeOfLatestMessage timeOfLatestMessage;
     appWindow.canvas.scene.vehicleManager.GetVehicleState(this->id, guidance, navigation, timeOfLatestMessage);
+
     this->latitude->guidance = guidance.latitude.Deg();
     this->latitude->navigation = navigation.latitude.Deg();
+    this->latitude->guidanceActive = (guidance.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->latitude->navigationActive = (navigation.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->longitude->guidance = guidance.longitude.Deg();
     this->longitude->navigation = navigation.longitude.Deg();
+    this->longitude->guidanceActive = (guidance.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->longitude->navigationActive = (navigation.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->altitude->guidance = guidance.altitude;
     this->altitude->navigation = navigation.altitude;
+    this->altitude->guidanceActive = (guidance.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->altitude->navigationActive = (navigation.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.positionLLA.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->positionX->guidance = guidance.position.x;
     this->positionX->navigation = navigation.position.x;
+    this->positionX->guidanceActive = (guidance.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->positionX->navigationActive = (navigation.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->positionY->guidance = guidance.position.y;
     this->positionY->navigation = navigation.position.y;
+    this->positionY->guidanceActive = (guidance.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->positionY->navigationActive = (navigation.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->positionZ->guidance = guidance.position.z;
     this->positionZ->navigation = navigation.position.z;
-    this->roll->navigation = navigation.roll.Deg();
-    this->pitch->navigation = navigation.pitch.Deg();
-    this->yaw->navigation = navigation.yaw.Deg();
+    this->positionZ->guidanceActive = (guidance.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->positionZ->navigationActive = (navigation.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.positionNED.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->roll->guidance = guidance.roll.Deg();
+    this->roll->navigation = navigation.roll.Deg();
+    this->roll->guidanceActive = (guidance.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->roll->navigationActive = (navigation.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->pitch->guidance = guidance.pitch.Deg();
+    this->pitch->navigation = navigation.pitch.Deg();
+    this->pitch->guidanceActive = (guidance.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->pitch->navigationActive = (navigation.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->yaw->guidance = guidance.yaw.Deg();
+    this->yaw->navigation = navigation.yaw.Deg();
+    this->yaw->guidanceActive = (guidance.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->yaw->navigationActive = (navigation.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.orientationRollPitchYaw.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityNorth->guidance = guidance.velocityNorth;
-    this->velocityEast->guidance = guidance.velocityEast;
-    this->velocityDown->guidance = guidance.velocityDown;
     this->velocityNorth->navigation = navigation.velocityNorth;
+    this->velocityNorth->guidanceActive = (guidance.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityNorth->navigationActive = (navigation.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
+    this->velocityEast->guidance = guidance.velocityEast;
     this->velocityEast->navigation = navigation.velocityEast;
+    this->velocityEast->guidanceActive = (guidance.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityEast->navigationActive = (navigation.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
+    this->velocityDown->guidance = guidance.velocityDown;
     this->velocityDown->navigation = navigation.velocityDown;
+    this->velocityDown->guidanceActive = (guidance.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityDown->navigationActive = (navigation.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.velocityNEDUVW.availableE == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityU->guidance = guidance.u;
     this->velocityU->navigation = navigation.u;
+    this->velocityU->guidanceActive = (guidance.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityU->navigationActive = (navigation.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityV->guidance = guidance.v;
     this->velocityV->navigation = navigation.v;
+    this->velocityV->guidanceActive = (guidance.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityV->navigationActive = (navigation.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityW->guidance = guidance.w;
     this->velocityW->navigation = navigation.w;
+    this->velocityW->guidanceActive = (guidance.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityW->navigationActive = (navigation.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.velocityNEDUVW.availableB == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityP->guidance = 57.29577951308232088 * guidance.p;
     this->velocityP->navigation = 57.29577951308232088 * navigation.p;
+    this->velocityP->guidanceActive = (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityP->navigationActive = (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityQ->guidance = 57.29577951308232088 * guidance.q;
     this->velocityQ->navigation = 57.29577951308232088 * navigation.q;
+    this->velocityQ->guidanceActive = (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityQ->navigationActive = (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XY) || (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     this->velocityR->guidance = 57.29577951308232088 * guidance.r;
     this->velocityR->navigation = 57.29577951308232088 * navigation.r;
+    this->velocityR->guidanceActive = (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+    this->velocityR->navigationActive = (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
+
     auto currentTime = std::chrono::steady_clock::now();
     this->timeNavigation->value = 1e-9 * double(std::chrono::duration_cast<std::chrono::nanoseconds>(currentTime - timeOfLatestMessage.navigation).count());
     this->timeGuidance->value = 1e-9 * double(std::chrono::duration_cast<std::chrono::nanoseconds>(currentTime - timeOfLatestMessage.guidance).count());

@@ -16,26 +16,40 @@ ValueNavigationGuidance::ValueNavigationGuidance(nanogui::Widget *parent, std::s
 
     this->guidance = NAN;
     this->navigation = NAN;
+    this->guidanceActive = false;
+    this->navigationActive = false;
 
+    // Name
     labelName = new Label(this, name.c_str(), "sans", GUI_FONT_SIZE);
     labelName->setFixedWidth(LABEL_NAME_WIDTH);
+
+    // Navication: numeric value + unit
     labelNavigation = new Label(this, "", "sans", GUI_FONT_SIZE);
     labelNavigation->setFixedWidth(LABEL_VALUE_WIDTH);
-    Label* label = new Label(this, unit.c_str(), "sans", GUI_FONT_SIZE);
-    label->setFixedWidth(LABEL_UNIT_WITH);
+    labelNavigation->setColor(Color(200,200,200,255));
+    labelUnitNavigation = new Label(this, unit.c_str(), "sans", GUI_FONT_SIZE);
+    labelUnitNavigation->setFixedWidth(LABEL_UNIT_WITH);
+    labelUnitNavigation->setColor(Color(200,200,200,255));
     Widget* widget = new Widget(this);
     widget->setFixedWidth(LABEL_NAME_WIDTH);
+
+    // Guidance: numeric value + unit
     labelGuidance = new Label(this, "", "sans", GUI_FONT_SIZE);
-    labelGuidance->setColor(Color(30,190,255,255));
+    labelGuidance->setColor(Color(GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,255));
     labelGuidance->setFixedWidth(LABEL_VALUE_WIDTH);
-    label = new Label(this, unit.c_str(), "sans", GUI_FONT_SIZE);
-    label->setColor(Color(30,190,255,255));
-    label->setFixedWidth(LABEL_UNIT_WITH);
+    labelUnitGuidance = new Label(this, unit.c_str(), "sans", GUI_FONT_SIZE);
+    labelUnitGuidance->setColor(Color(GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,255));
+    labelUnitGuidance->setFixedWidth(LABEL_UNIT_WITH);
 }
 
 void ValueNavigationGuidance::update(NVGcontext *ctx){
+    using namespace nanogui;
     labelNavigation->setCaption(std::to_string(this->navigation));
+    labelNavigation->setColor(Color(200,200,200, this->navigationActive ? 255 : 100));
+    labelUnitNavigation->setColor(Color(200,200,200, this->navigationActive ? 255 : 100));
     labelGuidance->setCaption(std::to_string(this->guidance));
+    labelGuidance->setColor(Color(GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,this->guidanceActive ? 255 : 100));
+    labelUnitGuidance->setColor(Color(GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,this->guidanceActive ? 255 : 100));
     nanogui::Widget::update(ctx);
 }
 
