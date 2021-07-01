@@ -18,7 +18,7 @@
     true
 
 [Windows.TextToSpeech.SystemPreString]
-    PowerShell -Command "Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('
+    PowerShell -windowstyle hidden -Command "Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('
 
 [Windows.TextToSpeech.SystemPostString]
     ');"

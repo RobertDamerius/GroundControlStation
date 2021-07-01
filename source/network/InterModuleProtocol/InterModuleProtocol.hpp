@@ -1,6 +1,6 @@
 /**
  *  @file InterModuleProtocol.hpp
- *  @brief Version 20200919.
+ *  @brief Version 202010701.
  *  @details This is the main header file. You only need to include this header file to use the Inter-Module Protocol.
  */
 #pragma once
@@ -321,16 +321,6 @@ double GetTimestampUTC(void);
  *  @return The time difference "a - b" in seconds in range [-43200.0, 43200.0).
  */
 double TimestampDifference(double a, double b);
-
-
-/**
- *  @brief Calculate the 16-bit CRC.
- *  @param [in] bytes Input message.
- *  @param [in] length Length of the input message.
- *  @return 16-bit CRC value.
- *  @details A CCIT_ZERO checksum is used (Polynomial: 0x1021, initial value: 0x0000, Final Xor Value: 0x0000, no reflected input, no reflected result).
- */
-uint16_t CRC16(const uint8_t* bytes, uint32_t length);
 
 
 } /* namespace: IMP */

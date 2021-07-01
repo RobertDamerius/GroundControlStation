@@ -44,10 +44,30 @@ ValueNavigationGuidance::ValueNavigationGuidance(nanogui::Widget *parent, std::s
 
 void ValueNavigationGuidance::update(NVGcontext *ctx){
     using namespace nanogui;
-    labelNavigation->setCaption(std::to_string(this->navigation));
+
+    // Generate limited strings for navigation and guidance values
+    std::stringstream streamNav;
+    streamNav << std::fixed << std::setprecision(6) << this->navigation;
+    std::string strNavigation = streamNav.str();
+    if(strNavigation.length() > 11){
+        std::stringstream ss;
+        ss << std::setprecision(3) << std::setw(7) << this->navigation;
+        strNavigation = ss.str();
+    }
+    std::stringstream streamGui;
+    streamGui << std::fixed << std::setprecision(6) << this->guidance;
+    std::string strGuidance = streamGui.str();
+    if(strGuidance.length() > 11){
+        std::stringstream ss;
+        ss << std::setprecision(3) << std::setw(7) << this->guidance;
+        strGuidance = ss.str();
+    }
+
+    // Update GUI labels
+    labelNavigation->setCaption(strNavigation);
     labelNavigation->setColor(Color(200,200,200, this->navigationActive ? 255 : 100));
     labelUnitNavigation->setColor(Color(200,200,200, this->navigationActive ? 255 : 100));
-    labelGuidance->setCaption(std::to_string(this->guidance));
+    labelGuidance->setCaption(strGuidance);
     labelGuidance->setColor(Color(GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,this->guidanceActive ? 255 : 100));
     labelUnitGuidance->setColor(Color(GUI_TEXT_COLOR_GUIDANCE_R,GUI_TEXT_COLOR_GUIDANCE_G,GUI_TEXT_COLOR_GUIDANCE_B,this->guidanceActive ? 255 : 100));
     nanogui::Widget::update(ctx);

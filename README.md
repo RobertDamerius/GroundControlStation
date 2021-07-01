@@ -32,6 +32,7 @@ The directory structure of this repository is as follows.
 | 2020-11-11  | 1.1      | Added text-to-speech output for [IMP Log Messages](https://github.com/RobertDamerius/InterModuleProtocol) |
 | 2021-01-13  | 1.2      | Added configuration file for inserting vehicles to the empty database when the GCS starts                 |
 | 2021-03-01  | 1.3      | Added highlighting of navigation and guidance state data in vehicle data panel                            |
+| 2021-07-01  | 1.4      | Updated IMP protocol to latest version and limited numeric string lengths                                 |
 
 ![](bin/documentation/img/Overview.png)
 

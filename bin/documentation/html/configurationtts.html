@@ -10,7 +10,7 @@
 <body>
 <header>
 <div class="header_title">Ground Control Station (GCS)</div>
-<div class="header_version">Version 20210301</div>
+<div class="header_version">Version 20210701</div>
 </header>
 <button onclick="PageToTop()" id="buttonToTop"></button>
 <div class="wrapper">
@@ -62,7 +62,7 @@
     true
 
 [Windows.TextToSpeech.SystemPreString]
-    PowerShell -Command "Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('
+    PowerShell -windowstyle hidden -Command "Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('
 
 [Windows.TextToSpeech.SystemPostString]
     ');"
