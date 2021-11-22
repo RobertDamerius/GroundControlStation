@@ -18,12 +18,6 @@ void NetworkManager::Start(void){
     // Make sure that the network manager is stopped
     NetworkManager::Stop();
 
-    // Initialize network
-    if(!RD::Network::InitializeNetwork()){
-        GUILog(std::string("Could not start network manager: network initialization failed!"), 255, 0, 0);
-        return;
-    }
-
     // Start all unicast receivers
     for(auto&& conf : Configuration::network.unicast){
         UnicastReceiver* receiver = new UnicastReceiver(conf.port, &conf.ipInterface[0]);
@@ -94,9 +88,6 @@ void NetworkManager::Stop(void){
         delete database.second;
     }
     vehicleDatabase.clear();
-
-    // Terminate network
-    RD::Network::TerminateNetwork();
 }
 
 void NetworkManager::Decode(const std::string& strInterfaceOfReceiver, RD::Network::Endpoint& group, RD::Network::UDPSocket& udpSocket, RD::Network::Endpoint& source, const uint8_t* bytes, const uint32_t length){

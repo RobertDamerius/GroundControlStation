@@ -17,7 +17,7 @@ Joystick::Joystick(uint8_t id, uint8_t* ipDestination, uint16_t port, uint8_t* i
     // Open socket
     if(udpSocket.Open() < 0){
         std::ostringstream msg;
-        msg << "Could not open UDP socket for joystick " << id << "!";
+        msg << "Could not open UDP socket for joystick " << std::to_string(id) << "!";
         GUILog(msg.str(), 255, 0, 0);
         return;
     }
@@ -27,7 +27,7 @@ Joystick::Joystick(uint8_t id, uint8_t* ipDestination, uint16_t port, uint8_t* i
     sprintf(ipIF,"%u.%u.%u.%u",ipInterface[0],ipInterface[1],ipInterface[2],ipInterface[3]);
     if(udpSocket.Bind(50000, 60000, (ipInterface[0] || ipInterface[1] || ipInterface[2] || ipInterface[3]) ? &ipIF[0] : nullptr) < 0){
         std::ostringstream msg;
-        msg << "Could not bind a port for UDP socket for joystick " << id << "!";
+        msg << "Could not bind a port for UDP socket for joystick " << std::to_string(id) << "!";
         GUILog(msg.str(), 255, 0, 0);
         udpSocket.Close();
         return;

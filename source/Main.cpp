@@ -12,6 +12,7 @@ int main(int argc, char **argv){
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Initialize and create application window
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        (void)RD::Network::InitializeNetwork();
         FileManager::Initialize(argv[0]);
         if(!GLWindow::Initialize(&appWindow, WINDOW_INITIAL_WIDTH, WINDOW_INITIAL_HEIGHT, strAppName, false)){
             GLWindow::Terminate();
@@ -48,6 +49,7 @@ int main(int argc, char **argv){
     // Cleanup
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         GLWindow::Terminate();
+        RD::Network::TerminateNetwork();
         return 0;
 }
 
