@@ -15,6 +15,7 @@
 #include <mutex>
 #include <shared_mutex>
 #include <atomic>
+#include <condition_variable>
 #include <map>
 #include <unordered_set>
 #include <tuple>
