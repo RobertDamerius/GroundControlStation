@@ -212,7 +212,7 @@ void VehicleManager::RenderLines(ShaderTransparentVehicle& shaderTransparentVehi
             if(!v.second.waypoints.enable){
                 continue;
             }
-            double posOffset = 0.01*(double(n) / double(v.second.trajectory.elements.size()) - 0.5);
+            double posOffset = 0.01*(double(n) / double(v.second.waypoints.elements.size()) - 0.5);
             GLfloat alpha = (GLfloat)v.second.waypoints.GetVehicleAlpha();
             if(alpha){
                 RigidBody rb;
