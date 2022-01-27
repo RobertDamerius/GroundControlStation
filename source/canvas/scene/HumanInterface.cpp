@@ -229,6 +229,8 @@ void HumanInterface::CallbackKey(GLFWwindow* wnd, int key, int scancode, int act
         if((GLFW_KEY_SPACE == key) && (GLFW_PRESS == action)){
             AxisAlignedBoundingBox aabb = appWindow.canvas.scene.vehicleManager.GetAABBOfVehicles();
             if((aabb.dimension.x > 0.0) && (aabb.dimension.z > 0.0)){
+                fprintf(stderr,"AABB: pos=[%f,%f] dim=[%f,%f]\n",aabb.position.x,aabb.position.z,aabb.dimension.x,aabb.dimension.z);//#TODO
+
                 appWindow.canvas.scene.viewCamera.position.x = aabb.position.x + 0.5*aabb.dimension.x;
                 appWindow.canvas.scene.viewCamera.position.z = aabb.position.z + 0.5*aabb.dimension.z;
 

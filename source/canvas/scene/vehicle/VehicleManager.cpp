@@ -272,11 +272,11 @@ AxisAlignedBoundingBox VehicleManager::GetAABBOfVehicles(void){
             continue;
 
         // Add AABB of polytope
-        if(first) result = v.second.renderingState.modelMatrix * v.second.aabb;
-        else result += v.second.renderingState.modelMatrix * v.second.aabb;
+        if(first) result = v.second.navigation.modelMatrix * v.second.aabb;
+        else result += v.second.navigation.modelMatrix * v.second.aabb;
 
         // Add AABB of compass (height = 1.0)
-        glm::vec3 position(v.second.renderingState.position.x, -v.second.renderingState.position.z, v.second.renderingState.position.y);
+        glm::vec3 position(v.second.navigation.position.x, -v.second.navigation.position.z, v.second.navigation.position.y);
         GLfloat radius = (GLfloat)v.second.compass.GetRadius();
         position -= glm::vec3(radius, 0.5f, radius);
         result += AxisAlignedBoundingBox(position, glm::vec3(radius+radius, 1.0f, radius+radius));

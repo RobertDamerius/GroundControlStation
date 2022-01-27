@@ -292,8 +292,13 @@ void FontSprite::TextToVertices(std::vector<font_sprite_vertex_t>& outVertices, 
         v[3].s = tCoord.z;
         v[3].t = tCoord.w;
 
-        for(int i = 0; i < 4; i++)
-            outVertices.push_back(v[i]);
+        // Save vertices for two triangles
+        outVertices.push_back(v[0]);
+        outVertices.push_back(v[1]);
+        outVertices.push_back(v[2]);
+        outVertices.push_back(v[2]);
+        outVertices.push_back(v[3]);
+        outVertices.push_back(v[0]);
         if((currentWidth += sWidth) > outDimension.x)
             outDimension.x = currentWidth;
     }
