@@ -42,6 +42,9 @@ void HumanInterface::Update(double dt){
                 appWindow.canvas.scene.viewCamera.Rotate(deltaYaw(), glm::dvec3(0.0, -1.0, 0.0));
             }
             if(CAMERA_MODE_PERSPECTIVE == appWindow.canvas.scene.viewCamera.mode){
+                if(v->altitudeToZero){
+                    vehiclePosition.y = 0.0;
+                }
                 appWindow.canvas.scene.viewCamera.position = vehiclePosition - cameraLock.zoom*appWindow.canvas.scene.viewCamera.view;
             }
             else{
