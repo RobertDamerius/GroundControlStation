@@ -55,8 +55,10 @@ void LinePrimitive::Delete(void){
 }
 
 void LinePrimitive::Draw(void){
-    DEBUG_GLCHECK( glBindVertexArray(this->vao); );
-    DEBUG_GLCHECK( glDrawArrays(this->mode, 0, this->vertices.size()); );
+    if(this->vertices.size()){
+        DEBUG_GLCHECK( glBindVertexArray(this->vao); );
+        DEBUG_GLCHECK( glDrawArrays(this->mode, 0, this->vertices.size()); );
+    }
 }
 
 LinePrimitive& LinePrimitive::operator=(const LinePrimitive& rhs){

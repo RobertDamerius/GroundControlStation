@@ -34,6 +34,7 @@ The directory structure of this repository is as follows.
 | 2021-03-01  | 1.3      | Added highlighting of navigation and guidance state data in vehicle data panel                            |
 | 2021-07-01  | 1.4      | Updated IMP protocol to latest version and limited numeric string lengths                                 |
 | 2022-01-27  | 1.5      | Fixed several bugs concerning rendering and human interface controls                                      |
+| 2022-03-15  | 1.6      | Additional bug fixes                                                                                      |
 
 ![](bin/documentation/img/Overview.png)
 

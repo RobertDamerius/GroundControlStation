@@ -141,5 +141,14 @@ void Test::Task(void){
     appWindow.canvas.scene.vehicleManager.SetPolygons(id, 0, 4, polygons, velocities);
 
     GUILog("Hello World!", 255, 255, 255);
+    double t = 0.0;
+    while(!Test::terminate){
+        state.position.x = 10.0 * std::cos(t);
+        state.position.y = 10.0 * std::sin(1.61803398874989 * t);
+        state.sog = 10.0 * std::sqrt(std::sin(t)*std::sin(t) + 1.61803398874989*1.61803398874989*std::cos(1.61803398874989*t)*std::cos(1.61803398874989*t));
+        appWindow.canvas.scene.vehicleManager.UpdateVehicleNavigation(id, state);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        t += 0.01;
+    }
 }
 

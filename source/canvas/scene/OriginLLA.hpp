@@ -40,11 +40,11 @@ class OriginLLA {
         void LLA2NED(glm::dvec3& xyz, glm::dvec3 lla);
 
     private:
-        bool undefined;      ///< True if origin has not been defined.
-        Angle latitude;      ///< Latitude in radians.
-        Angle longitude;     ///< Longitude in radians.
-        double altitude;     ///< Altitude in meters (positive upwards).
-        double sinOriginLat; ///< Sine of @ref latitude.
-        double cosOriginLat; ///< Cosine of @ref latitude.
+        std::atomic<bool> undefined;  ///< True if origin has not been defined.
+        Angle latitude;               ///< Latitude in radians.
+        Angle longitude;              ///< Longitude in radians.
+        double altitude;              ///< Altitude in meters (positive upwards).
+        double sinOriginLat;          ///< Sine of @ref latitude.
+        double cosOriginLat;          ///< Cosine of @ref latitude.
 };
 

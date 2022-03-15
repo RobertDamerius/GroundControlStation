@@ -39,6 +39,10 @@ void VehicleManager::UpdateVehicleNavigation(const VehicleID& id, RigidBodyState
     if(got != vehicles.end()){
         got->second.navigation = stateNavigation;
         got->second.timeOfLatestMessage.navigation = std::chrono::steady_clock::now();
+        if(got->second.navigation.overridePosition){
+            appWindow.canvas.scene.origin.Update(got->second.navigation.latitude(), got->second.navigation.longitude(), got->second.navigation.altitude);
+            appWindow.canvas.scene.origin.LLA2NED(got->second.navigation.position, glm::dvec3(got->second.navigation.latitude(), got->second.navigation.longitude(), got->second.navigation.altitude));
+        }
     }
     mtxVehicles.unlock();
 }
@@ -49,6 +53,10 @@ void VehicleManager::UpdateVehicleGuidance(const VehicleID& id, RigidBodyState& 
     if(got != vehicles.end()){
         got->second.guidance = stateGuidance;
         got->second.timeOfLatestMessage.guidance = std::chrono::steady_clock::now();
+        if(got->second.guidance.overridePosition){
+            appWindow.canvas.scene.origin.Update(got->second.guidance.latitude(), got->second.guidance.longitude(), got->second.guidance.altitude);
+            appWindow.canvas.scene.origin.LLA2NED(got->second.guidance.position, glm::dvec3(got->second.guidance.latitude(), got->second.guidance.longitude(), got->second.guidance.altitude));
+        }
     }
     mtxVehicles.unlock();
 }
@@ -274,6 +282,7 @@ AxisAlignedBoundingBox VehicleManager::GetAABBOfVehicles(void){
         // Add AABB of polytope
         if(first) result = v.second.navigation.modelMatrix * v.second.aabb;
         else result += v.second.navigation.modelMatrix * v.second.aabb;
+        first = false;
 
         // Add AABB of compass (height = 1.0)
         glm::vec3 position(v.second.navigation.position.x, -v.second.navigation.position.z, v.second.navigation.position.y);
