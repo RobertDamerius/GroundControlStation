@@ -158,7 +158,7 @@ class LogMessage {
          *  @param [in] length Length of the buffer (maximum number of bytes that can be written to the buffer).
          *  @returns The number of bytes that have been written to the buffer or -1 in case of failure.
          *  @details If @ref text contains more than 65523 characters then the container will be truncated.
-         *  @note Note, that the maximum number of bytes that can be send via UDP is 65535 bytes!
+         *  @note Note, that the maximum number of bytes that can be send via UDP is 65507 bytes!
          */
         int Encode(uint8_t* bytes, const uint32_t length);
 
@@ -237,7 +237,7 @@ class ConvexPolygonMessage {
          *  @returns The number of bytes that have been written to the buffer or -1 in case of failure.
          *  @details The maximum number of polygons is limited to 65535 (2^16 - 1). The maximum number of vertices per polygon is limited to 255 (2^8 - 1).
          *  If @ref polygons contains more polygons/vertices then the containers are truncated.
-         *  @note Note, that the maximum number of bytes that can be send via UDP is 65535 bytes!
+         *  @note Note, that the maximum number of bytes that can be send via UDP is 65507 bytes!
          */
         int Encode(uint8_t* bytes, const uint32_t length);
 

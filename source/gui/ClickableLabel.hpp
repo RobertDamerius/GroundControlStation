@@ -6,7 +6,7 @@
 
 class ClickableLabel: protected nanogui::Button {
     public:
-        using nanogui::Button::operator new;
+        //using nanogui::Button::operator new;
         using nanogui::Button::setCaption;
         using nanogui::Button::setFontSize;
         using nanogui::Button::setCallback;
