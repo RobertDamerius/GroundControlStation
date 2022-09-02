@@ -3,7 +3,7 @@
     messages. Log messages can be sent to the GCS as IMP messages. The vehicle must be in the database of the GCS. As soon
     as the GCS receives a new log message, the log button text of the toolbar is colored red. If the
     <a href="configurationtts.html">text-to-speech</a> output is enabled and configured and the text of the log is valid, then
-    there is a voice output.
+    there is a voice output. Pressing the "Clear" button removes all log messages.
     <br><br>
     A log message consists of three columns:
     <h3>UTC</h3>
