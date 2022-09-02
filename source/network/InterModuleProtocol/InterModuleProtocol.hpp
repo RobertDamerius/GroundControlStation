@@ -1,6 +1,6 @@
 /**
  *  @file InterModuleProtocol.hpp
- *  @brief Version 202010701.
+ *  @brief Version 20220902.
  *  @details This is the main header file. You only need to include this header file to use the Inter-Module Protocol.
  */
 #pragma once

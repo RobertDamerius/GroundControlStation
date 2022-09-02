@@ -140,8 +140,8 @@ void Test::Task(void){
         velocities.push_back(std::array<double, 3>({0.0, 0.0, 0.0}));
     appWindow.canvas.scene.vehicleManager.SetPolygons(id, 0, 4, polygons, velocities);
 
-    GUILog("Hello World!", 255, 255, 255);
     double t = 0.0;
+    int k = 0;
     while(!Test::terminate){
         state.position.x = 10.0 * std::cos(t);
         state.position.y = 10.0 * std::sin(1.61803398874989 * t);
@@ -149,6 +149,12 @@ void Test::Task(void){
         appWindow.canvas.scene.vehicleManager.UpdateVehicleNavigation(id, state);
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         t += 0.01;
+        if(++k > 250){
+            k = 0;
+            GUILog("Hello World!", 255, 255, 255);
+            std::string hw("Hello World!");
+            appWindow.textToSpeech.AddToQueue(hw);
+        }
     }
 }
 

@@ -12,6 +12,7 @@
 
 
 #define GUI_COLOR_CLOSE_BUTTON      0.5f,0.1f,0.1f,0.5f
+#define GUI_COLOR_CLEAR_BUTTON      0.5f,0.5f,0.5f,0.5f
 #define GUI_FONT_SIZE               18.0f
 #define GUI_TEXT_COLOR_GUIDANCE_R   (30)
 #define GUI_TEXT_COLOR_GUIDANCE_G   (190)

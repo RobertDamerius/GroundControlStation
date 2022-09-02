@@ -30,6 +30,11 @@ class WidgetLog: public nanogui::Window {
          */
         void AddLogEntry(const LogEntry& log);
 
+        /**
+         * @brief Clear the whole log.
+         */
+        void ClearLog(void);
+
     private:
         nanogui::Widget* logContent;     ///< The widget where to add new logs.
         std::vector<LogEntry> logsToAdd; ///< The logs that should be added.

@@ -35,6 +35,7 @@ The directory structure of this repository is as follows.
 | 2021-07-01  | 1.4      | Updated IMP protocol to latest version and limited numeric string lengths                                 |
 | 2022-01-27  | 1.5      | Fixed several bugs concerning rendering and human interface controls                                      |
 | 2022-03-15  | 1.6      | Additional bug fixes                                                                                      |
+| 2022-09-02  | 1.7      | Updated network protocol (IMP). Logs can now be cleared.                                                  |
 
 ![](bin/documentation/img/Overview.png)
 

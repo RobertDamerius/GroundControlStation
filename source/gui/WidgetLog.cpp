@@ -35,9 +35,16 @@ WidgetLog::WidgetLog(nanogui::Widget *parent): nanogui::Window(parent, "Log"){
                 "          ","sans-bold",GUI_FONT_SIZE);
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // End: Close button
+    // End: Clear/Close button
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Button* buttonClose = new Button(this, "Close", ENTYPO_ICON_CIRCLE_WITH_CROSS);
+    Widget* buttonContainer = new Widget(this);
+    buttonContainer->setLayout(new GridLayout(Orientation::Horizontal, 2, Alignment::Fill, 0, 0));
+    Button* buttonClear = new Button(buttonContainer, "Clear", ENTYPO_ICON_TRASH);
+    buttonClear->setBackgroundColor(Color(GUI_COLOR_CLEAR_BUTTON));
+    buttonClear->setCallback([this](){
+        this->ClearLog();
+    });
+    Button* buttonClose = new Button(buttonContainer, "Close", ENTYPO_ICON_CIRCLE_WITH_CROSS);
     buttonClose->setBackgroundColor(Color(GUI_COLOR_CLOSE_BUTTON));
     buttonClose->setCallback([this](){
         this->setVisible(false);
@@ -68,6 +75,15 @@ void WidgetLog::update(NVGcontext *ctx){
 void WidgetLog::AddLogEntry(const LogEntry& log){
     mtx.lock();
     logsToAdd.push_back(log);
+    mtx.unlock();
+}
+
+void WidgetLog::ClearLog(void){
+    mtx.lock();
+    int numChilds = logContent->childCount();
+    for(int i = numChilds - 1; i > 4; --i){
+        logContent->removeChild(i);
+    }
     mtx.unlock();
 }
 

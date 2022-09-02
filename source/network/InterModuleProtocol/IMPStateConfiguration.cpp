@@ -30,6 +30,7 @@ union protocol_gnc_state_configuration {
         uint32_t sideSlipAngleRepresentation:1;
         uint32_t sideSlipAngleAvailability:1;
     } values;
+    uint32_t u32;
     uint8_t bytes[4];
 };
 #pragma pack(pop)
@@ -96,36 +97,34 @@ int IMP::StateConfiguration::Encode(uint8_t* bytes, const uint32_t length){
         return -1;
     }
 
-    // Create configuration data
-    union protocol_gnc_state_configuration data;
-    data.values.positionLLARepresentation = (uint32_t)positionLLA.representation;
-    data.values.positionLLAAvailability = (uint32_t)positionLLA.available;
-    data.values.positionNEDRepresentation = (uint32_t)positionNED.representation;
-    data.values.positionNEDAvailability = (uint32_t)positionNED.available;
-    data.values.orientationQuaternionRepresentation = (uint32_t)orientationQuaternion.representation;
-    data.values.orientationQuaternionAvailability = (uint32_t)orientationQuaternion.available;
-    data.values.orientationRollPitchYawRepresentation = (uint32_t)orientationRollPitchYaw.representation;
-    data.values.orientationRollPitchYawAvailability = (uint32_t)orientationRollPitchYaw.available;
-    data.values.velocityNEDUVWRepresentation = (uint32_t)velocityNEDUVW.representation;
-    data.values.velocityNEDUVWAvailabilityE = (uint32_t)velocityNEDUVW.availableE;
-    data.values.velocityNEDUVWAvailabilityB = (uint32_t)velocityNEDUVW.availableB;
-    data.values.velocityPQRRepresentation = (uint32_t)velocityPQR.representation;
-    data.values.velocityPQRAvailability = (uint32_t)velocityPQR.available;
-    data.values.accelerationNEDXYZRepresentation = (uint32_t)accelerationNEDXYZ.representation;
-    data.values.accelerationNEDXYZAvailabilityE = (uint32_t)accelerationNEDXYZ.availableE;
-    data.values.accelerationNEDXYZAvailabilityB = (uint32_t)accelerationNEDXYZ.availableB;
-    data.values.courseOverGroundRepresentation = (uint32_t)courseOverGround.representation;
-    data.values.courseOverGroundAvailability = (uint32_t)courseOverGround.available;
-    data.values.speedOverGroundRepresentation = (uint32_t)speedOverGround.representation;
-    data.values.speedOverGroundAvailability = (uint32_t)speedOverGround.available;
-    data.values.angleOfAttackRepresentation = (uint32_t)angleOfAttack.representation;
-    data.values.angleOfAttackAvailability = (uint32_t)angleOfAttack.available;
-    data.values.sideSlipAngleRepresentation = (uint32_t)sideSlipAngle.representation;
-    data.values.sideSlipAngleAvailability = (uint32_t)sideSlipAngle.available;
-
-    // Copy to output buffer
-    memcpy(&bytes[0], &data.bytes[0], 4);
-    return (int)4;
+    // Assign configuration bitfield and swap to network byte order
+    protocol_gnc_state_configuration* p = reinterpret_cast<protocol_gnc_state_configuration*>(&bytes[0]);
+    p->values.positionLLARepresentation = static_cast<uint32_t>(positionLLA.representation);
+    p->values.positionLLAAvailability = static_cast<uint32_t>(positionLLA.available);
+    p->values.positionNEDRepresentation = static_cast<uint32_t>(positionNED.representation);
+    p->values.positionNEDAvailability = static_cast<uint32_t>(positionNED.available);
+    p->values.orientationQuaternionRepresentation = static_cast<uint32_t>(orientationQuaternion.representation);
+    p->values.orientationQuaternionAvailability = static_cast<uint32_t>(orientationQuaternion.available);
+    p->values.orientationRollPitchYawRepresentation = static_cast<uint32_t>(orientationRollPitchYaw.representation);
+    p->values.orientationRollPitchYawAvailability = static_cast<uint32_t>(orientationRollPitchYaw.available);
+    p->values.velocityNEDUVWRepresentation = static_cast<uint32_t>(velocityNEDUVW.representation);
+    p->values.velocityNEDUVWAvailabilityE = static_cast<uint32_t>(velocityNEDUVW.availableE);
+    p->values.velocityNEDUVWAvailabilityB = static_cast<uint32_t>(velocityNEDUVW.availableB);
+    p->values.velocityPQRRepresentation = static_cast<uint32_t>(velocityPQR.representation);
+    p->values.velocityPQRAvailability = static_cast<uint32_t>(velocityPQR.available);
+    p->values.accelerationNEDXYZRepresentation = static_cast<uint32_t>(accelerationNEDXYZ.representation);
+    p->values.accelerationNEDXYZAvailabilityE = static_cast<uint32_t>(accelerationNEDXYZ.availableE);
+    p->values.accelerationNEDXYZAvailabilityB = static_cast<uint32_t>(accelerationNEDXYZ.availableB);
+    p->values.courseOverGroundRepresentation = static_cast<uint32_t>(courseOverGround.representation);
+    p->values.courseOverGroundAvailability = static_cast<uint32_t>(courseOverGround.available);
+    p->values.speedOverGroundRepresentation = static_cast<uint32_t>(speedOverGround.representation);
+    p->values.speedOverGroundAvailability = static_cast<uint32_t>(speedOverGround.available);
+    p->values.angleOfAttackRepresentation = static_cast<uint32_t>(angleOfAttack.representation);
+    p->values.angleOfAttackAvailability = static_cast<uint32_t>(angleOfAttack.available);
+    p->values.sideSlipAngleRepresentation = static_cast<uint32_t>(sideSlipAngle.representation);
+    p->values.sideSlipAngleAvailability = static_cast<uint32_t>(sideSlipAngle.available);
+    p->u32 = IMPSwapByteOrder(p->u32);
+    return 4;
 }
 
 int IMP::StateConfiguration::Decode(const uint8_t* bytes, const uint32_t length){
@@ -134,35 +133,36 @@ int IMP::StateConfiguration::Decode(const uint8_t* bytes, const uint32_t length)
         return -1;
     }
 
-    // Copy bytes from input buffer
-    union protocol_gnc_state_configuration data;
+    // Copy bytes from input buffer to union and swap to host byte order
+    protocol_gnc_state_configuration data;
     memcpy(&data.bytes[0], &bytes[0], 4);
+    data.u32 = IMPSwapByteOrder(data.u32);
 
     // Set attributes
-    positionLLA.representation = (IMP::state_configuration_representation)data.values.positionLLARepresentation;
-    positionLLA.available = (IMP::state_configuration_availability_indicator)data.values.positionLLAAvailability;
-    positionNED.representation = (IMP::state_configuration_representation)data.values.positionNEDRepresentation;
-    positionNED.available = (IMP::state_configuration_availability_indicator)data.values.positionNEDAvailability;
-    orientationQuaternion.representation = (IMP::state_configuration_representation)data.values.orientationQuaternionRepresentation;
-    orientationQuaternion.available = (bool)data.values.orientationQuaternionAvailability;
-    orientationRollPitchYaw.representation = (IMP::state_configuration_representation)data.values.orientationRollPitchYawRepresentation;
-    orientationRollPitchYaw.available = (IMP::state_configuration_availability_indicator)data.values.orientationRollPitchYawAvailability;
-    velocityNEDUVW.representation = (IMP::state_configuration_representation)data.values.velocityNEDUVWRepresentation;
-    velocityNEDUVW.availableE = (IMP::state_configuration_availability_indicator)data.values.velocityNEDUVWAvailabilityE;
-    velocityNEDUVW.availableB = (IMP::state_configuration_availability_indicator)data.values.velocityNEDUVWAvailabilityB;
-    velocityPQR.representation = (IMP::state_configuration_representation)data.values.velocityPQRRepresentation;
-    velocityPQR.available = (IMP::state_configuration_availability_indicator)data.values.velocityPQRAvailability;
-    accelerationNEDXYZ.representation = (IMP::state_configuration_representation)data.values.accelerationNEDXYZRepresentation;
-    accelerationNEDXYZ.availableE = (IMP::state_configuration_availability_indicator)data.values.accelerationNEDXYZAvailabilityE;
-    accelerationNEDXYZ.availableB = (IMP::state_configuration_availability_indicator)data.values.accelerationNEDXYZAvailabilityB;
-    courseOverGround.representation = (IMP::state_configuration_representation)data.values.courseOverGroundRepresentation;
-    courseOverGround.available = (bool)data.values.courseOverGroundAvailability;
-    speedOverGround.representation = (IMP::state_configuration_representation)data.values.speedOverGroundRepresentation;
-    speedOverGround.available = (bool)data.values.speedOverGroundAvailability;
-    angleOfAttack.representation = (IMP::state_configuration_representation)data.values.angleOfAttackRepresentation;
-    angleOfAttack.available = (bool)data.values.angleOfAttackAvailability;
-    sideSlipAngle.representation = (IMP::state_configuration_representation)data.values.sideSlipAngleRepresentation;
-    sideSlipAngle.available = (bool)data.values.sideSlipAngleAvailability;
+    positionLLA.representation = static_cast<IMP::state_configuration_representation>(data.values.positionLLARepresentation);
+    positionLLA.available = static_cast<IMP::state_configuration_availability_indicator>(data.values.positionLLAAvailability);
+    positionNED.representation = static_cast<IMP::state_configuration_representation>(data.values.positionNEDRepresentation);
+    positionNED.available = static_cast<IMP::state_configuration_availability_indicator>(data.values.positionNEDAvailability);
+    orientationQuaternion.representation = static_cast<IMP::state_configuration_representation>(data.values.orientationQuaternionRepresentation);
+    orientationQuaternion.available = static_cast<bool>(data.values.orientationQuaternionAvailability);
+    orientationRollPitchYaw.representation = static_cast<IMP::state_configuration_representation>(data.values.orientationRollPitchYawRepresentation);
+    orientationRollPitchYaw.available = static_cast<IMP::state_configuration_availability_indicator>(data.values.orientationRollPitchYawAvailability);
+    velocityNEDUVW.representation = static_cast<IMP::state_configuration_representation>(data.values.velocityNEDUVWRepresentation);
+    velocityNEDUVW.availableE = static_cast<IMP::state_configuration_availability_indicator>(data.values.velocityNEDUVWAvailabilityE);
+    velocityNEDUVW.availableB = static_cast<IMP::state_configuration_availability_indicator>(data.values.velocityNEDUVWAvailabilityB);
+    velocityPQR.representation = static_cast<IMP::state_configuration_representation>(data.values.velocityPQRRepresentation);
+    velocityPQR.available = static_cast<IMP::state_configuration_availability_indicator>(data.values.velocityPQRAvailability);
+    accelerationNEDXYZ.representation = static_cast<IMP::state_configuration_representation>(data.values.accelerationNEDXYZRepresentation);
+    accelerationNEDXYZ.availableE = static_cast<IMP::state_configuration_availability_indicator>(data.values.accelerationNEDXYZAvailabilityE);
+    accelerationNEDXYZ.availableB = static_cast<IMP::state_configuration_availability_indicator>(data.values.accelerationNEDXYZAvailabilityB);
+    courseOverGround.representation = static_cast<IMP::state_configuration_representation>(data.values.courseOverGroundRepresentation);
+    courseOverGround.available = static_cast<bool>(data.values.courseOverGroundAvailability);
+    speedOverGround.representation = static_cast<IMP::state_configuration_representation>(data.values.speedOverGroundRepresentation);
+    speedOverGround.available = static_cast<bool>(data.values.speedOverGroundAvailability);
+    angleOfAttack.representation = static_cast<IMP::state_configuration_representation>(data.values.angleOfAttackRepresentation);
+    angleOfAttack.available = static_cast<bool>(data.values.angleOfAttackAvailability);
+    sideSlipAngle.representation = static_cast<IMP::state_configuration_representation>(data.values.sideSlipAngleRepresentation);
+    sideSlipAngle.available = static_cast<bool>(data.values.sideSlipAngleAvailability);
     return 4;
 }
 

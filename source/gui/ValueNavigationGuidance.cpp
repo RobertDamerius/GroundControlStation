@@ -49,7 +49,7 @@ void ValueNavigationGuidance::update(NVGcontext *ctx){
     std::stringstream streamNav;
     streamNav << std::fixed << std::setprecision(6) << this->navigation;
     std::string strNavigation = streamNav.str();
-    if(strNavigation.length() > 11){
+    if(strNavigation.length() > 10){
         std::stringstream ss;
         ss << std::setprecision(3) << std::setw(7) << this->navigation;
         strNavigation = ss.str();
@@ -57,7 +57,7 @@ void ValueNavigationGuidance::update(NVGcontext *ctx){
     std::stringstream streamGui;
     streamGui << std::fixed << std::setprecision(6) << this->guidance;
     std::string strGuidance = streamGui.str();
-    if(strGuidance.length() > 11){
+    if(strGuidance.length() > 10){
         std::stringstream ss;
         ss << std::setprecision(3) << std::setw(7) << this->guidance;
         strGuidance = ss.str();

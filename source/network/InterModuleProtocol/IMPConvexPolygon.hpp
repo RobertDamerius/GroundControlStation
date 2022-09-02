@@ -1,6 +1,6 @@
 /**
  *  @file IMPConvexPolygon.hpp
- *  @brief Version 20200919.
+ *  @brief Version 20220902.
  */
 #pragma once
 
