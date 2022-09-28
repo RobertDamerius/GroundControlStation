@@ -40,13 +40,13 @@ bool NetworkVehicleDatabase::GetVehicleID(VehicleID& out, RD::Network::Endpoint&
         // If this endpoint is not in the list, add it
         auto a = requests.find(in);
         if(a == requests.end()){
-            requests.insert(std::pair<RD::Network::Endpoint, std::chrono::time_point<std::chrono::steady_clock>>(in, std::chrono::steady_clock::now()));
+            requests.insert(std::pair<RD::Network::Endpoint, std::chrono::time_point<std::chrono::high_resolution_clock>>(in, std::chrono::high_resolution_clock::now()));
             sendRequest = true;
         }
 
         // Else, check time
         else{
-            auto timeNow = std::chrono::steady_clock::now();
+            auto timeNow = std::chrono::high_resolution_clock::now();
             if(std::chrono::duration_cast<std::chrono::milliseconds>(timeNow - a->second).count() > 1000){
                 a->second = timeNow;
                 sendRequest = true;

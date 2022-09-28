@@ -942,7 +942,7 @@ void WidgetVehicle::update(NVGcontext *ctx){
     this->velocityR->guidanceActive = (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (guidance.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
     this->velocityR->navigationActive = (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_Z) || (navigation.conf.velocityPQR.available == IMP::STATE_CONFIGURATION_AVAILABILITY_XYZ);
 
-    auto currentTime = std::chrono::steady_clock::now();
+    auto currentTime = std::chrono::high_resolution_clock::now();
     this->timeNavigation->value = 1e-9 * double(std::chrono::duration_cast<std::chrono::nanoseconds>(currentTime - timeOfLatestMessage.navigation).count());
     this->timeGuidance->value = 1e-9 * double(std::chrono::duration_cast<std::chrono::nanoseconds>(currentTime - timeOfLatestMessage.guidance).count());
     this->timeGuidanceTrajectory->value = 1e-9 * double(std::chrono::duration_cast<std::chrono::nanoseconds>(currentTime - timeOfLatestMessage.guidanceTrajectory).count());

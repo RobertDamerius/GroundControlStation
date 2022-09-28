@@ -7,18 +7,18 @@
 // Version Settings
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const std::string strAppName("GroundControlStation");
-const std::string strVersion("20220902");
+const std::string strVersion("20220928");
 const std::string strBuilt(__DATE__ " " __TIME__);
 
 
 double GetTimestampUTC(void){
-    auto systemClock = std::chrono::system_clock::now();
-    std::time_t systemTime = std::chrono::system_clock::to_time_t(systemClock);
+    auto timePoint = std::chrono::high_resolution_clock::now();
+    std::time_t systemTime = std::chrono::high_resolution_clock::to_time_t(timePoint);
     std::tm* gmTime = std::gmtime(&systemTime);
     double s = (double)gmTime->tm_sec;
     double m = (double)gmTime->tm_min;
     double h = (double)gmTime->tm_hour;
-    auto duration = systemClock.time_since_epoch();
+    auto duration = timePoint.time_since_epoch();
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
     duration -= seconds;
     int nanoseconds = (int)std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();

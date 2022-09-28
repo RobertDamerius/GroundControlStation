@@ -5,13 +5,13 @@
 
 
 double IMP::GetTimestampUTC(void){
-    auto systemClock = std::chrono::system_clock::now();
-    std::time_t systemTime = std::chrono::system_clock::to_time_t(systemClock);
+    auto timePoint = std::chrono::high_resolution_clock::now();
+    std::time_t systemTime = std::chrono::high_resolution_clock::to_time_t(timePoint);
     std::tm* gmTime = std::gmtime(&systemTime);
     double s = (double)gmTime->tm_sec;
     double m = (double)gmTime->tm_min;
     double h = (double)gmTime->tm_hour;
-    auto duration = systemClock.time_since_epoch();
+    auto duration = timePoint.time_since_epoch();
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
     duration -= seconds;
     int nanoseconds = (int)std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
@@ -682,13 +682,13 @@ int IMP::GuidanceTrajectoryMessage::Decode(const uint8_t* bytes, const uint32_t 
 }
 
 void IMP::GuidanceTrajectoryMessage::SetStartTimeNow(void){
-    auto systemClock = std::chrono::system_clock::now();
-    std::time_t systemTime = std::chrono::system_clock::to_time_t(systemClock);
+    auto timePoint = std::chrono::high_resolution_clock::now();
+    std::time_t systemTime = std::chrono::high_resolution_clock::to_time_t(timePoint);
     std::tm* gmTime = std::gmtime(&systemTime);
     double s = (double)gmTime->tm_sec;
     double m = (double)gmTime->tm_min;
     double h = (double)gmTime->tm_hour;
-    auto duration = systemClock.time_since_epoch();
+    auto duration = timePoint.time_since_epoch();
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
     duration -= seconds;
     int nanoseconds = (int)std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();

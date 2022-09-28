@@ -87,8 +87,8 @@ void WidgetToolbar::performLayout(NVGcontext *ctx){
 
 void WidgetToolbar::update(NVGcontext *ctx){
     // Update time label
-    auto systemClock = std::chrono::system_clock::now();
-    std::time_t systemTime = std::chrono::system_clock::to_time_t(systemClock);
+    auto timePoint = std::chrono::high_resolution_clock::now();
+    std::time_t systemTime = std::chrono::high_resolution_clock::to_time_t(timePoint);
     std::tm* localTime = std::localtime(&systemTime);
     char strTime[16];
     sprintf(strTime, "%02d:%02d:%02d",localTime->tm_hour,localTime->tm_min,localTime->tm_sec);

@@ -76,8 +76,8 @@ WidgetTime::~WidgetTime(){}
 
 void WidgetTime::update(NVGcontext *ctx){
     // Get system time
-    auto systemClock = std::chrono::system_clock::now();
-    std::time_t systemTime = std::chrono::system_clock::to_time_t(systemClock);
+    auto timePoint = std::chrono::high_resolution_clock::now();
+    std::time_t systemTime = std::chrono::high_resolution_clock::to_time_t(timePoint);
 
     // Create UTC time string
     char strBuf[64];
@@ -88,7 +88,7 @@ void WidgetTime::update(NVGcontext *ctx){
     }
 
     // Create UTC second of day time string
-    auto duration = systemClock.time_since_epoch();
+    auto duration = timePoint.time_since_epoch();
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
     duration -= seconds;
     double sod = double(60*(60 * t->tm_hour + t->tm_min) + t->tm_sec) + 0.000000001 * double(std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count());
@@ -105,7 +105,7 @@ void WidgetTime::update(NVGcontext *ctx){
     }
 
     // Create unix time string
-    double unix = 0.001 * double(std::chrono::duration_cast<std::chrono::milliseconds>(systemClock.time_since_epoch()).count());
+    double unix = 0.001 * double(std::chrono::duration_cast<std::chrono::milliseconds>(timePoint.time_since_epoch()).count());
     sprintf(&strBuf[0], "%.03lf s",unix);
     if(labelUNIX){
         labelUNIX->setCaption(strBuf);

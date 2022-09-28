@@ -76,6 +76,7 @@
         "codecvt": "cpp",
         "future": "cpp",
         "valarray": "cpp",
-        "config": "c"
+        "config": "c",
+        "regex": "cpp"
     }
 }

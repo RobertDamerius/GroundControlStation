@@ -10,11 +10,11 @@ Vehicle::Vehicle(){
     useMesh = true;
     meshExists = false;
     altitudeToZero = Configuration::style.altitudeToZero;
-    timeOfLatestMessage.navigation = std::chrono::steady_clock::now();
-    timeOfLatestMessage.guidance = std::chrono::steady_clock::now();
-    timeOfLatestMessage.guidanceTrajectory = std::chrono::steady_clock::now();
-    timeOfLatestMessage.guidanceWaypoint = std::chrono::steady_clock::now();
-    timeOfLatestMessage.polygon = std::chrono::steady_clock::now();
+    timeOfLatestMessage.navigation = std::chrono::high_resolution_clock::now();
+    timeOfLatestMessage.guidance = std::chrono::high_resolution_clock::now();
+    timeOfLatestMessage.guidanceTrajectory = std::chrono::high_resolution_clock::now();
+    timeOfLatestMessage.guidanceWaypoint = std::chrono::high_resolution_clock::now();
+    timeOfLatestMessage.polygon = std::chrono::high_resolution_clock::now();
 }
 
 Vehicle::~Vehicle(){}

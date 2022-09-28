@@ -38,7 +38,7 @@ void VehicleManager::UpdateVehicleNavigation(const VehicleID& id, RigidBodyState
     std::unordered_map<VehicleID,Vehicle>::iterator got = vehicles.find(id);
     if(got != vehicles.end()){
         got->second.navigation = stateNavigation;
-        got->second.timeOfLatestMessage.navigation = std::chrono::steady_clock::now();
+        got->second.timeOfLatestMessage.navigation = std::chrono::high_resolution_clock::now();
         if(got->second.navigation.overridePosition){
             appWindow.canvas.scene.origin.Update(got->second.navigation.latitude(), got->second.navigation.longitude(), got->second.navigation.altitude);
             appWindow.canvas.scene.origin.LLA2NED(got->second.navigation.position, glm::dvec3(got->second.navigation.latitude(), got->second.navigation.longitude(), got->second.navigation.altitude));
@@ -52,7 +52,7 @@ void VehicleManager::UpdateVehicleGuidance(const VehicleID& id, RigidBodyState& 
     std::unordered_map<VehicleID,Vehicle>::iterator got = vehicles.find(id);
     if(got != vehicles.end()){
         got->second.guidance = stateGuidance;
-        got->second.timeOfLatestMessage.guidance = std::chrono::steady_clock::now();
+        got->second.timeOfLatestMessage.guidance = std::chrono::high_resolution_clock::now();
         if(got->second.guidance.overridePosition){
             appWindow.canvas.scene.origin.Update(got->second.guidance.latitude(), got->second.guidance.longitude(), got->second.guidance.altitude);
             appWindow.canvas.scene.origin.LLA2NED(got->second.guidance.position, glm::dvec3(got->second.guidance.latitude(), got->second.guidance.longitude(), got->second.guidance.altitude));
@@ -67,7 +67,7 @@ void VehicleManager::SetWaypoints(const VehicleID& id, std::vector<RigidBodyStat
     if(got != vehicles.end()){
         got->second.waypoints.elements.swap(waypoints);
         got->second.waypoints.shouldGenerate = true;
-        got->second.timeOfLatestMessage.guidanceWaypoint = std::chrono::steady_clock::now();
+        got->second.timeOfLatestMessage.guidanceWaypoint = std::chrono::high_resolution_clock::now();
     }
     mtxVehicles.unlock();
 }
@@ -79,7 +79,7 @@ void VehicleManager::SetTrajectory(const VehicleID& id, std::vector<RigidBodySta
         got->second.trajectory.SetSampletime(dt);
         got->second.trajectory.elements.swap(trajectory);
         got->second.trajectory.shouldGenerate = true;
-        got->second.timeOfLatestMessage.guidanceTrajectory = std::chrono::steady_clock::now();
+        got->second.timeOfLatestMessage.guidanceTrajectory = std::chrono::high_resolution_clock::now();
     }
     mtxVehicles.unlock();
 }
@@ -105,7 +105,7 @@ void VehicleManager::SetPolygons(const VehicleID& id, const uint8_t segmentIndex
         got->second.polygons.AddPolygons(polygons, velocities);
 
         // Update time info
-        got->second.timeOfLatestMessage.polygon = std::chrono::steady_clock::now();;
+        got->second.timeOfLatestMessage.polygon = std::chrono::high_resolution_clock::now();;
     }
     mtxVehicles.unlock();
 }

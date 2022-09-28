@@ -28,11 +28,11 @@ class Vehicle: public Polytope {
         Trajectory trajectory;                ///< The commanded trajectory.
         PolygonContainer polygons;            ///< The polygon container.
         struct TimeOfLatestMessage {
-            std::chrono::steady_clock::time_point navigation;
-            std::chrono::steady_clock::time_point guidance;
-            std::chrono::steady_clock::time_point guidanceTrajectory;
-            std::chrono::steady_clock::time_point guidanceWaypoint;
-            std::chrono::steady_clock::time_point polygon;
+            std::chrono::high_resolution_clock::time_point navigation;
+            std::chrono::high_resolution_clock::time_point guidance;
+            std::chrono::high_resolution_clock::time_point guidanceTrajectory;
+            std::chrono::high_resolution_clock::time_point guidanceWaypoint;
+            std::chrono::high_resolution_clock::time_point polygon;
         } timeOfLatestMessage;
         PolyMesh mesh;
         bool meshExists;

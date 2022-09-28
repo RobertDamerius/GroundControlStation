@@ -62,7 +62,7 @@ class NetworkVehicleDatabase {
         std::shared_mutex mtxRelations;
 
         /* Request database */
-        std::unordered_map<RD::Network::Endpoint, std::chrono::time_point<std::chrono::steady_clock>> requests;
+        std::unordered_map<RD::Network::Endpoint, std::chrono::time_point<std::chrono::high_resolution_clock>> requests;
         std::mutex mtxRequests;
 };
 
