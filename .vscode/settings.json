@@ -77,6 +77,8 @@
         "future": "cpp",
         "valarray": "cpp",
         "config": "c",
-        "regex": "cpp"
+        "regex": "cpp",
+        "source_location": "cpp",
+        "span": "cpp"
     }
 }

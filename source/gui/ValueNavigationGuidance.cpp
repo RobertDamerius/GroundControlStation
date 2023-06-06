@@ -47,19 +47,19 @@ void ValueNavigationGuidance::update(NVGcontext *ctx){
 
     // Generate limited strings for navigation and guidance values
     std::stringstream streamNav;
-    streamNav << std::fixed << std::setprecision(6) << this->navigation;
+    streamNav << std::fixed << std::setprecision(3) << this->navigation;
     std::string strNavigation = streamNav.str();
     if(strNavigation.length() > 10){
         std::stringstream ss;
-        ss << std::setprecision(3) << std::setw(7) << this->navigation;
+        ss << std::setprecision(2) << this->navigation;
         strNavigation = ss.str();
     }
     std::stringstream streamGui;
-    streamGui << std::fixed << std::setprecision(6) << this->guidance;
+    streamGui << std::fixed << std::setprecision(3) << this->guidance;
     std::string strGuidance = streamGui.str();
     if(strGuidance.length() > 10){
         std::stringstream ss;
-        ss << std::setprecision(3) << std::setw(7) << this->guidance;
+        ss << std::setprecision(2) << this->guidance;
         strGuidance = ss.str();
     }
 
