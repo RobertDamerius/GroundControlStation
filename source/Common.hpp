@@ -55,7 +55,7 @@
 
 // Camera settings
 #define CAMERA_CLIP_NEAR_DEFAULT                (0.1)
-#define CAMERA_CLIP_FAR_DEFAULT                 (500.0)
+#define CAMERA_CLIP_FAR_DEFAULT                 (1000.0)
 #define CAMERA_HORIZONTAL_WRAP                  (200.0)
 
 

@@ -1,8 +1,8 @@
 GLFW_ICON ICON "symbol.ico"
 
 1 VERSIONINFO
-FILEVERSION     1,8,0,0
-PRODUCTVERSION  1,8,0,0
+FILEVERSION     1,9,0,0
+PRODUCTVERSION  1,9,0,0
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
@@ -10,12 +10,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "Robert Damerius"
       VALUE "FileDescription", "GCS"
-      VALUE "FileVersion", "1.8"
+      VALUE "FileVersion", "1.9"
       VALUE "InternalName", "GCS"
       VALUE "LegalCopyright", "Robert Damerius"
       VALUE "OriginalFilename", "GCS.exe"
       VALUE "ProductName", "GCS"
-      VALUE "ProductVersion", "1.8"
+      VALUE "ProductVersion", "1.9"
     END
   END
 

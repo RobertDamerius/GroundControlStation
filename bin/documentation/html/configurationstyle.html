@@ -10,7 +10,7 @@
 <body>
 <header>
 <div class="header_title">Ground Control Station (GCS)</div>
-<div class="header_version">Version 20220902</div>
+<div class="header_version">Version 20230610</div>
 </header>
 <button onclick="PageToTop()" id="buttonToTop"></button>
 <div class="wrapper">
@@ -52,6 +52,14 @@
 # Set initial camera mode {"2D","3D"}
 [Camera.Mode]
     2D
+
+# Set initial near clipping plane
+[Camera.ClipNear]
+    0.1
+
+# Set initial far clipping plane
+[Camera.ClipFar]
+    1000.0
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,6 +196,8 @@
     <table>
         <tr><th width="300px">Key value</th><th>Description</th></tr>
         <tr><td style="font-family: Courier-New;">Camera.Mode</td><td>Specifies the <a href="view.html">camera mode</a>, either "2D" or "3D".</td></tr>
+        <tr><td style="font-family: Courier-New;">Camera.ClipNear</td><td>Specifies the value for the near clipping plane. The default value is 0.1.</td></tr>
+        <tr><td style="font-family: Courier-New;">Camera.ClipFar</td><td>Specifies the value for the far clipping plane. The default value is 1000.0.</td></tr>
         <tr><td style="font-family: Courier-New;">Display.Gamma</td><td>Specifies the value for the <a href="view.html">gamma correction</a>.</td></tr>
         <tr><td style="font-family: Courier-New;">Display.GroundColor</td><td>Specifies the <a href="view.html">color value for the ground plane</a> at z=0, for example "134,169,182".</td></tr>
         <tr><td style="font-family: Courier-New;">Vehicle.AltitudeToZero</td><td>Specifies whether the vehicle should be drawn in the <a href="datasettings.html">x-y-plane</a> or not.</td></tr>

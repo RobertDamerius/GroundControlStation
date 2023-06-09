@@ -27,8 +27,8 @@ bool Scene::Initialize(void){
 
     // Camera settings
         viewCamera.fov = glm::radians(70.0);
-        viewCamera.clipNear = CAMERA_CLIP_NEAR_DEFAULT;
-        viewCamera.clipFar = CAMERA_CLIP_FAR_DEFAULT;
+        viewCamera.clipNear = Configuration::style.cameraClipNear;
+        viewCamera.clipFar = Configuration::style.cameraClipFar;
         viewCamera.position = glm::dvec3(0.0, 10.0, 0.0);
         viewCamera.up = glm::dvec3(0.0, 1.0, 0.0);
         viewCamera.view = glm::dvec3(1.0, 0.0, 0.0);

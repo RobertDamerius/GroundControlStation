@@ -7,6 +7,8 @@
 class StyleConfiguration {
     public:
         bool cameraMode;                 ///< false: 2D, true: 3D
+        double cameraClipNear;
+        double cameraClipFar;
         double displayGamma;
         glm::dvec3 displayGroundColor;
         bool altitudeToZero;

@@ -37,6 +37,7 @@ The directory structure of this repository is as follows.
 | 2022-03-15  | 1.6      | Additional bug fixes                                                                                      |
 | 2022-09-02  | 1.7      | Updated network protocol (IMP). Logs can now be cleared.                                                  |
 | 2022-09-28  | 1.8      | Use high resolution clock for time measurements and timestamp generation.                                 |
+| 2023-06-10  | 1.9      | Added near and far clipping plane values to style configuration file.                                     |
 
 ![](bin/documentation/img/Overview.png)
 

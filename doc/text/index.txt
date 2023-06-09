@@ -9,7 +9,7 @@
     are shown in the following table.
     <br>
     <table>
-        <tr><th width="200px">IMP-Version</th><td>20200919</td></tr>
+        <tr><th width="200px">IMP-Version</th><td>20220902</td></tr>
         <tr><th valign="top">Supported Messages</th><td>
             (0x00) Info Request Message<br>
             (0x01) Info Response Message<br>

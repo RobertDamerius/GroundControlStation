@@ -24,6 +24,8 @@ void StyleConfiguration::Read(void){
         return;
     }
     FindCameraMode(cfg, cameraMode, "Camera.Mode");
+    FindPositiveDouble(cfg, cameraClipNear, "Camera.ClipNear");
+    FindPositiveDouble(cfg, cameraClipFar, "Camera.ClipFar");
     FindPositiveDouble(cfg, displayGamma, "Display.Gamma");
     FindColor(cfg, displayGroundColor, "Display.GroundColor");
     FindBool(cfg, altitudeToZero, "Vehicle.AltitudeToZero");
@@ -71,6 +73,8 @@ void StyleConfiguration::Read(void){
 
 void StyleConfiguration::Reset(void){
     cameraMode = false;
+    cameraClipNear = CAMERA_CLIP_NEAR_DEFAULT;
+    cameraClipFar = CAMERA_CLIP_FAR_DEFAULT;
     displayGamma = GAMMA_DEFAULT;
     displayGroundColor = glm::dvec3(0.52549019f,0.61960784f,0.71372549f);
     altitudeToZero = false;
