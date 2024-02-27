@@ -60,6 +60,15 @@ void GUI::Terminate(void){
 }
 
 void GUI::Render(void){
+    // update dynamic GUI widgets
+    if(widgetLog){
+        widgetLog->UpdateLogs();
+    }
+    if(widgetVehicleList){
+        widgetVehicleList->UpdateElements();
+    }
+
+    // update and draw the screen and all its childs
     if(screen){
         screen->update();
         screen->performLayout();

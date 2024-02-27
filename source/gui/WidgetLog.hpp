@@ -19,10 +19,9 @@ class WidgetLog: public nanogui::Window {
         ~WidgetLog();
 
         /**
-         *  @brief Update event.
-         *  @param [in] ctx NanoVG context.
+         *  @brief Update the log elements.
          */
-        void update(NVGcontext *ctx)override;
+        void UpdateLogs(void);
 
         /**
          *  @brief Add a new log entry (thread-safe).
@@ -31,7 +30,8 @@ class WidgetLog: public nanogui::Window {
         void AddLogEntry(const LogEntry& log);
 
         /**
-         * @brief Clear the whole log.
+         *  @brief Clear the whole log.
+         *  @details This will only set the requestClearLogs flag. The actual clearing is done by the next @ref UpdateLogs call.
          */
         void ClearLog(void);
 
@@ -39,5 +39,6 @@ class WidgetLog: public nanogui::Window {
         nanogui::Widget* logContent;     ///< The widget where to add new logs.
         std::vector<LogEntry> logsToAdd; ///< The logs that should be added.
         std::mutex mtx;                  ///< Protect @ref logsToAdd.
+        bool requestClearLogs;           ///< True if logs should be cleared, false otherwise.
 };
 

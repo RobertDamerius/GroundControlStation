@@ -79,12 +79,16 @@ void SceneText::GenerateText(GLenum usage, const uint8_t tabSize){
 void SceneText::DeleteText(void){
     DEBUG_GLCHECK( glDeleteBuffers(1, &this->vbo) );
     DEBUG_GLCHECK( glDeleteVertexArrays(1, &this->vao) );
+    this->vbo = 0;
+    this->vao = 0;
 }
 
 void SceneText::Draw(void){
-    DEBUG_GLCHECK( glBindTexture(GL_TEXTURE_2D, SceneText::fontSprites[this->font].GetTexture()); );
-    DEBUG_GLCHECK( glBindVertexArray(this->vao); );
-    DEBUG_GLCHECK( glDrawArrays(GL_TRIANGLES, 0, this->vertices.size()); );
+    if(this->vao){
+        DEBUG_GLCHECK( glBindTexture(GL_TEXTURE_2D, SceneText::fontSprites[this->font].GetTexture()); );
+        DEBUG_GLCHECK( glBindVertexArray(this->vao); );
+        DEBUG_GLCHECK( glDrawArrays(GL_TRIANGLES, 0, this->vertices.size()); );
+    }
 }
 
 SceneText& SceneText::operator=(const SceneText& rhs){

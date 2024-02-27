@@ -20,10 +20,10 @@ class WidgetVehicleList: public nanogui::Window {
         ~WidgetVehicleList();
 
         /**
-         *  @brief Update event.
-         *  @param [in] ctx NanoVG context.
+         *  @brief Update the @ref elements.
+         *  @details New elements may be added.
          */
-        void update(NVGcontext *ctx)override;
+        void UpdateElements(void);
 
     protected:
         nanogui::Widget* scrollContent;

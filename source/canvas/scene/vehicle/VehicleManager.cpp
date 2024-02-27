@@ -105,7 +105,7 @@ void VehicleManager::SetPolygons(const VehicleID& id, const uint8_t segmentIndex
         got->second.polygons.AddPolygons(polygons, velocities);
 
         // Update time info
-        got->second.timeOfLatestMessage.polygon = std::chrono::high_resolution_clock::now();;
+        got->second.timeOfLatestMessage.polygon = std::chrono::high_resolution_clock::now();
     }
     mtxVehicles.unlock();
 }

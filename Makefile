@@ -27,7 +27,7 @@ DIRECTORY_PCH     := source/precompiled/
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Libraries and symbols
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-LIBS_WINDOWS      := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw3 -lglew32 -lopengl32 -lws2_32 -lgdi32 -lcomdlg32
+LIBS_WINDOWS      := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw3 -lglew32 -lopengl32 -lws2_32 -lbz2 -lharfbuzz -lgraphite2 -lgdi32 -lcomdlg32 -lrpcrt4 -lbrotlidec -lbrotlicommon
 LIBS_LINUX        := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw -lGLEW -lGL -lX11 -ldl
 CC_SYMBOLS         = 
 
@@ -36,9 +36,9 @@ CC_SYMBOLS         =
 # Flags
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Build Flags
-CC_FLAGS        = -Wall -Wextra -O3
-CPP_FLAGS       = -std=c++17 -Wall -Wextra -O3
-LD_FLAGS        = -Wall -Wextra -O3
+CC_FLAGS        = -Wall -Wextra
+CPP_FLAGS       = -std=c++17 -Wall -Wextra
+LD_FLAGS        = -Wall -Wextra
 DEP_FLAGS       = -MT $@ -MMD -MP -MF $(DIRECTORY_BUILD)$*.Td
 POSTCOMPILE     = mv -f $(DIRECTORY_BUILD)$*.Td $(DIRECTORY_BUILD)$*.d
 
@@ -49,11 +49,14 @@ ifeq ($(DEBUG_MODE), 1)
 	CC_SYMBOLS += -DDEBUG
 else
 	LD_FLAGS   += -s
+	CC_FLAGS   += -O3
+	CPP_FLAGS  += -O3
+	CC_SYMBOLS += -O3
 endif
 
 # Set final libs and enable/disable console
 ifeq ($(OS), Windows_NT)
-    LD_LIBS    := -static-libgcc -static-libstdc++ -Wl,-Bstatic $(LIBS_WINDOWS) -Wl,-Bdynamic
+    LD_LIBS    := -static-libgcc -static-libstdc++ -Wl,-Bstatic $(LIBS_WINDOWS) -Wl,-Bdynamic -lfreetype
     ifeq ($(DISABLE_CONSOLE), 1)
         LD_FLAGS += -Wl,-subsystem,windows
     endif
@@ -109,7 +112,11 @@ SHARED_OBJECTS = $(call rwildcard,$(DIRECTORY_SOURCE),*.so)
 DIRECTORY_ALL := $(dir $(call rwildcard,$(DIRECTORY_SOURCE),.))
 
 # Add header directories and library directories to related paths
-INCLUDE_PATH_SYS := -I/usr/include/freetype2 -I/usr/include -I/usr/local/include
+ifeq ($(OS), Windows_NT)
+	INCLUDE_PATH_SYS := -I/usr/include/freetype2 -I/usr/include -I/usr/local/include -I/mingw64/include/freetype2
+else
+	INCLUDE_PATH_SYS := -I/usr/include/freetype2 -I/usr/include -I/usr/local/include
+endif
 LIBRARY_PATH_SYS := -L/usr/lib -L/usr/local/lib
 INCLUDE_PATHS += $(INCLUDE_PATH_SYS) $(addprefix -I,$(DIRECTORY_ALL)) $(addprefix -I,$(DIRECTORY_PCH)) $(addprefix -include ,$(notdir $(PCH_H))) $(addprefix -include ,$(notdir $(PCH_HPP)))
 LIBRARY_PATHS += $(LIBRARY_PATH_SYS) $(addprefix -L,$(DIRECTORY_ALL))

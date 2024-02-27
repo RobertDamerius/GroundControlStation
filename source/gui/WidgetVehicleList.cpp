@@ -31,7 +31,7 @@ WidgetVehicleList::WidgetVehicleList(nanogui::Widget *parent): nanogui::Window(p
 
 WidgetVehicleList::~WidgetVehicleList(){}
 
-void WidgetVehicleList::update(NVGcontext *ctx){
+void WidgetVehicleList::UpdateElements(void){
     // Get the current list of vehicles from the vehicle manager
     std::vector<std::tuple<VehicleID, RigidBodyState, RigidBodyState>> vehicles;
     appWindow.canvas.scene.vehicleManager.GetVehiclesList(vehicles);
@@ -46,8 +46,5 @@ void WidgetVehicleList::update(NVGcontext *ctx){
             this->elements.insert(std::pair<VehicleID, VehicleButton*>(vehicleID, vb));
         }
     }
-
-    // The actual update for the window
-    nanogui::Window::update(ctx);
 }
 

@@ -5,6 +5,7 @@
 
 WidgetLog::WidgetLog(nanogui::Widget *parent): nanogui::Window(parent, "Log"){
     using namespace nanogui;
+    requestClearLogs = false;
     this->setPosition(Vector2i(10, 48));
     this->setVisible(false);
     BoxLayout* boxLayout = new BoxLayout(Orientation::Vertical, Alignment::Fill, 12, 12);
@@ -53,9 +54,16 @@ WidgetLog::WidgetLog(nanogui::Widget *parent): nanogui::Window(parent, "Log"){
 
 WidgetLog::~WidgetLog(){}
 
-void WidgetLog::update(NVGcontext *ctx){
+void WidgetLog::UpdateLogs(void){
     using namespace nanogui;
     mtx.lock();
+    if(requestClearLogs){
+        requestClearLogs = false;
+        int numChilds = logContent->childCount();
+        for(int i = numChilds - 1; i > 4; --i){
+            logContent->removeChild(i);
+        }
+    }
     for(auto&& log : logsToAdd){
         Color clr(log.color[0], log.color[1], log.color[2], 255);
         Label *label = new Label(logContent,log.timestamp,"sans",GUI_FONT_SIZE);
@@ -69,7 +77,6 @@ void WidgetLog::update(NVGcontext *ctx){
     }
     logsToAdd.clear();
     mtx.unlock();
-    (void)ctx;
 }
 
 void WidgetLog::AddLogEntry(const LogEntry& log){
@@ -79,11 +86,6 @@ void WidgetLog::AddLogEntry(const LogEntry& log){
 }
 
 void WidgetLog::ClearLog(void){
-    mtx.lock();
-    int numChilds = logContent->childCount();
-    for(int i = numChilds - 1; i > 4; --i){
-        logContent->removeChild(i);
-    }
-    mtx.unlock();
+    requestClearLogs = true;
 }
 

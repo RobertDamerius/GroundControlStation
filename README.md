@@ -36,8 +36,9 @@ The directory structure of this repository is as follows.
 | 2022-01-27  | 1.5      | Fixed several bugs concerning rendering and human interface controls                                      |
 | 2022-03-15  | 1.6      | Additional bug fixes                                                                                      |
 | 2022-09-02  | 1.7      | Updated network protocol (IMP). Logs can now be cleared.                                                  |
-| 2022-09-28  | 1.8      | Use high resolution clock for time measurements and timestamp generation.                                 |
-| 2023-06-10  | 1.9      | Added near and far clipping plane values to style configuration file.                                     |
+| 2022-09-28  | 1.8      | Use high resolution clock for time measurements and timestamp generation                                  |
+| 2023-06-10  | 1.9      | Added near and far clipping plane values to style configuration file                                      |
+| 2024-02-27  | 2.0      | Fixed bug where app could crash when adding vehicles while the vehicle list or log view is visible        |
 
 ![](bin/documentation/img/Overview.png)
 
