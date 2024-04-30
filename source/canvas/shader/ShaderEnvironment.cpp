@@ -26,8 +26,8 @@ bool ShaderEnvironment::Generate(void){
     Uniform1i("texturePositionDepth", TEXTURENUM_GBUFFER_POSITION_DEPTH);
     Uniform1i("textureNormalSpecular", TEXTURENUM_GBUFFER_NORMAL_SPECULAR);
     Uniform1i("textureAlbedoReflection", TEXTURENUM_GBUFFER_ALBEDO_REFLECTION);
-    SetAmbient((float)Configuration::style.sceneAmbient);
-    SetShininess((float)Configuration::style.sceneShininess);
+    SetAmbient(static_cast<float>(Configuration::gcs.scene.ambient));
+    SetShininess(static_cast<float>(Configuration::gcs.scene.shininess));
     return true;
 }
 

@@ -1,6 +1,9 @@
 #include <VehicleManager.hpp>
 #include <AppWindow.hpp>
 #include <Configuration.hpp>
+#include <FileManager.hpp>
+#include <Common.hpp>
+#include <nlohmann/json.hpp>
 
 
 VehicleManager::VehicleManager(){}
@@ -29,6 +32,55 @@ void VehicleManager::AddVehicle(VehicleID& id, Vehicle& v){
     if(result.second){
         vehiclesToGenerate.push_back(id);
         result.first->second.polygons.CreateMutex();
+        
+        // read style from database
+        Vehicle& v = result.first->second;
+        bool success = true;
+        std::string filename = FileManager::GetRootDirectory() + DIRECTORY_STYLES + id.name + ".json";
+        nlohmann::json jsonData;
+        try{
+            std::ifstream configurationFile(filename);
+            jsonData = nlohmann::json::parse(configurationFile);
+        }
+        catch(...){
+            success = false;
+        }
+        if(success){
+            std::array<uint8_t,3> c;
+            try{ v.visible                        = jsonData.at("visible");                                                 } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.useMesh                        = jsonData.at("useMesh");                                                 } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.altitudeToZero                 = jsonData.at("altitudeToZero");                                          } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.positionHistory.enable         = jsonData.at("positionHistory").at("enable");                            } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.positionHistory.SetMaximumSOG(   jsonData.at("positionHistory").at("maximumSOG").get<double>());         } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.positionHistory.width          = jsonData.at("positionHistory").at("lineWidth");                         } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.positionHistory.SetTimePeriodMs( jsonData.at("positionHistory").at("updatePeriodMs").get<uint32_t>());   } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.positionHistory.SetDefaultBufferSize(jsonData.at("positionHistory").at("bufferSize").get<uint32_t>());   } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.waypoints.enable               = jsonData.at("waypoints").at("enable");                                  } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ c                                = jsonData.at("waypoints").at("color");
+                 v.waypoints.color = glm::vec3(double(c[0])/255.0, double(c[1])/255.0, double(c[2])/255.0);                 } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ c                                = jsonData.at("waypoints").at("vehicleColor");
+                 v.waypoints.vehicleColor = glm::vec3(double(c[0])/255.0, double(c[1])/255.0, double(c[2])/255.0);          } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.waypoints.SetVehicleAlpha(       jsonData.at("waypoints").at("vehicleAlpha").get<double>());             } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.waypoints.SetLineWidth(          jsonData.at("waypoints").at("lineWidth").get<double>());                } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.waypoints.SetSymbolSize(         jsonData.at("waypoints").at("symbolSize").get<double>());               } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.trajectory.enable              = jsonData.at("trajectory").at("enable");                                 } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ c                                = jsonData.at("trajectory").at("color");
+                 v.trajectory.color = glm::vec3(double(c[0])/255.0, double(c[1])/255.0, double(c[2])/255.0);                } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ c                                = jsonData.at("trajectory").at("vehicleColor");
+                 v.trajectory.vehicleColor = glm::vec3(double(c[0])/255.0, double(c[1])/255.0, double(c[2])/255.0);         } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.trajectory.SetVehicleAlpha(      jsonData.at("trajectory").at("vehicleAlpha").get<double>());            } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.trajectory.SetVehicleStride(     jsonData.at("trajectory").at("vehicleStride").get<double>());           } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.trajectory.SetLineWidth(         jsonData.at("trajectory").at("lineWidth").get<double>());               } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.compass.enable                 = jsonData.at("compass").at("enable");                                    } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.compass.SetRadius(               jsonData.at("compass").at("radius").get<double>());                     } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ c                                = jsonData.at("compass").at("color");
+                 v.compass.color = glm::vec3(double(c[0])/255.0, double(c[1])/255.0, double(c[2])/255.0);                   } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.polygons.enable                = jsonData.at("polygons").at("enable");                                   } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.polygons.upperLimit            = jsonData.at("polygons").at("upperLimit");                               } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ v.polygons.lowerLimit            = jsonData.at("polygons").at("lowerLimit");                               } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+            try{ c                                = jsonData.at("polygons").at("color");
+                 v.polygons.color = glm::vec3(double(c[0])/255.0, double(c[1])/255.0, double(c[2])/255.0);                  } catch(const std::exception& e){ GUILog(std::string(e.what()), 255, 0, 0); }
+        }
     }
     mtxVehicles.unlock();
 }
@@ -84,8 +136,10 @@ void VehicleManager::SetTrajectory(const VehicleID& id, std::vector<RigidBodySta
     mtxVehicles.unlock();
 }
 
-void VehicleManager::SetPolygons(const VehicleID& id, const uint8_t segmentIndex, const uint8_t maxSegmentIndex, std::vector<std::vector<std::array<double, 2>>>& polygons, std::vector<std::array<double, 3>> velocities){
+void VehicleManager::SetPolygons(const VehicleID& id, const uint8_t segmentIndex, const uint8_t maxSegmentIndex, std::vector<std::vector<std::array<double, 2>>>& polygons, std::vector<std::array<double, 3>> velocities, std::vector<uint8_t> classifications){
     if(polygons.size() != velocities.size())
+        return;
+    if(polygons.size() != classifications.size())
         return;
     mtxVehicles.lock();
     std::unordered_map<VehicleID,Vehicle>::iterator got = vehicles.find(id);
@@ -102,7 +156,7 @@ void VehicleManager::SetPolygons(const VehicleID& id, const uint8_t segmentIndex
 
         // Add new polygon
         got->second.polygons.segmentInfo[idx] = true;
-        got->second.polygons.AddPolygons(polygons, velocities);
+        got->second.polygons.AddPolygons(polygons, velocities, classifications);
 
         // Update time info
         got->second.timeOfLatestMessage.polygon = std::chrono::high_resolution_clock::now();
@@ -118,7 +172,7 @@ void VehicleManager::Update(double dt){
     mtxVehicles.unlock();
 }
 
-void VehicleManager::Render(ShaderVehicle& shader){
+void VehicleManager::Render(ShaderVehicle& shaderVehicle, ShaderPolygon& shaderPolygon){
     mtxVehicles.lock();
     for(auto&& id : vehiclesToGenerate){
         std::unordered_map<VehicleID,Vehicle>::iterator got = vehicles.find(id);
@@ -129,8 +183,9 @@ void VehicleManager::Render(ShaderVehicle& shader){
     }
     vehiclesToGenerate.clear();
     vehiclesToGenerate.shrink_to_fit();
-    shader.SetReflection(Configuration::style.sceneReflection);
-    shader.SetSpecular(Configuration::style.sceneSpecularity);
+    shaderVehicle.Use();
+    shaderVehicle.SetReflection(Configuration::gcs.scene.reflection);
+    shaderVehicle.SetSpecular(Configuration::gcs.scene.specularity);
     for(auto&& v : vehicles){
         if(!v.second.visible)
             continue;
@@ -141,10 +196,18 @@ void VehicleManager::Render(ShaderVehicle& shader){
             v.second.renderingState.position.z = 0.0;
         }
         v.second.renderingState.UpdateModelMatrix();
-        shader.SetModelMatrix(v.second.renderingState.modelMatrix);
-        shader.SetColor(glm::vec3(1.0f));
+        shaderVehicle.SetModelMatrix(v.second.renderingState.modelMatrix);
+        shaderVehicle.SetColor(glm::vec3(1.0f));
         v.second.Draw();
-        v.second.polygons.Render(shader);
+    }
+    shaderPolygon.Use();
+    shaderPolygon.SetReflection(Configuration::gcs.scene.reflection);
+    shaderPolygon.SetSpecular(Configuration::gcs.scene.specularity);
+    for(auto&& v : vehicles){
+        if(!v.second.visible)
+            continue;
+        shaderPolygon.SetModelMatrix(v.second.renderingState.modelMatrix);
+        v.second.polygons.Render(shaderPolygon);
     }
     mtxVehicles.unlock();
 }
@@ -352,5 +415,54 @@ Vehicle* VehicleManager::LockVehicle(const VehicleID& id){
 
 void VehicleManager::UnlockVehicle(void){
     mtxVehicles.unlock();
+}
+
+void VehicleManager::SaveVehicleStyle(const VehicleID& id){
+    const std::lock_guard<std::mutex> lock(mtxVehicles);
+    auto got = vehicles.find(id);
+    if(got != vehicles.end()){
+        Vehicle& v = got->second;
+
+        // generate json file
+        nlohmann::json jsonData;
+        jsonData["visible"]                                    = v.visible;
+        jsonData["useMesh"]                                    = v.useMesh;
+        jsonData["altitudeToZero"]                             = v.altitudeToZero;
+        jsonData["positionHistory"]["enable"]                  = v.positionHistory.enable;
+        jsonData["positionHistory"]["maximumSOG"]              = v.positionHistory.GetMaximumSOG();
+        jsonData["positionHistory"]["lineWidth"]               = v.positionHistory.width;
+        jsonData["positionHistory"]["updatePeriodMs"]          = v.positionHistory.GetTimePeriodMs();
+        jsonData["positionHistory"]["bufferSize"]              = v.positionHistory.GetBufferSize();
+        jsonData["waypoints"]["enable"]                        = v.waypoints.enable;
+        jsonData["waypoints"]["color"]                         = {static_cast<uint8_t>(v.waypoints.color.r * 255.0), static_cast<uint8_t>(v.waypoints.color.g * 255.0), static_cast<uint8_t>(v.waypoints.color.b * 255.0)};
+        jsonData["waypoints"]["vehicleColor"]                  = {static_cast<uint8_t>(v.waypoints.vehicleColor.r * 255.0), static_cast<uint8_t>(v.waypoints.vehicleColor.g * 255.0), static_cast<uint8_t>(v.waypoints.vehicleColor.b * 255.0)};
+        jsonData["waypoints"]["vehicleAlpha"]                  = v.waypoints.GetVehicleAlpha();
+        jsonData["waypoints"]["lineWidth"]                     = v.waypoints.GetLineWidth();
+        jsonData["waypoints"]["symbolSize"]                    = v.waypoints.GetSymbolSize();
+        jsonData["trajectory"]["enable"]                       = v.trajectory.enable;
+        jsonData["trajectory"]["color"]                        = {static_cast<uint8_t>(v.trajectory.color.r * 255.0), static_cast<uint8_t>(v.trajectory.color.g * 255.0), static_cast<uint8_t>(v.trajectory.color.b * 255.0)};
+        jsonData["trajectory"]["vehicleColor"]                 = {static_cast<uint8_t>(v.trajectory.vehicleColor.r * 255.0), static_cast<uint8_t>(v.trajectory.vehicleColor.g * 255.0), static_cast<uint8_t>(v.trajectory.vehicleColor.b * 255.0)};
+        jsonData["trajectory"]["vehicleAlpha"]                 = v.trajectory.GetVehicleAlpha();
+        jsonData["trajectory"]["vehicleStride"]                = v.trajectory.GetVehicleStride();
+        jsonData["trajectory"]["lineWidth"]                    = v.trajectory.GetLineWidth();
+        jsonData["compass"]["enable"]                          = v.compass.enable;
+        jsonData["compass"]["radius"]                          = v.compass.GetRadius();
+        jsonData["compass"]["color"]                           = {static_cast<uint8_t>(v.compass.color.r * 255.0), static_cast<uint8_t>(v.compass.color.g * 255.0), static_cast<uint8_t>(v.compass.color.b * 255.0)};
+        jsonData["polygons"]["enable"]                         = v.polygons.enable;
+        jsonData["polygons"]["upperLimit"]                     = v.polygons.upperLimit;
+        jsonData["polygons"]["lowerLimit"]                     = v.polygons.lowerLimit;
+        jsonData["polygons"]["color"]                          = {static_cast<uint8_t>(v.polygons.color.r * 255.0), static_cast<uint8_t>(v.polygons.color.g * 255.0), static_cast<uint8_t>(v.polygons.color.b * 255.0)};
+
+        // write to file
+        FileManager::MakeStylesDirectory();
+        std::string filename = FileManager::GetRootDirectory() + DIRECTORY_STYLES + got->first.name + ".json";
+        try{
+            std::ofstream outstream(filename);
+            outstream << std::setw(4) << jsonData << std::endl;
+        }
+        catch(...){
+            GUILog(std::string("Could not save \"") + filename + std::string("\"!"), 255, 0, 0);
+        }
+    }
 }
 

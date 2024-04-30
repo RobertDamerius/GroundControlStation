@@ -57,6 +57,13 @@ class VehicleCompass {
         double Resize(double r);
 
         /**
+         *  @brief Set the Radius without re-generating the GL content.
+         *  @param [in] r Radius in meters.
+         *  @return The radius that has been set.
+         */
+        double SetRadius(double r);
+
+        /**
          *  @brief Get the radius.
          *  @return Radius in world space units.
          */

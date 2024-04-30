@@ -39,7 +39,7 @@ WidgetLog::WidgetLog(nanogui::Widget *parent): nanogui::Window(parent, "Log"){
     // End: Clear/Close button
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Widget* buttonContainer = new Widget(this);
-    buttonContainer->setLayout(new GridLayout(Orientation::Horizontal, 2, Alignment::Fill, 0, 0));
+    buttonContainer->setLayout(new GridLayout(Orientation::Horizontal, 2, Alignment::Fill, 0, 2));
     Button* buttonClear = new Button(buttonContainer, "Clear", ENTYPO_ICON_TRASH);
     buttonClear->setBackgroundColor(Color(GUI_COLOR_CLEAR_BUTTON));
     buttonClear->setCallback([this](){

@@ -44,7 +44,11 @@ void TTSManager::AddToQueue(std::string& text){
     }
 
     // Create final command
-    std::string strCommand = Configuration::tts.systemPreString + text + Configuration::tts.systemPostString;
+    #ifdef _WIN32
+    std::string strCommand = Configuration::gcs.textToSpeech.windows.systemPreString + text + Configuration::gcs.textToSpeech.windows.systemPostString;
+    #else
+    std::string strCommand = Configuration::gcs.textToSpeech.linuxOS.systemPreString + text + Configuration::gcs.textToSpeech.linuxOS.systemPostString;
+    #endif
 
     // Add to queue
     {
@@ -62,7 +66,7 @@ void TTSManager::ConsumerThread(void){
 
         // Run all commands from queue
         while(!commandQueue.empty() && !terminate){
-            if(Configuration::tts.enable){
+            if(Configuration::gcs.textToSpeech.enable){
                 int result = std::system(commandQueue.front().c_str());
                 (void) result;
             }

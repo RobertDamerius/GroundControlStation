@@ -9,7 +9,7 @@ Vehicle::Vehicle(){
     visible = true;
     useMesh = true;
     meshExists = false;
-    altitudeToZero = Configuration::style.altitudeToZero;
+    altitudeToZero = Configuration::gcs.defaultVehicleStyle.altitudeToZero;
     timeOfLatestMessage.navigation = std::chrono::high_resolution_clock::now();
     timeOfLatestMessage.guidance = std::chrono::high_resolution_clock::now();
     timeOfLatestMessage.guidanceTrajectory = std::chrono::high_resolution_clock::now();
@@ -31,7 +31,7 @@ void Vehicle::GenerateGL(void){
     mesh.GenerateGL();
     name.GenerateText();
     compass.GenerateGL();
-    positionHistory.Generate(Configuration::style.positionHistoryBufferSize, this->navigation.position);
+    positionHistory.Generate(this->navigation.position);
     // Note: Trajectory and waypoints are generated when their shouldGenerate flag has been set
 }
 

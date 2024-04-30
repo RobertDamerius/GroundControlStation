@@ -2,7 +2,7 @@
 
 
 #include <PolygonObstacle.hpp>
-#include <ShaderVehicle.hpp>
+#include <ShaderPolygon.hpp>
 
 
 class PolygonContainer {
@@ -42,7 +42,7 @@ class PolygonContainer {
          *  @brief Render polygons.
          *  @param [in] shader The polygon shader.
          */
-        void Render(ShaderVehicle& shader);
+        void Render(ShaderPolygon& shader);
 
         /**
          *  @brief Delete the GL content for all polygons that are still generated.
@@ -53,9 +53,10 @@ class PolygonContainer {
          *  @brief Add a set of new polygons to the container.
          *  @param [in] polygons Set of polygons.
          *  @param [in] velocities Set of velocities (u,v,r) for all polygons. Size must be equal to size of polygons.
+         *  @param [in] classifications Set of classifications. Size must be equal to size of polygons.
          *  @details The GL buffer objects are generated during the next rendering call.
          */
-        void AddPolygons(std::vector<std::vector<std::array<double, 2>>>& polygons, std::vector<std::array<double, 3>> velocities);
+        void AddPolygons(std::vector<std::vector<std::array<double, 2>>>& polygons, std::vector<std::array<double, 3>> velocities, std::vector<uint8_t> classifications);
 
         /**
          *  @brief Clear all polygons.

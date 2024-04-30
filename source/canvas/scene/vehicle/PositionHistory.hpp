@@ -8,9 +8,7 @@
 class PositionHistory: protected CircularLineBuffer {
     public:
         using CircularLineBuffer::width;
-        using CircularLineBuffer::Generate;
         using CircularLineBuffer::Resize;
-        using CircularLineBuffer::Delete;
         bool enable;
 
         /**
@@ -27,6 +25,17 @@ class PositionHistory: protected CircularLineBuffer {
          *  @brief Delete the position history instance.
          */
         ~PositionHistory();
+
+        /**
+         *  @brief Generate the GL content.
+         *  @param [in] initialPosition Initial position value for all buffer entries, defaults to glm::vec3(0.0f).
+         */
+        void Generate(glm::vec3 initialPosition);
+
+        /**
+         * @brief Delete the GL content.
+         */
+        void Delete(void);
 
         /**
          *  @brief Update event.
@@ -70,7 +79,13 @@ class PositionHistory: protected CircularLineBuffer {
          *  @brief Get current buffer size.
          *  @return Current buffer size (number of positions).
          */
-        inline uint32_t GetBufferSize(void){ return (uint32_t)this->vertices.size(); }
+        inline uint32_t GetBufferSize(void){ return generated ? (uint32_t)this->vertices.size() : defaultBufferSize; }
+
+        /**
+         * @brief Set the default buffer size.
+         * @param [in] defaultBufferSize The default buffer size to be set. If this value is zero, then 1 is set.
+         */
+        inline void SetDefaultBufferSize(uint32_t defaultBufferSize){ this->defaultBufferSize = (defaultBufferSize > 0) ? defaultBufferSize : 1; }
 
         /* Operators */
         PositionHistory& operator=(const PositionHistory& rhs);
@@ -80,5 +95,7 @@ class PositionHistory: protected CircularLineBuffer {
         uint32_t timePeriodMs;
         double timePeriod;
         double t;
+        uint32_t defaultBufferSize;
+        bool generated;
 };
 

@@ -1,6 +1,8 @@
 #include <GLWindow.hpp>
 #include <Core/Core.hpp>
 #include <Engine/Engine.hpp>
+#include <Configuration.hpp>
+#include <Common.hpp>
 
 
 GLFWwindow* GLWindow::glfwWindow = nullptr;
@@ -17,7 +19,7 @@ GLWindow::GLWindow(){}
 
 GLWindow::~GLWindow(){}
 
-bool GLWindow::Initialize(GLWindow* glWnd, uint32_t width, uint32_t height, std::string title, bool fullScreen){
+bool GLWindow::Initialize(GLWindow* glWnd){
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Make sure that the window is terminated
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -33,26 +35,39 @@ bool GLWindow::Initialize(GLWindow* glWnd, uint32_t width, uint32_t height, std:
             LogError("Could not initialize GLFW!\n");
             return false;
         }
-        glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-        glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
-        // glfwWindowHint(GLFW_STENCIL_BITS, 0);
-        // glfwWindowHint(GLFW_DEPTH_BITS, 0);
-        // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+        glfwDefaultWindowHints();
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_SAMPLES, 0);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, Configuration::gcs.window.glMajorVersion);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, Configuration::gcs.window.glMinorVersion);
+        glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE); // enable double-buffering
+        glfwWindowHint(GLFW_SAMPLES, 0); // disable multi-sampling
+        glfwWindowHint(GLFW_RESIZABLE, Configuration::gcs.window.resizable ? GL_TRUE : GL_FALSE);
+        glfwWindowHint(GLFW_VISIBLE, Configuration::gcs.window.visible ? GL_TRUE : GL_FALSE);
+        glfwWindowHint(GLFW_DECORATED, Configuration::gcs.window.decorated ? GL_TRUE : GL_FALSE);
+        glfwWindowHint(GLFW_FOCUSED, Configuration::gcs.window.focused ? GL_TRUE : GL_FALSE);
+        glfwWindowHint(GLFW_MAXIMIZED, Configuration::gcs.window.maximized ? GL_TRUE : GL_FALSE);
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Create GLFW window, make context and set callbacks
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        GLFWmonitor* monitor = fullScreen ? glfwGetPrimaryMonitor() : nullptr;
-        glfwWindow = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
+        // select monitor
+        int numberOfDetectedMonitors = 0;
+        GLFWmonitor** detectedMonitors = glfwGetMonitors(&numberOfDetectedMonitors);
+        GLFWmonitor* targetMonitor = nullptr;
+        if(Configuration::gcs.window.fullscreen && detectedMonitors && (numberOfDetectedMonitors > 0)){
+            uint32_t monitorIndex = std::min(Configuration::gcs.window.fullscreenMonitorIndex, static_cast<uint32_t>(numberOfDetectedMonitors - 1));
+            targetMonitor = detectedMonitors[monitorIndex];
+        }
+
+        // create window
+        glfwWindow = glfwCreateWindow(Configuration::gcs.window.width, Configuration::gcs.window.height, strAppName.c_str(), targetMonitor, nullptr); // nullptr: no shared resources
         if(!glfwWindow){
             LogError("Could not create GLFW window!\n");
             Terminate();
             return false;
         }
+
+        // make context, set callbacks
         glfwMakeContextCurrent(glfwWindow);
         glWnd->SetCallbacks(glfwWindow);
         glWindow = glWnd;

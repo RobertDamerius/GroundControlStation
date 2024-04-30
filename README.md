@@ -39,6 +39,7 @@ The directory structure of this repository is as follows.
 | 2022-09-28  | 1.8      | Use high resolution clock for time measurements and timestamp generation                                  |
 | 2023-06-10  | 1.9      | Added near and far clipping plane values to style configuration file                                      |
 | 2024-02-27  | 2.0      | Fixed bug where app could crash when adding vehicles while the vehicle list or log view is visible        |
+| 2024-03-30  | 2.1      | Configuration is stored via JSON files. Styles for vehicles can be saved.                                 |
 
 ![](bin/documentation/img/Overview.png)
 
@@ -60,7 +61,7 @@ If the corresponding libraries to be linked against are named differently, you c
 
 ### External libraries required
 Some third-party source code files are already present in the source directory. These include
-[NanoVG](https://github.com/memononen/nanovg), [NanoGUI](https://github.com/wjakob/nanogui), [LodePNG](https://github.com/lvandeve/lodepng) and [Earcut](https://github.com/mapbox/earcut).
+[NanoVG](https://github.com/memononen/nanovg), [NanoGUI](https://github.com/wjakob/nanogui), [LodePNG](https://github.com/lvandeve/lodepng), [Earcut](https://github.com/mapbox/earcut) and [JSON](https://github.com/nlohmann/json).
 All other required external libraries are shown in the following table.
 
 | Library                                      | Windows (MSYS2/MinGW64)                               | Linux (Ubuntu)                                          | Comment                                          |

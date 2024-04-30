@@ -5,12 +5,16 @@
 
 
 WaypointList::WaypointList(){
-    this->enable = Configuration::style.waypointsEnable;
-    this->color = glm::vec3(Configuration::style.waypointsColor);
-    this->vehicleColor = glm::vec3(Configuration::style.waypointsVehicleColor);
-    this->vehicleAlpha = Configuration::style.waypointsVehicleAlpha;
-    this->symbolSize = Configuration::style.waypointsSymbolSize;
-    this->line.width = (GLfloat)Configuration::style.waypointsLineWidth;
+    this->enable = Configuration::gcs.defaultVehicleStyle.waypoints.enable;
+    this->color.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.waypoints.color[0]) / 255.0;
+    this->color.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.waypoints.color[1]) / 255.0;
+    this->color.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.waypoints.color[2]) / 255.0;
+    this->vehicleColor.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.waypoints.vehicleColor[0]) / 255.0;
+    this->vehicleColor.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.waypoints.vehicleColor[1]) / 255.0;
+    this->vehicleColor.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.waypoints.vehicleColor[2]) / 255.0;
+    this->vehicleAlpha = Configuration::gcs.defaultVehicleStyle.waypoints.vehicleAlpha;
+    this->symbolSize = Configuration::gcs.defaultVehicleStyle.waypoints.symbolSize;
+    this->line.width = (GLfloat)Configuration::gcs.defaultVehicleStyle.waypoints.lineWidth;
     this->shouldGenerate = false;
 }
 

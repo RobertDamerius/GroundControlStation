@@ -4,10 +4,12 @@
 
 
 PolygonContainer::PolygonContainer(){
-    lowerLimit = Configuration::style.polygonsLowerLimit;
-    upperLimit = Configuration::style.polygonsUpperLimit;
-    color = Configuration::style.polygonsColor;
-    enable = Configuration::style.polygonsEnable;
+    lowerLimit = Configuration::gcs.defaultVehicleStyle.polygons.lowerLimit;
+    upperLimit = Configuration::gcs.defaultVehicleStyle.polygons.upperLimit;
+    color.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.polygons.color[0]) / 255.0;
+    color.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.polygons.color[1]) / 255.0;
+    color.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.polygons.color[2]) / 255.0;
+    enable = Configuration::gcs.defaultVehicleStyle.polygons.enable;
     mtx = nullptr;
 }
 
@@ -41,7 +43,7 @@ void PolygonContainer::DeleteGL(void){
     mtx->unlock();
 }
 
-void PolygonContainer::Render(ShaderVehicle& shader){
+void PolygonContainer::Render(ShaderPolygon& shader){
     // Generate polytopes that have not been generated
     if(!mtx || !enable) return;
     mtx->lock();
@@ -68,13 +70,17 @@ void PolygonContainer::Render(ShaderVehicle& shader){
         p.navigation.position.y -= appWindow.canvas.scene.renderingOffset.z;
         p.navigation.position.z += appWindow.canvas.scene.renderingOffset.y;
         shader.SetModelMatrix(p.navigation.modelMatrix);
+        shader.SetClassification(p.classification);
+        shader.SetVelocity(p.navigation.velocityNorth, p.navigation.velocityEast, p.navigation.r);
         p.Draw();
     }
     mtx->unlock();
 }
 
-void PolygonContainer::AddPolygons(std::vector<std::vector<std::array<double, 2>>>& polygons, std::vector<std::array<double, 3>> velocities){
+void PolygonContainer::AddPolygons(std::vector<std::vector<std::array<double, 2>>>& polygons, std::vector<std::array<double, 3>> velocities, std::vector<uint8_t> classifications){
     if(polygons.size() != velocities.size())
+        return;
+    if(polygons.size() != classifications.size())
         return;
 
     // Create container of new polygon obstacles (create all polyhedrons)
@@ -83,9 +89,10 @@ void PolygonContainer::AddPolygons(std::vector<std::vector<std::array<double, 2>
     for(size_t n = 0; n < polygons.size(); n++){
         newPolygons.push_back(PolygonObstacle());
         newPolygons.back().CreatePolyhedron(polygons[n], lowerLimit, upperLimit);
-        newPolygons.back().navigation.u = velocities[n][0];
-        newPolygons.back().navigation.v = velocities[n][1];
+        newPolygons.back().navigation.velocityNorth = velocities[n][0];
+        newPolygons.back().navigation.velocityEast = velocities[n][1];
         newPolygons.back().navigation.r = velocities[n][2];
+        newPolygons.back().classification = classifications[n];
     }
 
     // Add new polygon obstacles to internal container

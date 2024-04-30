@@ -52,5 +52,6 @@ class WidgetVehicle: public nanogui::Window {
         ValueElement* timeGuidanceTrajectory;
         ValueElement* timeGuidanceWaypoint;
         ValueElement* timePolygon;
+        nanogui::Button* buttonSave;
 };
 

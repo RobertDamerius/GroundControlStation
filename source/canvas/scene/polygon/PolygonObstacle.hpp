@@ -8,6 +8,7 @@
 class PolygonObstacle: public Polytope {
     public:
         RigidBody navigation;     ///< Navigation data of the polygon obstacle.
+        uint8_t classification;   ///< Classification byte of the polygon.
 
         /**
          *  @brief Create a polygon obstacle.

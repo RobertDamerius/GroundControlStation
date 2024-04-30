@@ -28,6 +28,7 @@ void FileManager::Initialize(const char* argv0){
 
 std::string FileManager::GetName(file_t file){
     switch(file){
+        case FILE_SHADER_POLYGON:               return rootDirectory + std::string(DIRECTORY_SHADER "Polygon" FILE_EXTENSION_SHADER);
         case FILE_SHADER_VEHICLE:               return rootDirectory + std::string(DIRECTORY_SHADER "Vehicle" FILE_EXTENSION_SHADER);
         case FILE_SHADER_TRANSPARENT_VEHICLE:   return rootDirectory + std::string(DIRECTORY_SHADER "TransparentVehicle" FILE_EXTENSION_SHADER);
         case FILE_SHADER_GROUNDPLANE:           return rootDirectory + std::string(DIRECTORY_SHADER "GroundPlane" FILE_EXTENSION_SHADER);
@@ -37,6 +38,7 @@ std::string FileManager::GetName(file_t file){
         case FILE_SHADER_LINE:                  return rootDirectory + std::string(DIRECTORY_SHADER "Line" FILE_EXTENSION_SHADER);
         case FILE_SHADER_LINE_STRIP:            return rootDirectory + std::string(DIRECTORY_SHADER "LineStrip" FILE_EXTENSION_SHADER);
         case FILE_SHADER_CIRCULAR_LINE_BUFFER:  return rootDirectory + std::string(DIRECTORY_SHADER "CircularLineBuffer" FILE_EXTENSION_SHADER);
+        case FILE_CONFIGURATION_GCS:            return rootDirectory + std::string("GCS.json");
         case FILE_CONFIGURATION_NETWORK:        return rootDirectory + std::string(DIRECTORY_CONFIGURATION "network" FILE_EXTENSION_CONFIGURATION);
         case FILE_CONFIGURATION_ORIGIN:         return rootDirectory + std::string(DIRECTORY_CONFIGURATION "origin" FILE_EXTENSION_CONFIGURATION);
         case FILE_CONFIGURATION_STYLE:          return rootDirectory + std::string(DIRECTORY_CONFIGURATION "style" FILE_EXTENSION_CONFIGURATION);
@@ -49,4 +51,11 @@ std::string FileManager::GetName(file_t file){
 std::string FileManager::GetRootDirectory(void){
     return FileManager::rootDirectory;
 }
+
+void FileManager::MakeStylesDirectory(void){
+    std::filesystem::path dir = GetRootDirectory();
+    dir /= DIRECTORY_STYLES;
+    std::filesystem::create_directory(dir);
+}
+
 

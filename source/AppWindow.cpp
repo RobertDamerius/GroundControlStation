@@ -27,9 +27,6 @@ bool AppWindow::CallbackInitialize(GLFWwindow* wnd){
     RegisterCallbacksForChild(canvas);
     RegisterCallbacksForChild(joystickInterface);
 
-    // Load configuration
-    Configuration::ReadAll();
-
     // Initialize joystick interface and canvas
     if(!joystickInterface.Initialize(wnd)){
         LogError("Could not initialize joystick interface!\n");
@@ -39,8 +36,8 @@ bool AppWindow::CallbackInitialize(GLFWwindow* wnd){
         LogError("Could not initialize canvas!\n");
         return false;
     }
-    if(!Configuration::origin.undefined){
-        canvas.scene.origin.Update(Configuration::origin.latitude, Configuration::origin.longitude, Configuration::origin.altitude);
+    if(!Configuration::gcs.view.geographicOrigin.useFromFirstReceivedNavigationMessage){
+        canvas.scene.origin.Update(Configuration::gcs.view.geographicOrigin.latitude, Configuration::gcs.view.geographicOrigin.longitude, Configuration::gcs.view.geographicOrigin.altitude);
     }
 
     // Initialize text to speech manager

@@ -12,9 +12,11 @@
 
 
 VehicleCompass::VehicleCompass(){
-    this->enable = Configuration::style.compassEnable;
-    this->color = Configuration::style.compassColor;
-    this->radius = Configuration::style.compassRadius;
+    this->enable = Configuration::gcs.defaultVehicleStyle.compass.enable;
+    this->color.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.compass.color[0]) / 255.0;
+    this->color.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.compass.color[1]) / 255.0;
+    this->color.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.compass.color[2]) / 255.0;
+    this->radius = Configuration::gcs.defaultVehicleStyle.compass.radius;
     this->lineCircle.width = 2.5;
     this->lineRulerMajor.width = 2.5;
     this->lineRulerMinor.width = 2.0;
@@ -235,6 +237,11 @@ void VehicleCompass::DrawLines(ShaderLine& shaderLine, ShaderLineStrip& shaderLi
 double VehicleCompass::Resize(double r){
     this->radius = (r > 0.001) ? r : 0.001;
     GenerateGL();
+    return this->radius;
+}
+
+double VehicleCompass::SetRadius(double r){
+    this->radius = (r > 0.001) ? r : 0.001;
     return this->radius;
 }
 

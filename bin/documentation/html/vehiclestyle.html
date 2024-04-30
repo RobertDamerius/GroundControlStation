@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ground Control Station (GCS)</title>
+<link rel="stylesheet" href="core/design.css">
+
+</head>
+<body>
+<header>
+<div class="header_title">Ground Control Station (GCS)</div>
+<div class="header_version">Version 20240430</div>
+</header>
+<button onclick="PageToTop()" id="buttonToTop"></button>
+<div class="wrapper">
+<div class="navigation">
+<ul class="ulnav">
+<li class="linone"></li>
+<li class="linav"><a href="index.html">Introduction</a></li>
+<li class="linone"></li>
+<li class="litext">GRAPHICAL USER INTERFACE</li>
+<li class="linav"><a href="guioverview.html">Overview</a></li>
+<li class="linav"><a href="view.html">View</a></li>
+<li class="linav"><a href="vehicles.html">Vehicles</a></li>
+<li class="linav"><a href="datasettings.html">Vehicle Data / Vehicle Settings</a></li>
+<li class="linav"><a href="log.html">Log</a></li>
+<li class="linav"><a href="time.html">Time</a></li>
+<li class="linav"><a href="info.html">Info</a></li>
+<li class="linone"></li>
+<li class="litext">CONFIGURATION</li>
+<li class="linav"><a href="configuration.html">Configuration File: GCS.json</a></li>
+<li class="linav"><a href="configurationnetwork.html">Network</a></li>
+<li class="linav"><a href="configurationtts.html">Text-To-Speech</a></li>
+<li class="linav"><a href="configurationdatabase.html">Database</a></li>
+<li class="linone"></li>
+<li class="litext">MISC</li>
+<li class="linav_active"><a href="vehiclestyle.html">Vehicle Style</a></li>
+<li class="linav"><a href="vehiclemesh.html">Custom Vehicle Mesh</a></li>
+</ul>
+
+</div>
+<div class="content">
+<h1>Vehicle Style</h1>
+    The style for <a href="datasettings.html">vehicle settings</a> can be saved via a Save button in the VehicleData/VehicleSettings menu.
+    The style is stored in a json file in the vehicleStyles directory of the application, where the name of a file corresponds to the vehicle name.
+    If the GCS adds a vehicle to its database, then it checks wheter there is a style file. If so, it initializes the style from this file.
+    The format of a vehicle style json file is similar to that of the <a href="configuration.html">configuration file</a>.
+
+</div>
+</div>
+<script src="core/script.js"></script>
+</body>
+</html>

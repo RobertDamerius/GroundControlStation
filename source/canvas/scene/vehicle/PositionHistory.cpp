@@ -3,15 +3,27 @@
 
 
 PositionHistory::PositionHistory(){
-    this->width = Configuration::style.positionHistoryLineWidth;
-    this->enable = Configuration::style.positionHistoryEnable;
-    this->maximumSOG = Configuration::style.positionHistoryMaximumSOG;
-    this->timePeriodMs = Configuration::style.positionHistoryUpdatePeriodMs;
+    this->width = Configuration::gcs.defaultVehicleStyle.positionHistory.lineWidth;
+    this->enable = Configuration::gcs.defaultVehicleStyle.positionHistory.enable;
+    this->maximumSOG = Configuration::gcs.defaultVehicleStyle.positionHistory.maximumSOG;
+    this->timePeriodMs = Configuration::gcs.defaultVehicleStyle.positionHistory.updatePeriodMs;
     this->timePeriod = 0.001 * double(this->timePeriodMs);
     this->t = 0.0;
+    this->defaultBufferSize = Configuration::gcs.defaultVehicleStyle.positionHistory.bufferSize;
+    generated = false;
 }
 
 PositionHistory::~PositionHistory(){}
+
+void PositionHistory::Generate(glm::vec3 initialPosition){
+    CircularLineBuffer::Generate(defaultBufferSize, initialPosition);
+    generated = true;
+}
+
+void PositionHistory::Delete(void){
+    CircularLineBuffer::Delete();
+    generated = false;
+}
 
 PositionHistory& PositionHistory::operator=(const PositionHistory& rhs){
     CircularLineBuffer::operator=(rhs);

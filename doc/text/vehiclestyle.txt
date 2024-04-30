@@ -1,0 +1,5 @@
+<h1>Vehicle Style</h1>
+    The style for <a href="datasettings.html">vehicle settings</a> can be saved via a Save button in the VehicleData/VehicleSettings menu.
+    The style is stored in a json file in the vehicleStyles directory of the application, where the name of a file corresponds to the vehicle name.
+    If the GCS adds a vehicle to its database, then it checks wheter there is a style file. If so, it initializes the style from this file.
+    The format of a vehicle style json file is similar to that of the <a href="configuration.html">configuration file</a>.

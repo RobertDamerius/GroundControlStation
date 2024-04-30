@@ -108,12 +108,14 @@ void Test::Task(void){
     std::vector<std::array<double, 2>> vertices;
     std::vector<std::vector<std::array<double, 2>>> polygons;
     std::vector<std::array<double, 3>> velocities;
+    std::vector<uint8_t> classifications;
         vertices.push_back({-2.1965,-9.5342});
         vertices.push_back({14.9296,-9.7219});
         vertices.push_back({15.0704,-5.7336});
         vertices.push_back({-0.9765,-4.9829});
         polygons.push_back(vertices);
         velocities.push_back(std::array<double, 3>({0.0, 0.0, 0.0}));
+        classifications.push_back(0x01);
     vertices.clear();
         vertices.push_back({-0.8546,11.9575});
         vertices.push_back({-1.5838, 8.6763});
@@ -122,6 +124,7 @@ void Test::Task(void){
         vertices.push_back({ 8.4421,10.9245});
         polygons.push_back(vertices);
         velocities.push_back(std::array<double, 3>({0.0, 0.0, 0.0}));
+        classifications.push_back(0x02);
     vertices.clear();
         vertices.push_back({15.5514, 9.8039});
         vertices.push_back({13.7285,10.6546});
@@ -130,6 +133,7 @@ void Test::Task(void){
         vertices.push_back({16.2806, 6.2189});
         polygons.push_back(vertices);
         velocities.push_back(std::array<double, 3>({0.0, 0.0, 0.0}));
+        classifications.push_back(0x03);
     vertices.clear();
         vertices.push_back({11.2348, 0.6816});
         vertices.push_back({10.1852, 0.3729});
@@ -138,7 +142,8 @@ void Test::Task(void){
         vertices.push_back({11.4200,-0.1211});
         polygons.push_back(vertices);
         velocities.push_back(std::array<double, 3>({0.0, 0.0, 0.0}));
-    appWindow.canvas.scene.vehicleManager.SetPolygons(id, 0, 4, polygons, velocities);
+        classifications.push_back(0x04);
+    appWindow.canvas.scene.vehicleManager.SetPolygons(id, 0, 4, polygons, velocities, classifications);
 
     double t = 0.0;
     int k = 0;

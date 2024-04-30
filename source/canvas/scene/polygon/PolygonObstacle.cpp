@@ -8,6 +8,7 @@
 PolygonObstacle::PolygonObstacle(): Polytope(){
     this->primitives = GL_TRIANGLES;
     this->generated = false;
+    this->classification = 0x00;
 }
 
 PolygonObstacle::~PolygonObstacle(){}
@@ -114,6 +115,7 @@ PolygonObstacle& PolygonObstacle::operator=(const PolygonObstacle& rhs){
     Polytope::operator=(rhs);
     this->navigation = rhs.navigation;
     this->generated = rhs.generated;
+    this->classification = rhs.classification;
     return *this;
 }
 

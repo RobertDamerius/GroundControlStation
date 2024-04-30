@@ -1,6 +1,7 @@
 #include <WidgetView.hpp>
 #include <AppWindow.hpp>
 #include <Common.hpp>
+#include <Configuration.hpp>
 
 
 #define WIDGET_VIEW_SECTION_MARGIN            (8)
@@ -86,8 +87,16 @@ WidgetView::WidgetView(nanogui::Widget *parent): nanogui::Window(parent, "View")
         comboBox->setSelectedIndex((appWindow.canvas.scene.viewCamera.mode == CAMERA_MODE_PERSPECTIVE) ? 0 : 1);
         comboBox->setCallback([](int i){
             switch(i){
-                case 0: appWindow.canvas.scene.SetCameraMode(CAMERA_MODE_PERSPECTIVE); break;
-                case 1: appWindow.canvas.scene.SetCameraMode(CAMERA_MODE_ORTHOGRAPHIC); break;
+                case 0:
+                    appWindow.canvas.scene.SetCameraMode(CAMERA_MODE_PERSPECTIVE);
+                    Configuration::gcs.view.camera.enable3D = true;
+                    Configuration::gcs.Save();
+                    break;
+                case 1:
+                    appWindow.canvas.scene.SetCameraMode(CAMERA_MODE_ORTHOGRAPHIC);
+                    Configuration::gcs.view.camera.enable3D = false;
+                    Configuration::gcs.Save();
+                    break;
             }
         });
 
@@ -123,13 +132,15 @@ WidgetView::WidgetView(nanogui::Widget *parent): nanogui::Window(parent, "View")
         label->setFixedSize(Vector2i(WIDGET_VIEW_GROUP_WIDTH_LEFT,WIDGET_VIEW_GROUP_HEIGHT_ELEMENT));
         Slider* sliderGamma = new Slider(widget);
         sliderGamma->setFixedSize(Vector2i(WIDGET_VIEW_GROUP_WIDTH_RIGHT,WIDGET_VIEW_GROUP_HEIGHT_ELEMENT));
-        sliderGamma->setRange(std::pair<float, float>(1.0f, 3.0f));
+        sliderGamma->setRange(std::pair<float, float>(GAMMA_MIN, GAMMA_MAX));
         sliderGamma->setValue((float)appWindow.canvas.renderer.GetGamma());
         sliderGamma->setCallback([](float f){
             appWindow.canvas.renderer.SetGamma((GLfloat)f);
         });
         sliderGamma->setFinalCallback([](float f){
             appWindow.canvas.renderer.SetGamma((GLfloat)f);
+            Configuration::gcs.view.display.gamma = static_cast<double>(f);
+            Configuration::gcs.Save();
         });
         new Widget(widget);
         Button* buttonGamma = new Button(widget, "Set Default");
@@ -138,6 +149,8 @@ WidgetView::WidgetView(nanogui::Widget *parent): nanogui::Window(parent, "View")
         buttonGamma->setCallback([sliderGamma](){
             appWindow.canvas.renderer.SetGamma((GLfloat)GAMMA_DEFAULT);
             sliderGamma->setValue((float)appWindow.canvas.renderer.GetGamma());
+            Configuration::gcs.view.display.gamma = GAMMA_DEFAULT;
+            Configuration::gcs.Save();
         });
 
         // Ground color
@@ -156,6 +169,10 @@ WidgetView::WidgetView(nanogui::Widget *parent): nanogui::Window(parent, "View")
             glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
             appWindow.canvas.scene.groundPlane.color = appWindow.canvas.renderer.SetGroundPlaneColor(clr);
             cp->setColor(Color((float)sqrt(appWindow.canvas.scene.groundPlane.color.x), (float)sqrt(appWindow.canvas.scene.groundPlane.color.y), (float)sqrt(appWindow.canvas.scene.groundPlane.color.z), 1.0f));
+            Configuration::gcs.view.display.groundColor[0] = static_cast<uint8_t>(appWindow.canvas.scene.groundPlane.color.r * 255.0);
+            Configuration::gcs.view.display.groundColor[1] = static_cast<uint8_t>(appWindow.canvas.scene.groundPlane.color.g * 255.0);
+            Configuration::gcs.view.display.groundColor[2] = static_cast<uint8_t>(appWindow.canvas.scene.groundPlane.color.b * 255.0);
+            Configuration::gcs.Save();
         });
         new Widget(widget);
         Button* buttonGPC = new Button(widget, "Set Default");
@@ -165,6 +182,10 @@ WidgetView::WidgetView(nanogui::Widget *parent): nanogui::Window(parent, "View")
             appWindow.canvas.scene.groundPlane.Reset();
             appWindow.canvas.scene.groundPlane.color = appWindow.canvas.renderer.SetGroundPlaneColor(appWindow.canvas.scene.groundPlane.color);
             cp->setColor(Color((float)sqrt(appWindow.canvas.scene.groundPlane.color.x), (float)sqrt(appWindow.canvas.scene.groundPlane.color.y), (float)sqrt(appWindow.canvas.scene.groundPlane.color.z), 1.0f));
+            Configuration::gcs.view.display.groundColor[0] = static_cast<uint8_t>(appWindow.canvas.scene.groundPlane.color.r * 255.0);
+            Configuration::gcs.view.display.groundColor[1] = static_cast<uint8_t>(appWindow.canvas.scene.groundPlane.color.g * 255.0);
+            Configuration::gcs.view.display.groundColor[2] = static_cast<uint8_t>(appWindow.canvas.scene.groundPlane.color.b * 255.0);
+            Configuration::gcs.Save();
         });
     }
 

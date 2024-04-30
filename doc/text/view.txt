@@ -7,8 +7,8 @@
     <h3>Geographic Origin</h3>
     Positions are represented in Euclidean space. To convert geographical coordinates (longitude and latitude) into Euclidean
     coordinates, a geographical origin is required. This section shows the current geographical origin. This origin can only be
-    set once. Either the origin is given by the <a href="configurationorigin.html">configuration</a> or the position of the first
-    received navigation message is selected as origin.
+    set once. Either the origin is given by the <a href="configuration.html">configuration</a> or the position of the first
+    received navigation message is selected as origin. Once the origin is set, it cannot be changed. The current origin is displayed in this menu.
 
     <h3>Camera - Mode</h3>
     This option sets the camera perspective.

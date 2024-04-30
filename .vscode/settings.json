@@ -79,6 +79,9 @@
         "config": "c",
         "regex": "cpp",
         "source_location": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "charconv": "cpp",
+        "forward_list": "cpp",
+        "format": "cpp"
     }
 }

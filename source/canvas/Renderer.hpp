@@ -9,6 +9,7 @@
 #include <FrameBufferGBuffer.hpp>
 #include <FrameBufferEnvironment.hpp>
 #include <ShaderVehicle.hpp>
+#include <ShaderPolygon.hpp>
 #include <ShaderTransparentVehicle.hpp>
 #include <ShaderGroundPlane.hpp>
 #include <ShaderEnvironment.hpp>
@@ -73,6 +74,7 @@ class Renderer: public GLCallback {
         GLfloat gamma;                                      ///< Latest set gamma value.
 
         /* Shaders */
+        ShaderPolygon shaderPolygon;                        ///< The polygon shader.
         ShaderVehicle shaderVehicle;                        ///< The vehicle shader.
         ShaderTransparentVehicle shaderTransparentVehicle;  ///< The transparent vehicle shader.
         ShaderGroundPlane shaderGroundPlane;                ///< The ground plane shader.

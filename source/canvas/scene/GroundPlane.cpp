@@ -14,6 +14,8 @@ void GroundPlane::Draw(void){
 }
 
 void GroundPlane::Reset(void){
-    color = Configuration::style.displayGroundColor;
+    color.r = 134.0 / 255.0;
+    color.g = 169.0 / 255.0;
+    color.b = 182.0 / 255.0;
 }
 

@@ -23,14 +23,10 @@ class GLWindow: public GLCallback {
         /**
          *  @brief Create and initialize the window.
          *  @param [in] glWnd Pointer to the GL window derived class.
-         *  @param [in] width Window width in pixels.
-         *  @param [in] height Window height in pixels.
-         *  @param [in] title Window title.
-         *  @param [in] fullScreen True if window should be created in full screen mode, defaults to false.
          *  @return True if success, false otherwise.
          *  @details Calls the inialization callback.
          */
-        static bool Initialize(GLWindow* glWnd, uint32_t width, uint32_t height, std::string title, bool fullScreen = false);
+        static bool Initialize(GLWindow* glWnd);
 
         /**
          *  @brief Terminate and destroy the window.

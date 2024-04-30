@@ -11,7 +11,7 @@ bool JoystickInterface::Initialize(GLFWwindow* wnd){
     Terminate();
 
     // Create joystick database based on configuration
-    for(auto&& joystickConf : Configuration::network.joystick){
+    for(auto&& joystickConf : Configuration::gcs.network.joystick){
         joysticks.insert({joystickConf.id, new Joystick(joystickConf.id, &joystickConf.ipDestination[0], joystickConf.port, &joystickConf.ipInterface[0])});
     }
     (void)wnd;

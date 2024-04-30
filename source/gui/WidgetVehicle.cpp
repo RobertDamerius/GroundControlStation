@@ -16,6 +16,25 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
     this->setLayout(new GroupLayout());
     TabWidget* tabWidget = this->add<TabWidget>();
 
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Save/Close button
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Widget* buttonContainer = new Widget(this);
+    buttonContainer->setLayout(new GridLayout(Orientation::Horizontal, 2, Alignment::Fill, 0, 2));
+    buttonSave = new Button(buttonContainer, "Save", ENTYPO_ICON_SAVE);
+    buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON));
+    buttonSave->setCallback([this](){
+        appWindow.canvas.scene.vehicleManager.SaveVehicleStyle(this->id);
+        this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON));
+    });
+    Button* buttonClose = new Button(buttonContainer, "Close", ENTYPO_ICON_CIRCLE_WITH_CROSS);
+    buttonClose->setBackgroundColor(Color(GUI_COLOR_CLOSE_BUTTON));
+    buttonClose->setCallback([this](){
+        this->setVisible(false);
+    });
+
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Tab: DATA
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,7 +128,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
     // VectorXf &func = graph->values();
     // func.resize(100);
     // for (int i = 0; i < 100; ++i)
-        // func[i] = 0.5f * (0.5f * std::sin(i / 10.f) + 0.5f * std::cos(i / 23.f) + 1);
+    //     func[i] = 0.5f * (0.5f * std::sin(i / 10.f) + 0.5f * std::cos(i / 23.f) + 1);
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Tab: SETTINGS
@@ -137,6 +156,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxVelocity->setFontSize(GUI_FONT_SIZE);
             textBoxVelocity->setFormat("[0-9]*\\.?[0-9]+");
             textBoxVelocity->setCallback([this, textBoxVelocity](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d > 0.0){
@@ -159,6 +179,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxLineWidth->setFontSize(GUI_FONT_SIZE);
             textBoxLineWidth->setFormat("[0-9]*\\.?[0-9]+");
             textBoxLineWidth->setCallback([this](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d > 0.0){
@@ -177,6 +198,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxUpdatePeriod->setFontSize(GUI_FONT_SIZE);
             textBoxUpdatePeriod->setFormat("[0-9]+");
             textBoxUpdatePeriod->setCallback([this](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 int i = 0;
                 try{ i = std::stoi(str); } catch(...){}
                 if(i > 0){
@@ -194,6 +216,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxBufferSize->setFontSize(GUI_FONT_SIZE);
             textBoxBufferSize->setFormat("[0-9]+");
             textBoxBufferSize->setCallback([this, textBoxBufferSize](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 int i = 0;
                 try{ i = std::stoi(str); } catch(...){}
                 if(i > 0){
@@ -207,6 +230,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 return i > 0;
             });
         cbEnable->setCallback([this, textBoxVelocity, textBoxLineWidth, textBoxUpdatePeriod, textBoxBufferSize](bool checked){
+            this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
             textBoxVelocity->setEnabled(checked);
             textBoxVelocity->setEditable(checked);
             textBoxLineWidth->setEnabled(checked);
@@ -244,7 +268,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 textBoxVelocity->setValue(stream.str());
             }
             uint32_t u = v->positionHistory.GetBufferSize();
-            textBoxBufferSize->setValue(std::to_string(u ? u : Configuration::style.positionHistoryBufferSize));
+            textBoxBufferSize->setValue(std::to_string(u ? u : Configuration::gcs.defaultVehicleStyle.positionHistory.bufferSize));
             textBoxUpdatePeriod->setValue(std::to_string(v->positionHistory.GetTimePeriodMs()));
             appWindow.canvas.scene.vehicleManager.UnlockVehicle();
         }
@@ -260,6 +284,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
         new Label(group, "Visible", "sans", GUI_FONT_SIZE);
             CheckBox* cbView = new CheckBox(group, "");
             cbView->setCallback([this](bool checked){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     v->visible = checked;
@@ -269,6 +294,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
         new Label(group, "Use Custom Mesh", "sans", GUI_FONT_SIZE);
             CheckBox* cbUseMesh = new CheckBox(group, "");
             cbUseMesh->setCallback([this](bool checked){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     v->useMesh = checked;
@@ -278,6 +304,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
         new Label(group, "Altitude To Zero", "sans", GUI_FONT_SIZE);
             CheckBox* cbAltZero = new CheckBox(group, "");
             cbAltZero->setCallback([this](bool checked){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     v->altitudeToZero = checked;
@@ -328,6 +355,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxRadius->setFontSize(GUI_FONT_SIZE);
             textBoxRadius->setFormat("[0-9]*\\.?[0-9]+");
             textBoxRadius->setCallback([this, textBoxRadius](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d > 0.0){
@@ -351,6 +379,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 appWindow.canvas.scene.vehicleManager.UnlockVehicle();
             }
             cp->setCallback([this](const Color& c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -359,6 +388,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 }
             });
             cp->setFinalCallback([this](const Color &c) {
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -367,6 +397,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 }
             });
         cbEnable->setCallback([this, textBoxRadius, cp](bool checked){
+            this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
             textBoxRadius->setEnabled(checked);
             textBoxRadius->setEditable(checked);
             cp->setEnabled(checked);
@@ -411,6 +442,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 appWindow.canvas.scene.vehicleManager.UnlockVehicle();
             }
             cp->setCallback([this](const Color& c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -419,6 +451,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 }
             });
             cp->setFinalCallback([this](const Color &c) {
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -433,6 +466,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxLineWidth->setFontSize(GUI_FONT_SIZE);
             textBoxLineWidth->setFormat("[0-9]*\\.?[0-9]+");
             textBoxLineWidth->setCallback([this, textBoxLineWidth](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d > 0.0){
@@ -455,6 +489,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textSymbolSize->setFontSize(GUI_FONT_SIZE);
             textSymbolSize->setFormat("[0-9]*\\.?[0-9]+");
             textSymbolSize->setCallback([this, textSymbolSize](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d > 0.0){
@@ -480,6 +515,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 appWindow.canvas.scene.vehicleManager.UnlockVehicle();
             }
             cpV->setCallback([this](const Color& c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -487,7 +523,8 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                     appWindow.canvas.scene.vehicleManager.UnlockVehicle();
                 }
             });
-            cpV->setFinalCallback([this](const Color &c) {
+            cpV->setFinalCallback([this](const Color &c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -501,6 +538,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxVehicleAlpha->setFontSize(GUI_FONT_SIZE);
             textBoxVehicleAlpha->setFormat("[0-9]*\\.?[0-9]+");
             textBoxVehicleAlpha->setCallback([this, textBoxVehicleAlpha](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d >= 0.0){
@@ -517,6 +555,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 return d >= 0.0;
             });
         cbEnable->setCallback([this, cp, cpV, textBoxLineWidth, textSymbolSize, textBoxVehicleAlpha](bool checked){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
             cp->setEnabled(checked);
             cpV->setEnabled(checked);
             textBoxLineWidth->setEnabled(checked);
@@ -581,6 +620,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 appWindow.canvas.scene.vehicleManager.UnlockVehicle();
             }
             cp->setCallback([this](const Color& c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -589,6 +629,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 }
             });
             cp->setFinalCallback([this](const Color &c) {
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -603,6 +644,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxLineWidth->setFontSize(GUI_FONT_SIZE);
             textBoxLineWidth->setFormat("[0-9]*\\.?[0-9]+");
             textBoxLineWidth->setCallback([this, textBoxLineWidth](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d > 0.0){
@@ -627,6 +669,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 appWindow.canvas.scene.vehicleManager.UnlockVehicle();
             }
             cpV->setCallback([this](const Color& c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -634,7 +677,8 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                     appWindow.canvas.scene.vehicleManager.UnlockVehicle();
                 }
             });
-            cpV->setFinalCallback([this](const Color &c) {
+            cpV->setFinalCallback([this](const Color &c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -648,6 +692,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxVehicleAlpha->setFontSize(GUI_FONT_SIZE);
             textBoxVehicleAlpha->setFormat("[0-9]*\\.?[0-9]+");
             textBoxVehicleAlpha->setCallback([this, textBoxVehicleAlpha](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d >= 0.0){
@@ -670,6 +715,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxVehicleStride->setUnits("s");
             textBoxVehicleStride->setFormat("[0-9]*\\.?[0-9]+");
             textBoxVehicleStride->setCallback([this, textBoxVehicleStride](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double d = 0.0;
                 try{ d = std::stod(str); } catch(...){}
                 if(d >= 0.0){
@@ -686,6 +732,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 return d >= 0.0;
             });
         cbEnable->setCallback([this, cp, cpV, textBoxLineWidth, textBoxVehicleAlpha, textBoxVehicleStride](bool checked){
+            this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
             cp->setEnabled(checked);
             cpV->setEnabled(checked);
             textBoxLineWidth->setEnabled(checked);
@@ -742,6 +789,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             CheckBox* cbEnable = new CheckBox(group, "");
             cbEnable->setChecked(true);
             cbEnable->setCallback([this](bool checked){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     v->polygons.enable = checked;
@@ -757,6 +805,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxUpperLimit->setEnabled(true);
             textBoxUpperLimit->setEditable(true);
             textBoxUpperLimit->setCallback([this, textBoxUpperLimit](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double value = 0.0;
                 try{ value = std::stod(str); } catch(...){}
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
@@ -778,6 +827,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             textBoxLowerLimit->setEnabled(true);
             textBoxLowerLimit->setEditable(true);
             textBoxLowerLimit->setCallback([this, textBoxLowerLimit](const std::string& str){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 double value = 0.0;
                 try{ value = std::stod(str); } catch(...){}
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
@@ -799,6 +849,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 appWindow.canvas.scene.vehicleManager.UnlockVehicle();
             }
             cp->setCallback([this](const Color& c){
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -807,6 +858,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
                 }
             });
             cp->setFinalCallback([this](const Color &c) {
+                this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
                 Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
                 if(v){
                     glm::vec3 clr(c.r()*c.r(), c.g()*c.g(), c.b()*c.b());
@@ -817,6 +869,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
         Widget* w = new Widget(group);
         w->setFixedWidth(TAB_SETTINGS_WIDTH_COLUMN_LABEL);
         cbEnable->setCallback([this](bool checked){
+            this->buttonSave->setBackgroundColor(Color(GUI_COLOR_SAVE_BUTTON_HIGHLIGHT));
             Vehicle* v = appWindow.canvas.scene.vehicleManager.LockVehicle(this->id);
             if(v){
                 v->polygons.enable = checked;
@@ -829,16 +882,7 @@ WidgetVehicle::WidgetVehicle(nanogui::Widget *parent, const VehicleID id): nanog
             appWindow.canvas.scene.vehicleManager.UnlockVehicle();
         }
     }
-
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Close button
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     tabWidget->setActiveTab(0);
-    Button* buttonClose = new Button(this, "Close", ENTYPO_ICON_CIRCLE_WITH_CROSS);
-    buttonClose->setBackgroundColor(Color(GUI_COLOR_CLOSE_BUTTON));
-    buttonClose->setCallback([this](){
-        this->setVisible(false);
-    });
 }
 
 WidgetVehicle::~WidgetVehicle(){}

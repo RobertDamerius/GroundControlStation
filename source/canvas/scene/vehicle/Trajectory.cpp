@@ -4,12 +4,14 @@
 
 
 Trajectory::Trajectory(){
-    this->enable = Configuration::style.trajectoryEnable;
-    this->color = Configuration::style.trajectoryColor;
+    this->enable = Configuration::gcs.defaultVehicleStyle.trajectory.enable;
+    this->color.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.color[0]) / 255.0;
+    this->color.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.color[1]) / 255.0;
+    this->color.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.color[2]) / 255.0;
     this->dt = 0.0;
-    this->vehicleAlpha = Configuration::style.trajectoryVehicleAlpha;
-    this->vehicleStride = Configuration::style.trajectoryVehicleStride;
-    this->line.width = (GLfloat)Configuration::style.trajectoryLineWidth;
+    this->vehicleAlpha = Configuration::gcs.defaultVehicleStyle.trajectory.vehicleAlpha;
+    this->vehicleStride = Configuration::gcs.defaultVehicleStyle.trajectory.vehicleStride;
+    this->line.width = (GLfloat)Configuration::gcs.defaultVehicleStyle.trajectory.lineWidth;
 }
 
 Trajectory::~Trajectory(){}

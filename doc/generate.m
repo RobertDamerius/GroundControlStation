@@ -21,14 +21,13 @@ layoutNavBar = [
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Info', 'info.html');
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'CONFIGURATION');
-    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Configuration Files', 'configuration.html');
-    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Origin', 'configurationorigin.html');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Configuration File: GCS.json', 'configuration.html');
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Network', 'configurationnetwork.html');
-    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Style', 'configurationstyle.html');
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Text-To-Speech', 'configurationtts.html');
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Database', 'configurationdatabase.html');
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.none);
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.text, 'MISC');
+    SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Vehicle Style', 'vehiclestyle.html');
     SimpleDoc.NavEntry(SimpleDoc.NavEntryType.link, 'Custom Vehicle Mesh', 'vehiclemesh.html');
 ];
 

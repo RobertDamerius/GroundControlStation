@@ -1,0 +1,136 @@
+{
+    "initialDatabase": [],
+    "network": {
+        "joystick": [
+            "0>127.0.0.1:12701@0.0.0.0"
+        ],
+        "multicast": [
+            "239.0.0.71:23971@0.0.0.0",
+            "239.0.0.76:23976@0.0.0.0",
+            "239.0.0.78:23978@0.0.0.0",
+            "239.0.0.80:23980@0.0.0.0",
+            "239.0.0.84:23984@0.0.0.0"
+        ],
+        "unicast": [
+            "23971@0.0.0.0",
+            "23976@0.0.0.0",
+            "23978@0.0.0.0",
+            "23980@0.0.0.0",
+            "23984@0.0.0.0"
+        ]
+    },
+    "ui": {
+        "defaultVehicleStyle": {
+            "altitudeToZero": false,
+            "compass": {
+                "color": [
+                    255,
+                    255,
+                    255
+                ],
+                "enable": true,
+                "radius": 10.0
+            },
+            "polygons": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ],
+                "enable": true,
+                "lowerLimit": -1.0,
+                "upperLimit": 1.0
+            },
+            "positionHistory": {
+                "bufferSize": 100,
+                "enable": false,
+                "lineWidth": 2.0,
+                "maximumSOG": 2.0,
+                "updatePeriodMs": 20
+            },
+            "trajectory": {
+                "color": [
+                    255,
+                    0,
+                    255
+                ],
+                "enable": true,
+                "lineWidth": 2.0,
+                "vehicleAlpha": 0.5,
+                "vehicleColor": [
+                    255,
+                    255,
+                    255
+                ],
+                "vehicleStride": 1.0
+            },
+            "waypoints": {
+                "color": [
+                    0,
+                    255,
+                    0
+                ],
+                "enable": true,
+                "lineWidth": 2.0,
+                "symbolSize": 1.0,
+                "vehicleAlpha": 0.5,
+                "vehicleColor": [
+                    255,
+                    255,
+                    255
+                ]
+            }
+        },
+        "scene": {
+            "ambient": 0.1,
+            "reflection": 0.1,
+            "shininess": 32.0,
+            "specularity": 1.0
+        },
+        "textToSpeech": {
+            "enable": true,
+            "linux": {
+                "systemPostString": "\"",
+                "systemPreString": "spd-say -w -l EN -t female2 \""
+            },
+            "windows": {
+                "systemPostString": "');\"",
+                "systemPreString": "PowerShell -windowstyle hidden -Command \"Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('"
+            }
+        },
+        "view": {
+            "camera": {
+                "clipFar": 1000.0,
+                "clipNear": 0.1,
+                "enable3D": false
+            },
+            "display": {
+                "gamma": 2.0,
+                "groundColor": [
+                    134,
+                    169,
+                    182
+                ]
+            },
+            "geographicOrigin": {
+                "altitude": 0.0,
+                "latitude": 0.0,
+                "longitude": 0.0,
+                "useFromFirstReceivedNavigationMessage": true
+            }
+        }
+    },
+    "window": {
+        "decorated": true,
+        "focused": true,
+        "fullscreen": false,
+        "fullscreenMonitorIndex": 0,
+        "glMajorVersion": 4,
+        "glMinorVersion": 5,
+        "height": 1080,
+        "maximized": false,
+        "resizable": true,
+        "visible": true,
+        "width": 1920
+    }
+}

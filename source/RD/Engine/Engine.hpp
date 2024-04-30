@@ -392,6 +392,8 @@ class Shader {
         inline void Uniform2iv(GLint location, GLsizei count, const GLint* values){ DEBUG_GLCHECK( glUniform2iv(location, count, values); ); }
         inline void Uniform1i(const GLchar* name, GLint value){ DEBUG_GLCHECK( glUniform1i(glGetUniformLocation(id, name), value); ); }
         inline void Uniform1i(GLint location, GLint value){ DEBUG_GLCHECK( glUniform1i(location, value); ); }
+        inline void Uniform1ui(const GLchar* name, GLuint value){ DEBUG_GLCHECK( glUniform1ui(glGetUniformLocation(id, name), value); ); }
+        inline void Uniform1ui(GLint location, GLuint value){ DEBUG_GLCHECK( glUniform1ui(location, value); ); }
         inline void Uniform1iv(const GLchar* name, GLsizei count, const GLint* values){ DEBUG_GLCHECK( glUniform1iv(glGetUniformLocation(id, name), count, values); ); }
         inline void Uniform1iv(GLint location, GLsizei count, const GLint* values){ DEBUG_GLCHECK( glUniform1iv(location, count, values); ); }
         inline void UniformBlockBinding(const GLchar* name, GLuint value){ DEBUG_GLCHECK( glUniformBlockBinding(id, glGetUniformBlockIndex(id, name), value); ); }

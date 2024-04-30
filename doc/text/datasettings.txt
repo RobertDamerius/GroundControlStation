@@ -12,7 +12,9 @@
     <center><img class="picture" src="../img/DataView.png" width="80%"></center>
 
     <h3>SETTINGS</h3>
-    In this tab, graphical settings for each vehicle can be adjusted.
+    In this tab, graphical settings for each vehicle can be adjusted. Via the "Save" button the current style can be written to a <a href="vehiclestyles.html">json file</a>.
+    The style is unqique for each vehicle name and is automatically recovered if a known vehicle is added to the internal database of the GCS. Whenever there're changes, the
+    button gets highlighted by a green color. However, the json file storing the style is always written if the button is pressed.
     <h3>Position History</h3>
     <table>
         <tr><th width="200px">Value</th><th>Description</th></tr>
@@ -28,7 +30,7 @@
         <tr><td>Enable</td><td>Show or hide waypoints.</td></tr>
         <tr><td>Color</td><td>Color of waypoints.</td></tr>
         <tr><td>Line Width</td><td>Width of the line.</td></tr>
-        <tr><td>Symbol Size</td><td>Size of the waypoint symbol. All waypoints are connected by line segments.</td></tr>
+        <tr><td>Symbol Size</td><td>Size of the waypoint symbol. All waypoints are connected by lines.</td></tr>
         <tr><td>Vehicle Color</td><td>Color multiplier for the vehicle polyhedron at a waypoint.</td></tr>
         <tr><td>Vehicle Alpha</td><td>Normalized alpha value for vehicle polyhedra at waypoint.</td></tr>
     </table>
@@ -55,7 +57,7 @@
         <tr><th width="200px">Value</th><th>Description</th></tr>
         <tr><td>Enable</td><td>Show or hide compass.</td></tr>
         <tr><td>Radius</td><td>The radius of the compass in meters.</td></tr>
-        <tr><td>Color</td><td>Color of the compass</td></tr>
+        <tr><td>Color</td><td>Color of the compass.</td></tr>
     </table>
     <h3>Polygons</h3>
     <table>

@@ -1,5 +1,6 @@
 #include <Common.hpp>
 #include <FileManager.hpp>
+#include <Configuration.hpp>
 #include <GLWindow.hpp>
 #include <AppWindow.hpp>
 #include <NetworkManager.hpp>
@@ -14,7 +15,8 @@ int main(int argc, char **argv){
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         (void)RD::Network::InitializeNetwork();
         FileManager::Initialize(argv[0]);
-        if(!GLWindow::Initialize(&appWindow, WINDOW_INITIAL_WIDTH, WINDOW_INITIAL_HEIGHT, strAppName, false)){
+        Configuration::ReadAndSaveAll();
+        if(!GLWindow::Initialize(&appWindow)){
             GLWindow::Terminate();
             return -1;
         }

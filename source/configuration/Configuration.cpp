@@ -1,18 +1,14 @@
 #include <Configuration.hpp>
 
 
-NetworkConfiguration Configuration::network;
-OriginConfiguration Configuration::origin;
-StyleConfiguration Configuration::style;
-TTSConfiguration Configuration::tts;
-DatabaseConfiguration Configuration::database;
+GCSConfiguration Configuration::gcs;
 
 
-void Configuration::ReadAll(void){
-    network.Read();
-    origin.Read();
-    style.Read();
-    tts.Read();
-    database.Read();
+void Configuration::ReadAndSaveAll(void){
+    // read
+    gcs.Read();
+
+    // save
+    gcs.Save();
 }
 

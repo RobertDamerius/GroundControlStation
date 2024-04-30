@@ -27,12 +27,12 @@ bool Scene::Initialize(void){
 
     // Camera settings
         viewCamera.fov = glm::radians(70.0);
-        viewCamera.clipNear = Configuration::style.cameraClipNear;
-        viewCamera.clipFar = Configuration::style.cameraClipFar;
+        viewCamera.clipNear = Configuration::gcs.view.camera.clipNear;
+        viewCamera.clipFar = Configuration::gcs.view.camera.clipFar;
         viewCamera.position = glm::dvec3(0.0, 10.0, 0.0);
         viewCamera.up = glm::dvec3(0.0, 1.0, 0.0);
         viewCamera.view = glm::dvec3(1.0, 0.0, 0.0);
-        SetCameraMode(Configuration::style.cameraMode ? CAMERA_MODE_PERSPECTIVE : CAMERA_MODE_ORTHOGRAPHIC);
+        SetCameraMode(Configuration::gcs.view.camera.enable3D ? CAMERA_MODE_PERSPECTIVE : CAMERA_MODE_ORTHOGRAPHIC);
         renderingOffset = glm::dvec3(0.0);
 
     // Load and generate content
@@ -48,8 +48,12 @@ bool Scene::Initialize(void){
             LogError("Could not generate skybox texture!\n");
             goto error;
         }
+        glm::vec3 color;
+        color.r = static_cast<double>(Configuration::gcs.view.display.groundColor[0]) / 255.0;
+        color.g = static_cast<double>(Configuration::gcs.view.display.groundColor[1]) / 255.0;
+        color.b = static_cast<double>(Configuration::gcs.view.display.groundColor[2]) / 255.0;
         groundPlane.Reset();
-        groundPlane.color = appWindow.canvas.renderer.SetGroundPlaneColor(groundPlane.color);
+        groundPlane.color = appWindow.canvas.renderer.SetGroundPlaneColor(color);
 
     // Return success
         return true;

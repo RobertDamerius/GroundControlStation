@@ -24,10 +24,10 @@ bool Renderer::Initialize(void){
         if(!GenerateShaders()){
             goto error;
         }
+        SetGamma(Configuration::gcs.view.display.gamma);
 
     // Return success
         DEBUG_GLCHECK( glActiveTexture(TEXTUREUNIT_DEFAULT); );
-        this->gamma = Configuration::style.displayGamma;
         return true;
 
     // Error handling
@@ -162,6 +162,10 @@ void Renderer::DeleteFrameBuffers(void){
 }
 
 bool Renderer::GenerateShaders(void){
+    if(!shaderPolygon.Generate()){
+        LogError("Could not create polygon shader!\n");
+        return false;
+    }
     if(!shaderVehicle.Generate()){
         LogError("Could not create vehicle shader!\n");
         return false;
@@ -213,11 +217,11 @@ void Renderer::DeleteShaders(void){
     shaderGroundPlane.Delete();
     shaderTransparentVehicle.Delete();
     shaderVehicle.Delete();
+    shaderPolygon.Delete();
 }
 
 void Renderer::RenderToGBuffer(Scene& scene){
-    shaderVehicle.Use();
-    scene.vehicleManager.Render(shaderVehicle);
+    scene.vehicleManager.Render(shaderVehicle, shaderPolygon);
 }
 
 void Renderer::RenderTransparencyParts(Scene& scene){

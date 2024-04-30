@@ -10,7 +10,7 @@
 <body>
 <header>
 <div class="header_title">Ground Control Station (GCS)</div>
-<div class="header_version">Version 20240227</div>
+<div class="header_version">Version 20240430</div>
 </header>
 <button onclick="PageToTop()" id="buttonToTop"></button>
 <div class="wrapper">
@@ -29,60 +29,40 @@
 <li class="linav"><a href="info.html">Info</a></li>
 <li class="linone"></li>
 <li class="litext">CONFIGURATION</li>
-<li class="linav"><a href="configuration.html">Configuration Files</a></li>
-<li class="linav"><a href="configurationorigin.html">Origin</a></li>
+<li class="linav"><a href="configuration.html">Configuration File: GCS.json</a></li>
 <li class="linav"><a href="configurationnetwork.html">Network</a></li>
-<li class="linav"><a href="configurationstyle.html">Style</a></li>
 <li class="linav_active"><a href="configurationtts.html">Text-To-Speech</a></li>
 <li class="linav"><a href="configurationdatabase.html">Database</a></li>
 <li class="linone"></li>
 <li class="litext">MISC</li>
+<li class="linav"><a href="vehiclestyle.html">Vehicle Style</a></li>
 <li class="linav"><a href="vehiclemesh.html">Custom Vehicle Mesh</a></li>
 </ul>
 
 </div>
 <div class="content">
 <h1>Configuration: Text-To-Speech (TTS)</h1>
-    <br><b>File:</b> /configuration/tts.cfg<br><br>
-    With this configuration file the text-to-speech command can be specified. The GCS calls a system command where the actual command string
+    The TTS configuration is done via the <a href="configuration.html">configuration file</a>.
+    The GCS calls a system command where the actual command string
     is constructed from a pre-string, the text of an IMP Log Message and a post-string. The text of the log message must only contain the following characters:
     <code>[A-Z], [a-z], [0-9], [.], [,], [!], [?], [ ]</code>. If the GCS receives a log message from a known vehicle and all characters are within the valid range, then
     a command string is constructed. If the text-to-speech option is enabled in the configuration file, the system command is called.
-    The configuration file is a text file and can look like this:
-<pre># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# TEXT TO SPEECH
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# The GCS runs a system command when a log message (IMP) is received. The
-# text is placed between a pre-string and a post-string and the whole command
-# is executed.
-# Note that the command is only executed if the text to be spoken contains
-# valid characters, that is [A-Z], [a-z], [0-9], [.], [,], [!], [?] and [ ]
-# to prevent command injection.
-[TextToSpeech.Enable]
-    true
-
-[Windows.TextToSpeech.SystemPreString]
-    PowerShell -windowstyle hidden -Command "Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('
-
-[Windows.TextToSpeech.SystemPostString]
-    ');"
-
-[Linux.TextToSpeech.SystemPreString]
-    spd-say -w -l EN -t female2 "
-
-[Linux.TextToSpeech.SystemPostString]
-    "
-</pre>
-    The following <a href="configuration.html">key values</a> can be set:
-    <br>
-    <table>
-        <tr><th width="300px">Key value</th><th>Description</th></tr>
-        <tr><td style="font-family: Courier-New;">TextToSpeech.Enable</td><td>Either <code>true</code> or <code>false</code> to enable or disable the text-to-speech command.</td></tr>
-        <tr><td style="font-family: Courier-New;">Windows.TextToSpeech.SystemPreString</td><td>The pre-string to be used to construct the command string on Windows OS.</td></tr>
-        <tr><td style="font-family: Courier-New;">Windows.TextToSpeech.SystemPostString</td><td>The post-string to be used to construct the command string on Windows OS.</td></tr>
-        <tr><td style="font-family: Courier-New;">Linux.TextToSpeech.SystemPreString</td><td>The pre-string to be used to construct the command string on Windows OS.</td></tr>
-        <tr><td style="font-family: Courier-New;">Linux.TextToSpeech.SystemPostString</td><td>The post-string to be used to construct the command string on Windows OS.</td></tr>
-    </table>
+    The pre- and post-strings depend on the operating system. The following example shows an excerpt of the configuration file.
+<pre>{
+    "ui": {
+        "textToSpeech": {
+            "enable": true,
+            "linux": {
+                "systemPostString": "\"",
+                "systemPreString": "spd-say -w -l EN -t female2 \""
+            },
+            "windows": {
+                "systemPostString": "');\"",
+                "systemPreString": "PowerShell -windowstyle hidden -Command \"Add-Type -AssemblyName System.Speech; $A = New-Object System.Speech.Synthesis.SpeechSynthesizer; $A.SelectVoice('Microsoft Zira Desktop'); $A.Speak('"
+            }
+        }
+    }
+}</pre>
 
 </div>
 </div>

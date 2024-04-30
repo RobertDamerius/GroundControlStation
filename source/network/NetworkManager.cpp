@@ -1,5 +1,4 @@
 #include <NetworkManager.hpp>
-#include <NetworkConfiguration.hpp>
 #include <InterModuleProtocol.hpp>
 #include <Common.hpp>
 #include <RD.hpp>
@@ -19,14 +18,14 @@ void NetworkManager::Start(void){
     NetworkManager::Stop();
 
     // Start all unicast receivers
-    for(auto&& conf : Configuration::network.unicast){
+    for(auto&& conf : Configuration::gcs.network.unicast){
         UnicastReceiver* receiver = new UnicastReceiver(conf.port, &conf.ipInterface[0]);
         unicastReceivers.push_back(receiver);
         receiver->Start(&(NetworkManager::Decode));
     }
 
     // Start all multicast receivers
-    for(auto&& conf : Configuration::network.multicast){
+    for(auto&& conf : Configuration::gcs.network.multicast){
         MulticastReceiver* receiver = new MulticastReceiver(&conf.ipGroup[0], conf.port, &conf.ipInterface[0]);
         multicastReceivers.push_back(receiver);
         receiver->Start(&(NetworkManager::Decode));
@@ -34,10 +33,10 @@ void NetworkManager::Start(void){
 
     // Get all network interfaces
     std::unordered_set<std::string> interfaces;
-    for(auto&& conf : Configuration::network.unicast){
+    for(auto&& conf : Configuration::gcs.network.unicast){
         interfaces.insert(std::to_string(conf.ipInterface[0]) + std::string(".") + std::to_string(conf.ipInterface[1]) + std::string(".") + std::to_string(conf.ipInterface[2]) + std::string(".") + std::to_string(conf.ipInterface[3]));
     }
-    for(auto&& conf : Configuration::network.multicast){
+    for(auto&& conf : Configuration::gcs.network.multicast){
         interfaces.insert(std::to_string(conf.ipInterface[0]) + std::string(".") + std::to_string(conf.ipInterface[1]) + std::string(".") + std::to_string(conf.ipInterface[2]) + std::string(".") + std::to_string(conf.ipInterface[3]));
     }
 
@@ -51,7 +50,7 @@ void NetworkManager::Start(void){
     // Load initial database
     IMP::InfoResponseMessage msg;
     msg.timestamp = IMP::GetTimestampUTC();
-    for(auto&& entry : Configuration::database.entry){
+    for(auto&& entry : Configuration::gcs.initialDatabase){
         msg.dimension = entry.dimension;
         msg.offset = entry.offset;
         msg.vehicleName = entry.name;
@@ -180,6 +179,7 @@ void NetworkManager::Decode(const std::string& strInterfaceOfReceiver, RD::Netwo
         if(NetworkManager::GetVehicleID(id, group, udpSocket, source, strInterfaceOfReceiver)){
             std::vector<std::vector<std::array<double, 2>>> polygons;
             std::vector<std::array<double, 3>> velocities;
+            std::vector<uint8_t> classifications;
             glm::dvec3 xyz;
             appWindow.canvas.scene.origin.LLA2NED(xyz, glm::dvec3(msgConvexPolygon.latitude, msgConvexPolygon.longitude, msgConvexPolygon.altitude));
             for(auto&& msgPolygon : msgConvexPolygon.polygons){
@@ -189,8 +189,9 @@ void NetworkManager::Decode(const std::string& strInterfaceOfReceiver, RD::Netwo
                     v[1] += xyz.y;
                 }
                 velocities.push_back(std::array<double, 3>({msgPolygon.velocityNorth, msgPolygon.velocityEast, msgPolygon.yawRate}));
+                classifications.push_back(msgPolygon.classification);
             }
-            appWindow.canvas.scene.vehicleManager.SetPolygons(id, msgConvexPolygon.segmentIndex, msgConvexPolygon.maxSegmentIndex, polygons, velocities);
+            appWindow.canvas.scene.vehicleManager.SetPolygons(id, msgConvexPolygon.segmentIndex, msgConvexPolygon.maxSegmentIndex, polygons, velocities, classifications);
         }
     }
 
