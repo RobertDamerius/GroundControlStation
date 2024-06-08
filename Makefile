@@ -145,60 +145,60 @@ all: $(PRODUCT)
 pch: $(GCH_ALL) 
 
 info:
-    @echo ""
-    @echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    @echo "AppName: $(PRODUCT_NAME)"
-    @echo "OS:      $(OS)"
-    @echo ""
-    @echo "~~~~~~~ COMMAND LIST ~~~~~~~~~~~~~~~~~~~~~~~~"
-    @echo "all:     Makes complete software (no precompiled headers)."
-    @echo "pch:     Makes precompiled headers in directory \"$(DIRECTORY_PCH)\"".
-    @echo "clean:   Removes precompiled headers (.gch) and build directory \"$(DIRECTORY_BUILD)\"".
-    @echo "info:    Shows this info."
-    @echo ""
-    @echo "~~~~~~~ DIRECTORY SETTINGS ~~~~~~~~~~~~~~~~~~"
-    @echo "Source:  [$(DIRECTORY_SOURCE)]"
-    @echo "Build:   [$(DIRECTORY_BUILD)]"
-    @echo "Product: [$(DIRECTORY_PRODUCT)]"
-    @echo ""
-    @echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	@echo ""
+	@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	@echo "AppName: $(PRODUCT_NAME)"
+	@echo "OS:      $(OS)"
+	@echo ""
+	@echo "~~~~~~~ COMMAND LIST ~~~~~~~~~~~~~~~~~~~~~~~~"
+	@echo "all:     Makes complete software (no precompiled headers)."
+	@echo "pch:     Makes precompiled headers in directory \"$(DIRECTORY_PCH)\"".
+	@echo "clean:   Removes precompiled headers (.gch) and build directory \"$(DIRECTORY_BUILD)\"".
+	@echo "info:    Shows this info."
+	@echo ""
+	@echo "~~~~~~~ DIRECTORY SETTINGS ~~~~~~~~~~~~~~~~~~"
+	@echo "Source:  [$(DIRECTORY_SOURCE)]"
+	@echo "Build:   [$(DIRECTORY_BUILD)]"
+	@echo "Product: [$(DIRECTORY_PRODUCT)]"
+	@echo ""
+	@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 clean:
-    @$(RM) $(call rwildcard,$(DIRECTORY_PCH),*.gch)
-    @$(RM) $(DIRECTORY_BUILD)
-    @echo "Clean: Done."
+	@$(RM) $(call rwildcard,$(DIRECTORY_PCH),*.gch)
+	@$(RM) $(DIRECTORY_BUILD)
+	@echo "Clean: Done."
 
 $(PRODUCT): $(OBJECTS_ALL)
-    @printf "[APP]  > $@\n"
-    @$(CC) $(LD_FLAGS) $(LIBRARY_PATHS) -o $@ $^ $(SHARED_OBJECTS) $(LD_LIBS)
+	@printf "[APP]  > $@\n"
+	@$(CC) $(LD_FLAGS) $(LIBRARY_PATHS) -o $@ $^ $(SHARED_OBJECTS) $(LD_LIBS)
 
 $(DIRECTORY_BUILD)%.o: %.c
 $(DIRECTORY_BUILD)%.o: %.c $(DIRECTORY_BUILD)%.d
-    @printf "[C]    > $<\n"
-    @$(CC) $(INCLUDE_PATHS) $(CC_FLAGS) $(DEP_FLAGS) -o $@ -c $< $(CC_SYMBOLS)
-    @$(POSTCOMPILE)
+	@printf "[C]    > $<\n"
+	@$(CC) $(INCLUDE_PATHS) $(CC_FLAGS) $(DEP_FLAGS) -o $@ -c $< $(CC_SYMBOLS)
+	@$(POSTCOMPILE)
 
 $(DIRECTORY_BUILD)%.o: %.cpp
 $(DIRECTORY_BUILD)%.o: %.cpp $(DIRECTORY_BUILD)%.d
-    @printf "[CPP]  > $<\n"
-    @$(CPP) $(INCLUDE_PATHS) $(CPP_FLAGS) $(DEP_FLAGS) -o $@ -c $< $(CC_SYMBOLS)
-    @$(POSTCOMPILE)
+	@printf "[CPP]  > $<\n"
+	@$(CPP) $(INCLUDE_PATHS) $(CPP_FLAGS) $(DEP_FLAGS) -o $@ -c $< $(CC_SYMBOLS)
+	@$(POSTCOMPILE)
 
 $(DIRECTORY_BUILD)%.o: %.rc
-    @printf "[.RC]  > $<\n"
-    @$(WINDRES) $< -O coff -o $@
+	@printf "[.RC]  > $<\n"
+	@$(WINDRES) $< -O coff -o $@
 
 $(DIRECTORY_BUILD)%.o: %.bin
-    @printf "[BIN]  > $<\n"
-    @$(LD) -r -b binary -o $@ $<
+	@printf "[BIN]  > $<\n"
+	@$(LD) -r -b binary -o $@ $<
 
 $(DIRECTORY_PCH)%.gch: %.h
-    @printf "[PCH]  > $<\n"
-    @$(CPP) $(INCLUDE_PATH_SYS) $(CPP_FLAGS) $<
+	@printf "[PCH]  > $<\n"
+	@$(CPP) $(INCLUDE_PATH_SYS) $(CPP_FLAGS) $<
 
 $(DIRECTORY_PCH)%.gch: %.hpp
-    @printf "[PCH]  > $<\n"
-    @$(CPP) $(INCLUDE_PATH_SYS) $(CPP_FLAGS) $<
+	@printf "[PCH]  > $<\n"
+	@$(CPP) $(INCLUDE_PATH_SYS) $(CPP_FLAGS) $<
 
 $(DIRECTORY_BUILD)%.d: ;
 .PRECIOUS: $(DIRECTORY_BUILD)%.d
