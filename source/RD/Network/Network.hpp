@@ -109,6 +109,13 @@ class SocketBase {
          */
         int ReusePort(bool reuse);
 
+        /**
+         *  @brief Set socket option to allow broadcast messages to be send.
+         *  @param [in] allow True if broadcast should be allowed, false otherwise.
+         *  @return If no error occurs, zero is returned.
+         */
+        int AllowBroadcast(bool allow);
+
     private:
         std::atomic<int> _socket; ///< Socket value.
 

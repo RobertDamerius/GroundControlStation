@@ -58,3 +58,12 @@ int RD::Network::SocketBase::ReusePort(bool reuse){
     #endif
 }
 
+int RD::Network::SocketBase::AllowBroadcast(bool allow){
+    unsigned yes = static_cast<unsigned>(allow);
+    #ifdef _WIN32
+    return SetOption(SOL_SOCKET, SO_BROADCAST, (const void*)&yes, sizeof(yes));
+    #else
+    return SetOption(SOL_SOCKET, SO_BROADCAST, (const void*)&yes, sizeof(yes));
+    #endif
+}
+

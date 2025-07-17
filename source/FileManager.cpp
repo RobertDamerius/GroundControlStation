@@ -39,11 +39,6 @@ std::string FileManager::GetName(file_t file){
         case FILE_SHADER_LINE_STRIP:            return rootDirectory + std::string(DIRECTORY_SHADER "LineStrip" FILE_EXTENSION_SHADER);
         case FILE_SHADER_CIRCULAR_LINE_BUFFER:  return rootDirectory + std::string(DIRECTORY_SHADER "CircularLineBuffer" FILE_EXTENSION_SHADER);
         case FILE_CONFIGURATION_GCS:            return rootDirectory + std::string("GCS.json");
-        case FILE_CONFIGURATION_NETWORK:        return rootDirectory + std::string(DIRECTORY_CONFIGURATION "network" FILE_EXTENSION_CONFIGURATION);
-        case FILE_CONFIGURATION_ORIGIN:         return rootDirectory + std::string(DIRECTORY_CONFIGURATION "origin" FILE_EXTENSION_CONFIGURATION);
-        case FILE_CONFIGURATION_STYLE:          return rootDirectory + std::string(DIRECTORY_CONFIGURATION "style" FILE_EXTENSION_CONFIGURATION);
-        case FILE_CONFIGURATION_TTS:            return rootDirectory + std::string(DIRECTORY_CONFIGURATION "tts" FILE_EXTENSION_CONFIGURATION);
-        case FILE_CONFIGURATION_DATABASE:       return rootDirectory + std::string(DIRECTORY_CONFIGURATION "database" FILE_EXTENSION_CONFIGURATION);
     }
     return std::string("");
 }

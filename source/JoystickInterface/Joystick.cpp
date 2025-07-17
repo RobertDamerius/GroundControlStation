@@ -22,6 +22,9 @@ Joystick::Joystick(uint8_t id, uint8_t* ipDestination, uint16_t port, uint8_t* i
         return;
     }
 
+    // Allow sending broadcast messages
+    (void) udpSocket.AllowBroadcast(true);
+
     // Bind port and set interface
     char ipIF[16];
     sprintf(ipIF,"%u.%u.%u.%u",ipInterface[0],ipInterface[1],ipInterface[2],ipInterface[3]);
