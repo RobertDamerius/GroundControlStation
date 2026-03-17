@@ -56,16 +56,18 @@ Vector2i Widget::preferredSize(NVGcontext *ctx) const {
 }
 
 void Widget::performLayout(NVGcontext *ctx) {
-    if (mLayout) {
-        mLayout->performLayout(ctx, this);
-    } else {
-        for (auto c : mChildren) {
-            Vector2i pref = c->preferredSize(ctx), fix = c->fixedSize();
-            c->setSize(Vector2i(
-                fix[0] ? fix[0] : pref[0],
-                fix[1] ? fix[1] : pref[1]
-            ));
-            c->performLayout(ctx);
+    if(mVisible){ // RobertDamerius: increase performance when using a lot of invisible widgets
+        if (mLayout) {
+            mLayout->performLayout(ctx, this);
+        } else {
+            for (auto c : mChildren) {
+                Vector2i pref = c->preferredSize(ctx), fix = c->fixedSize();
+                c->setSize(Vector2i(
+                    fix[0] ? fix[0] : pref[0],
+                    fix[1] ? fix[1] : pref[1]
+                ));
+                c->performLayout(ctx);
+            }
         }
     }
 }
