@@ -220,14 +220,9 @@ void GLWindow::MainLoop(void){
     double previousTime = 0.0;
     glfwSetTime(0.0);
     while(!glfwWindowShouldClose(glfwWindow)){
-        // Get elapsed time to last cycle and limit FPS
+        // Get elapsed time to last cycle
         double time = glfwGetTime();
         double dt = time - previousTime;
-        if(dt < 0.01){
-            std::this_thread::sleep_for(std::chrono::microseconds((int)((0.01 - dt)*1e6)));
-            time = glfwGetTime();
-            dt = time - previousTime;
-        }
         previousTime = time;
 
         // Calculate and show FPS
