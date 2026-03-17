@@ -46,7 +46,7 @@ POSTCOMPILE     = mv -f $(DIRECTORY_BUILD)$*.Td $(DIRECTORY_BUILD)$*.d
 ifeq ($(DEBUG_MODE), 1)
     CC_FLAGS   += -ggdb
     CPP_FLAGS  += -ggdb
-    CC_SYMBOLS += -DDEBUG
+    CC_SYMBOLS += -DDEBUG -DDEBUG_PRINT_PERFORMANCE
 else
     LD_FLAGS   += -s
     CC_FLAGS   += -O3

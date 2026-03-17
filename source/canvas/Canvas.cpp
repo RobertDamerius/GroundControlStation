@@ -37,8 +37,15 @@ void Canvas::Terminate(void){
 }
 
 void Canvas::Render(GLFWwindow* wnd, double dt, glm::dvec2 deltaCursor){
+    #ifdef DEBUG_PRINT_PERFORMANCE
+    double t0 = 1000.0 * glfwGetTime();
+    #endif
     scene.Update(dt);
     renderer.Render(scene, gui);
+    #ifdef DEBUG_PRINT_PERFORMANCE
+    double t1 = 1000.0 * glfwGetTime();
+    fprintf(stderr," | CPU[ms]: %07.3f\n",t1-t0);
+    #endif
     (void)wnd;
     (void)deltaCursor;
 }

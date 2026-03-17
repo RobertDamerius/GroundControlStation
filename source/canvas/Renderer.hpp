@@ -18,6 +18,7 @@
 #include <ShaderLine.hpp>
 #include <ShaderLineStrip.hpp>
 #include <ShaderCircularLineBuffer.hpp>
+#include <GLPerformanceCounter.hpp>
 
 
 class Renderer: public GLCallback {
@@ -89,6 +90,7 @@ class Renderer: public GLCallback {
         FrameBufferGUI fbGUI;                               ///< The GUI framebuffer.
         FrameBufferGBuffer fbGBuffer;                       ///< The G-buffer.
         FrameBufferEnvironment fbEnvironment;               ///< The environment framebuffer.
+        GLPerformanceCounter glPerformanceCounter;          ///< The GL performance counter.
 
         /**
          *  @brief Generate all framebuffers.

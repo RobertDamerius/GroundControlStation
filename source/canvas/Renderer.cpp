@@ -13,6 +13,9 @@ Renderer::~Renderer(){}
 bool Renderer::Initialize(void){
     // Make sure that the renderer is terminated
         Terminate();
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        glPerformanceCounter.Generate();
+        #endif
 
     // Generate framebuffers
         glm::ivec2 windowSize = AppWindow::MinSize(AppWindow::GetSize());
@@ -39,6 +42,9 @@ bool Renderer::Initialize(void){
 void Renderer::Terminate(void){
     DeleteShaders();
     DeleteFrameBuffers();
+    #ifdef DEBUG_PRINT_PERFORMANCE
+    glPerformanceCounter.Delete();
+    #endif
 }
 
 void Renderer::CallbackFramebufferResize(GLFWwindow* wnd, glm::ivec2 size){
@@ -62,6 +68,9 @@ void Renderer::Render(Scene& scene, GUI& gui){
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Render GUI
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        glPerformanceCounter.BeginQuery();
+        #endif
         DEBUG_GLCHECK( glViewport(0, 0, fbGUI.width, fbGUI.height); );
         DEBUG_GLCHECK( glBindFramebuffer(GL_FRAMEBUFFER, fbGUI.fbo); );
         DEBUG_GLCHECK( glClear(GL_COLOR_BUFFER_BIT); );
@@ -69,20 +78,32 @@ void Renderer::Render(Scene& scene, GUI& gui){
         DEBUG_GLCHECK( glEnable(GL_CULL_FACE); );
         DEBUG_GLCHECK( glCullFace(GL_BACK); );
         DEBUG_GLCHECK( glDisable(GL_BLEND); );
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        double t1 = 1000.0 * glPerformanceCounter.EndQuery();
+        #endif
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Render scene to Gbuffer
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        glPerformanceCounter.BeginQuery();
+        #endif
         DEBUG_GLCHECK( glViewport(0, 0, fbGBuffer.width, fbGBuffer.height); );
         DEBUG_GLCHECK( glBindFramebuffer(GL_FRAMEBUFFER, fbGBuffer.fbo); );
         DEBUG_GLCHECK( glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); );
         DEBUG_GLCHECK( glEnable(GL_DEPTH_TEST); );
         this->RenderToGBuffer(scene);
         DEBUG_GLCHECK( glDisable(GL_DEPTH_TEST); );
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        double t2 = 1000.0 * glPerformanceCounter.EndQuery();
+        #endif
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Environmental rendering
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        glPerformanceCounter.BeginQuery();
+        #endif
         DEBUG_GLCHECK( glBindFramebuffer(GL_FRAMEBUFFER, fbEnvironment.fbo); );
         DEBUG_GLCHECK( glClear(GL_COLOR_BUFFER_BIT); );
         shaderEnvironment.Use();
@@ -96,13 +117,23 @@ void Renderer::Render(Scene& scene, GUI& gui){
         DEBUG_GLCHECK( glDepthMask(GL_TRUE); );
         DEBUG_GLCHECK( glDisable(GL_BLEND); );
         DEBUG_GLCHECK( glDisable(GL_DEPTH_TEST); );
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        double t3 = 1000.0 * glPerformanceCounter.EndQuery();
+        #endif
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Post processing, render to default framebuffer (0)
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        glPerformanceCounter.BeginQuery();
+        #endif
         DEBUG_GLCHECK( glBindFramebuffer(GL_FRAMEBUFFER, 0); );
         shaderPostProcessing.Use();
         AppWindow::DrawScreenQuad();
+        #ifdef DEBUG_PRINT_PERFORMANCE
+        double t4 = 1000.0 * glPerformanceCounter.EndQuery();
+        fprintf(stderr,"GPU[ms]: GUI=%07.3f GBuf=%07.3f ENV=%07.3f POST=%07.3f SUM=%07.3f",t1,t2,t3,t4,t1+t2+t3+t4);
+        #endif
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Use accumulation buffer for a slight motion-blur effect
