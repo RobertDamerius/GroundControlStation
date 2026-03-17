@@ -40,7 +40,7 @@ The directory structure of this repository is as follows.
 | 2023-06-10  | 1.9      | Added near and far clipping plane values to style configuration file                                      |
 | 2024-02-27  | 2.0      | Fixed bug where app could crash when adding vehicles while the vehicle list or log view is visible        |
 | 2024-03-30  | 2.1      | Configuration is stored via JSON files. Styles for vehicles can be saved.                                 |
-| 2024-03-30  | 2.2      | Improved GUI performance.                                                                                 |
+| 2026-03-17  | 2.2      | Improved GUI performance.                                                                                 |
 
 ![](bin/documentation/img/Overview.png)
 
@@ -54,10 +54,8 @@ The GCS then builds up a vehicle database internally.
 For more information, see the [web-based documentation](bin/documentation/) that comes with the software.
 
 ## How To Build
-At the moment I have less time to deal with build tools like CMake or Automake.
-Maybe somebody has time and wants to help me.
-At the moment you need the GNU make tool and a GNU compiler that supports the C++17 standard.
-If your header files for required libraries are in a different location than mine, you can change this in `/source/precompiled/PreCompiled.hpp`.
+You need the GNU make tool and a GNU compiler that supports the C++17 standard.
+If your header files for required libraries are in a different location, you can change this in `/source/precompiled/PreCompiled.hpp`.
 If the corresponding libraries to be linked against are named differently, you can change this in the `Makefile` on line 30 (Windows) or 31 (Linux).
 
 ### External libraries required
