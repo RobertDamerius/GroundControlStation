@@ -40,6 +40,7 @@ The directory structure of this repository is as follows.
 | 2023-06-10  | 1.9      | Added near and far clipping plane values to style configuration file                                      |
 | 2024-02-27  | 2.0      | Fixed bug where app could crash when adding vehicles while the vehicle list or log view is visible        |
 | 2024-03-30  | 2.1      | Configuration is stored via JSON files. Styles for vehicles can be saved.                                 |
+| 2024-03-30  | 2.2      | Improved GUI performance.                                                                                 |
 
 ![](bin/documentation/img/Overview.png)
 
