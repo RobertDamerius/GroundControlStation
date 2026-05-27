@@ -13,6 +13,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/common.h>
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

@@ -18,6 +18,7 @@
 #ifndef NANOVG_GL_H
 #define NANOVG_GL_H
 
+#include <Common.hpp>
 #include <nanovg/nanovg.h>
 
 #ifdef __cplusplus

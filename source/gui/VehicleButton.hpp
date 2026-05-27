@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <nanogui/nanogui.h>
 #include <VehicleID.hpp>
 #include <WidgetVehicle.hpp>

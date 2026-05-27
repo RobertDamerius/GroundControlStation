@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/serializer/core.h>
 // #include <Eigen/SparseCore>
 

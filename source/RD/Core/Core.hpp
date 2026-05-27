@@ -6,6 +6,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Macros to load included binary resource files
 // MinGW: Create a resource object file with "ld -r -b binary -o data.o data.bin"

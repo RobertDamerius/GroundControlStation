@@ -67,20 +67,15 @@ bool GLWindow::Initialize(GLWindow* glWnd){
             return false;
         }
 
-        // make context, set callbacks
+        // make context, initialize GLAD, set callbacks
         glfwMakeContextCurrent(glfwWindow);
-        glWnd->SetCallbacks(glfwWindow);
-        glWindow = glWnd;
-
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Initiate GLEW
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        glewExperimental = GL_TRUE;
-        if(GLEW_OK != glewInit()){
-            LogError("Could not initialize GLEW!\n");
+        if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+            LogError("Could not initialize GLAD!\n");
             Terminate();
             return false;
         }
+        glWnd->SetCallbacks(glfwWindow);
+        glWindow = glWnd;
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Create a simple screen quad

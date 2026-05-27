@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/button.h>
 #include <nanogui/popup.h>
 #include <nanogui/entypo.h>

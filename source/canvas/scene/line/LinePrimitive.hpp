@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 // Line vertex type
 #pragma pack(push, 1)
 typedef struct {

@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/screen.h>
 #include <nanogui/label.h>
 #include <nanogui/checkbox.h>

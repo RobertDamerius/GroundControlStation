@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <GLWindow.hpp>
 #include <Canvas.hpp>
 #include <JoystickInterface.hpp>

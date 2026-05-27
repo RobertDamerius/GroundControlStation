@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <RD.hpp>
 #include <VehicleID.hpp>
 #include <InterModuleProtocol.hpp>

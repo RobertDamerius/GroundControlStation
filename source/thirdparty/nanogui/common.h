@@ -15,6 +15,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 #if defined(_WIN32)
 #  if defined(NANOGUI_BUILD)
      /* Quench a few warnings on when compiling NanoGUI on Windows */

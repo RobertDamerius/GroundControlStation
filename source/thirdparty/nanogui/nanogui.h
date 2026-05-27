@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/common.h>
 #include <nanogui/widget.h>
 #include <nanogui/screen.h>

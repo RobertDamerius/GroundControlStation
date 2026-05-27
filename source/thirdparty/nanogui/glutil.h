@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/opengl.h>
 // #include <Eigen/Geometry>
 // #include <map>

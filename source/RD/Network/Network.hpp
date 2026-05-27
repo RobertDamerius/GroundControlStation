@@ -6,6 +6,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 /* Default module namespace */
 namespace RD {
 namespace Network {

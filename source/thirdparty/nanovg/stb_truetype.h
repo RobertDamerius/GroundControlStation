@@ -241,6 +241,8 @@
 // #endif
 #define STBTT_DEF
 
+#include <Common.hpp>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

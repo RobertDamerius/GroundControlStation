@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/widget.h>
 // #include <cstdio>
 // #include <sstream>

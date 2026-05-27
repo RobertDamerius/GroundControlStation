@@ -394,6 +394,8 @@ distribute, and modify this file as you see fit.
 
 #define STBI_VERSION 1
 
+#include <Common.hpp>
+
 enum
 {
    STBI_default = 0, // only used for req_comp

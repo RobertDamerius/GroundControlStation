@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 /* Directories */
 #define DIRECTORY_SEPARATOR                    "/"
 #define DIRECTORY_SHADER                       "gfx" DIRECTORY_SEPARATOR

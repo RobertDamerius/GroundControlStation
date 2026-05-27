@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <Vehicle.hpp>
 #include <ShaderVehicle.hpp>
 #include <ShaderTransparentVehicle.hpp>

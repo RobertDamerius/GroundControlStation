@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 class AxisAlignedBoundingBox {
     public:
         glm::dvec3 position;   ///< Position of lowest corner.

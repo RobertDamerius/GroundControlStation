@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 class GroundPlane {
     public:
         glm::vec3 color; ///< Linear color of ground plane (reverse gamma corrected: rgb*rgb).

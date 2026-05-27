@@ -3,8 +3,7 @@
  *  @brief The engine header.
  *  @details Version 20210203.
  *  The OpenGL headers should be included in the following way:
- *     #define GLEW_STATIC
- *     #include <GL/glew.h>
+ *     #include <glad/glad.h>
  *     #ifdef _WIN32
  *     #define GLFW_EXPOSE_NATIVE_WGL
  *     #define GLFW_EXPOSE_NATIVE_WIN32
@@ -18,6 +17,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <Core.hpp>
 
 

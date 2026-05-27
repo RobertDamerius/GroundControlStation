@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 #pragma pack(push, 1)
 struct PolyMeshVertex {
     GLfloat position[3];   ///< 3D position vector.

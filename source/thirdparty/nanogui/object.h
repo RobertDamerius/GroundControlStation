@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/common.h>
 // #include <atomic>
 

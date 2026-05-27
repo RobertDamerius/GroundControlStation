@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/widget.h>
 #include <nanogui/glutil.h>
 // #include <functional>

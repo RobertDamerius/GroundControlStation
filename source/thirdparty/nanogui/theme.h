@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/common.h>
 #include <nanogui/object.h>
 

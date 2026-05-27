@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <GLWindow.hpp>
 #include <nanogui.h>
 #include <WidgetToolbar.hpp>

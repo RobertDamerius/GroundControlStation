@@ -21,14 +21,14 @@ DISABLE_CONSOLE   := 1
 DIRECTORY_SOURCE  := source/
 DIRECTORY_BUILD   := build/
 DIRECTORY_PRODUCT := bin/
-DIRECTORY_PCH     := source/precompiled/
+DIRECTORY_PCH     := 
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Libraries and symbols
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-LIBS_WINDOWS      := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw3 -lglew32 -lopengl32 -lws2_32 -lbz2 -lharfbuzz -lgraphite2 -lgdi32 -lcomdlg32 -lrpcrt4 -lbrotlidec -lbrotlicommon
-LIBS_LINUX        := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw -lGLEW -lGL -lX11 -ldl
+LIBS_WINDOWS      := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw3 -lopengl32 -lws2_32 -lbz2 -lharfbuzz -lgraphite2 -lgdi32 -lcomdlg32 -lrpcrt4 -lbrotlidec -lbrotlicommon
+LIBS_LINUX        := -lstdc++ -lpthread -lfreetype -lpng -lz -lglfw -lGL -lX11 -ldl
 CC_SYMBOLS         = 
 
 
@@ -128,7 +128,7 @@ LIBRARY_PATHS += $(LIBRARY_PATH_SYS) $(addprefix -L,$(DIRECTORY_ALL))
 ifeq ($(OS), Windows_NT)
     PRODUCT = $(DIRECTORY_PRODUCT)$(PRODUCT_NAME).exe
 else
-    PRODUCT = $(DIRECTORY_PRODUCT)$(PRODUCT_NAME).elf
+    PRODUCT = $(DIRECTORY_PRODUCT)$(PRODUCT_NAME)
 endif
 
 # Create build folders

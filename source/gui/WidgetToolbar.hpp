@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <NonmovableWindow.hpp>
 #include <nanogui.h>
 #include <ClickableLabel.hpp>

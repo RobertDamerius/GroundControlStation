@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <Common.hpp>
 #include <nanogui/object.h>
 #include <nanogui/theme.h>
 // #include <vector>

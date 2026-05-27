@@ -13,6 +13,8 @@
 
 #pragma once
 
+
+#include <Common.hpp>
 #include <nanogui/widget.h>
 // #include <unordered_map>
 // #include <fstream>
