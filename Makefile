@@ -128,7 +128,7 @@ LIBRARY_PATHS += $(LIBRARY_PATH_SYS) $(addprefix -L,$(DIRECTORY_ALL))
 ifeq ($(OS), Windows_NT)
     PRODUCT = $(DIRECTORY_PRODUCT)$(PRODUCT_NAME).exe
 else
-    PRODUCT = $(DIRECTORY_PRODUCT)$(PRODUCT_NAME).elf
+    PRODUCT = $(DIRECTORY_PRODUCT)$(PRODUCT_NAME)
 endif
 
 # Create build folders
