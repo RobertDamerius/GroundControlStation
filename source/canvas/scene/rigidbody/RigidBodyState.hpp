@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <Angle.hpp>
 #include <IMPState.hpp>
 

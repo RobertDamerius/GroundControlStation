@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <Common.hpp>
+
+
 /* Forward declaration */
 class GLWindow;
 

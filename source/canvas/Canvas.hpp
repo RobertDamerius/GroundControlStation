@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <Renderer.hpp>
 #include <Scene.hpp>
 #include <GUI.hpp>

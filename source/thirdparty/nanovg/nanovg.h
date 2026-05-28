@@ -19,6 +19,8 @@
 #ifndef NANOVG_H
 #define NANOVG_H
 
+#include <Common.hpp>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

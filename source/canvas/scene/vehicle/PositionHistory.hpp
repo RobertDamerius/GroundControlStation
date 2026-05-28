@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <Common.hpp>
 #include <CircularLineBuffer.hpp>
 #include <ShaderCircularLineBuffer.hpp>
 
