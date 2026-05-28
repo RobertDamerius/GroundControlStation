@@ -41,6 +41,7 @@ The directory structure of this repository is as follows.
 | 2024-02-27  | 2.0      | Fixed bug where app could crash when adding vehicles while the vehicle list or log view is visible        |
 | 2024-03-30  | 2.1      | Configuration is stored via JSON files. Styles for vehicles can be saved.                                 |
 | 2026-03-17  | 2.2      | Improved GUI performance.                                                                                 |
+| 2026-05-27  | 2.3      | Switch from GLEW to GLAD.                                                                                 |
 
 ![](bin/documentation/img/Overview.png)
 
@@ -60,14 +61,13 @@ If the corresponding libraries to be linked against are named differently, you c
 
 ### External libraries required
 Some third-party source code files are already present in the source directory. These include
-[NanoVG](https://github.com/memononen/nanovg), [NanoGUI](https://github.com/wjakob/nanogui), [LodePNG](https://github.com/lvandeve/lodepng), [Earcut](https://github.com/mapbox/earcut) and [JSON](https://github.com/nlohmann/json).
+[glad](https://glad.dav1d.de), [NanoVG](https://github.com/memononen/nanovg), [NanoGUI](https://github.com/wjakob/nanogui), [LodePNG](https://github.com/lvandeve/lodepng), [Earcut](https://github.com/mapbox/earcut) and [JSON](https://github.com/nlohmann/json).
 All other required external libraries are shown in the following table.
 
 | Library                                      | Windows (MSYS2/MinGW64)                               | Linux (Ubuntu)                                          | Comment                                          |
 | :------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------------ | :----------------------------------------------- |
 | OpenGL                                       | already comes with MSYS2/MinGW64                      | `sudo apt install build-essential libgl1-mesa-dev`      | OpenGL                                           |
 | [GLFW3](https://github.com/glfw/glfw)        | `pacman -S mingw-w64-x86_64-glfw`                     | `sudo apt install libglfw3-dev`                         | used to create window and OpenGL-context         |
-| [GLEW](http://glew.sourceforge.net)          | build from [source](http://glew.sourceforge.net)      | `sudo apt install libglew-dev`                          | OpenGL extension wrangler library                |
 | [GLM](https://github.com/g-truc/glm)         | `pacman -S mingw-w64-x86_64-glm`                      | `sudo apt install libglm-dev`                           | OpenGL mathematics                               |
 | [Freetype](https://www.freetype.org)         | build from [source](https://www.freetype.org)         | `sudo apt install libfreetype6-dev`                     | required by NanoVG, NanoGUI to use fonts         |
 | [Eigen3](https://gitlab.com/libeigen/eigen)  | `pacman -S mingw-w64-x86_64-eigen3`                   | `sudo apt install libeigen3-dev`                        | required by NanoGUI                              |
@@ -81,25 +81,14 @@ You can use the following command to clean up before a rebuilding:
 ```
 make clean
 ```
-The source directory contains a directory called `/source/precompiled`.
-All headers that appear within this directory are automatically included during the compilation process.
-In this way external headers only need to be included once.
-To speed up compilation, all headers within that directory can be precompiled with the command:
-```
-make pch
-```
-This command creates precompiled headers in the same source directory (with the file extension *.gch).
-Note that these precompiled headers are also deleted when `make clean` is called.
-The precompiled headers need to be generated only once.
-Additionally, a build directory is created that contains all object and dependency files when compiling.
 
 
 **Compile and link**<br>
 Use the command
 ```
-make
+make -j8
 ```
-to compile all sources and link them together to the final software product.
+to compile all sources using 8 jobs in parallel and link them together to the final software product.
 The final product is written to the `bin` directory.
 If you have made changes to some code files and recompiled them with `make`, only the sources affected by these changes will be recompiled.
 Be careful when renaming sources or moving them to other directories, because then the build directory is no longer consistent with the source directory, which can lead to errors.

@@ -181,8 +181,8 @@ bool FontSprite::Generate(const uint8_t* bytes, const uint32_t length, uint32_t 
         DEBUG_GLCHECK( glBindTexture(GL_TEXTURE_2D, texture); );
         DEBUG_GLCHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureFilter); );
         DEBUG_GLCHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureFilter); );
-        DEBUG_GLCHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP); );
-        DEBUG_GLCHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP); );
+        DEBUG_GLCHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); );
+        DEBUG_GLCHECK( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); );
         DEBUG_GLCHECK( glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)textureWidth, (GLsizei)textureHeight, 0, GL_RED, GL_UNSIGNED_BYTE, (GLubyte*)&spriteImageData[0]); );
         DEBUG_GLCHECK( glBindTexture(GL_TEXTURE_2D, 0); );
         DEBUG_GLCHECK( glActiveTexture(GL_TEXTURE0); );
