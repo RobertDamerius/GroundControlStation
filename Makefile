@@ -21,7 +21,7 @@ DISABLE_CONSOLE   := 1
 DIRECTORY_SOURCE  := source/
 DIRECTORY_BUILD   := build/
 DIRECTORY_PRODUCT := bin/
-DIRECTORY_PCH     := 
+DIRECTORY_PCH     := source/precompiled/
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
