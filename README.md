@@ -81,6 +81,17 @@ You can use the following command to clean up before a rebuilding:
 ```
 make clean
 ```
+The source directory contains a directory called `/source/precompiled`.
+All headers that appear within this directory are automatically included during the compilation process.
+In this way external headers only need to be included once.
+To speed up compilation, all headers within that directory can be precompiled with the command:
+```
+make pch
+```
+This command creates precompiled headers in the same source directory (with the file extension *.gch).
+Note that these precompiled headers are also deleted when `make clean` is called.
+The precompiled headers need to be generated only once.
+Additionally, a build directory is created that contains all object and dependency files when compiling.
 
 
 **Compile and link**<br>
