@@ -8,6 +8,9 @@ Trajectory::Trajectory(){
     this->color.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.color[0]) / 255.0;
     this->color.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.color[1]) / 255.0;
     this->color.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.color[2]) / 255.0;
+    this->vehicleColor.r = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.vehicleColor[0]) / 255.0;
+    this->vehicleColor.g = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.vehicleColor[1]) / 255.0;
+    this->vehicleColor.b = static_cast<double>(Configuration::gcs.defaultVehicleStyle.trajectory.vehicleColor[2]) / 255.0;
     this->dt = 0.0;
     this->vehicleAlpha = Configuration::gcs.defaultVehicleStyle.trajectory.vehicleAlpha;
     this->vehicleStride = Configuration::gcs.defaultVehicleStyle.trajectory.vehicleStride;
